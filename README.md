@@ -7,6 +7,10 @@ With both sides racing to release all their rounds (and some extra that "slipped
 
 Choose a quick start for the your ships to be randomly placed or select your battle arrangement manually. Whatever you decide may the tides of fortune forever be in your favor.
 
+## Game Logic
+
+![Game Logic Flowchart](docs/flowchart.jpg)
+
 ## How to play
 
 Firstly select your strategy:  
