@@ -3,9 +3,29 @@ This game is a take on the original board game battle ship. Based inside of a mo
 
 The scene begins you are in deep waters. Mid sea battle the command comes in that the war is over, trouble is you still have some ammunition left and there are round left in the chamber... it would be irresponsible to leave live rounds in the chamber. To be a good captain and save your own men from accidental onboard detonation you agree to switch of the radar and fire "randomly" into the sea. Trouble is the other side had the same idea.....
 
-With both sides racing to release all their rounds (and some extra that "slipped" into the torpedo chamber when the last one was fired ;-) < --- make this an emoji >) the obvious winner is the last man standing. The war may be over but this battle has just begun!
+With both sides racing to release all their rounds (and some extra that "slipped" into the torpedo chamber when the last one was fired :wink:) the obvious winner is the last man standing. The war may be over but this battle has just begun!
 
 Choose a quick start for the your ships to be randomly placed or select your battle arrangement manually. Whatever you decide may the tides of fortune forever be in your favor.
+
+## How to play
+
+Firstly select your strategy:  
+
+Place your fate in the hands of the sea god Neptune :merman: and let the currents position your ships before you anchor.   
+
+Or  
+
+Choose to spite the sea god and place your ships before dumping your excess into your enemy... I mean the sea.  
+
+Once the positions are set, its tip to let rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other sides ships, choose your co ordinates on the map (row, column) and remember to call "FIRE IN THE HOLD" (safety first after all). The results of you turn will be indicated as follows:  
+
+Hit = :boom:
+Miss = :ocean:
+
+Once a ship is sunk the whole ship will convert from :boom: to :waving_white_flag: 
+
+Last side with a ship still afloat wins.
+
 
 
 
