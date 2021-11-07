@@ -9,7 +9,7 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 ## Game Logic
 
-![Game Logic Flowchart](docs/flowchart.jpg)
+![Game Logic Flowchart](docs/flowchart.jpeg)
 
 ## How to play
 
