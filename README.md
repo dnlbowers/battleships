@@ -31,7 +31,8 @@ Once a ship is sunk the whole ship will convert from :boom: to :diving_mask:
 Last side with a ship still afloat wins.
 
 
-
+## Credits:
+Python OOP Tutorial series by Corey Schafer  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)
 
 
 
