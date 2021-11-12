@@ -7,9 +7,10 @@ class Player:
     """
     num_of_ships = 5
     board_size = 10
+
     def __init__(self, name):
         self.name = name
-        
+        self.board = self.build_board()
 
     def build_board(self):
         """
@@ -27,6 +28,8 @@ player_name = input("What is your name? ")
 player = Player(player_name)
 computer = Player("Computer")
 
-pprint(player.build_board())
-pprint(computer.build_board())
+pprint(player.board)
+pprint(computer.board)
 print(player.name + ", place your ships!")
+
+print(player.__dict__)
