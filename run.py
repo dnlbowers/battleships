@@ -5,11 +5,11 @@ class Player:
     """
     Creates a player object
     """
-    
-    def __init__(self, name, board_size, num_of_ships):
+    num_of_ships = 5
+    board_size = 10
+    def __init__(self, name):
         self.name = name
-        self.board_size = board_size
-        self.num_of_ships = num_of_ships
+        
 
     def build_board(self):
         """
@@ -23,9 +23,9 @@ class Player:
         return board
 
 
-name = input("What is your name? ")
-player = Player(name, 10, 5)
-computer = Player("Computer", 10, 5)
+player_name = input("What is your name? ")
+player = Player(player_name)
+computer = Player("Computer")
 
 pprint(player.build_board())
 pprint(computer.build_board())
