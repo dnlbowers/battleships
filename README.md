@@ -33,6 +33,7 @@ Last side with a ship still afloat wins.
 
 ## Credits:
 Python OOP Tutorial series by Corey Schafer  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)
+To get a general idea of the game logic I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I
 
 
 

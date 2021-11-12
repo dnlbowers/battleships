@@ -28,8 +28,7 @@ player_name = input("What is your name? ")
 player = Player(player_name)
 computer = Player("Computer")
 
-pprint(player.board)
-pprint(computer.board)
-print(player.name + ", place your ships!")
+pprint(player.__dict__)
+pprint(computer.__dict__)
 
-print(player.__dict__)
+print(player.name + ", place your ships!")
