@@ -22,13 +22,26 @@ class Player:
             for _ in range(self.board_size):
                 board[row].append("~")
         return board
+    
+    def print_board(self):
+        """
+        Prints the board.
+        """
+        print(self.name + "'s board:")
+        for row in self.board:
+            print(" ".join(row))
 
 
 player_name = input("What is your name? ")
 player = Player(player_name)
 computer = Player("Computer")
 
-pprint(player.__dict__)
-pprint(computer.__dict__)
+# pprint(player.__dict__)
+# pprint(computer.__dict__)
 
-print(player.name + ", place your ships!")
+# print(player.name + ", place your ships!")
+
+player.print_board()
+computer.print_board()
+
+
