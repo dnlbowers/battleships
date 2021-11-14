@@ -68,6 +68,7 @@ ship_keys = ["name", "length"]
 name_list = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
 length_list = [5, 4, 3, 3, 2]
 fleet = []
+ships=[]
 
 # the logic to auto create fleet and auto place them on the board.
 for i in range(len(name_list)):
@@ -78,10 +79,14 @@ for i in range(len(name_list)):
 print(fleet[0].build_ship())
 print(fleet[1].build_ship())
 
-
-
-# start_position = input("Where would you like to place your Aircraft Carrier? Separate to numbers with a comma i.e 4,5 : ").split(",")
-# start_position = [int(i) for i in start_position]
+# logic for the user to maunally place ships.
+for p in range(len(name_list)):
+    start_position = input(f"From which coordinate to you wish to start you {name_list[p]}? Separate to numbers with a comma i.e 4,5 : ").split(",")
+    start_position = [int(i) for i in start_position]
+    test = Ship(name_list[p], length_list[p], start_position, (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
+    ships.append(test)
+    
+print (ships)
 # print(start_position)
 
 # Carrier =Ship("Aircraft Carrier",5, start_position, "d", [])
