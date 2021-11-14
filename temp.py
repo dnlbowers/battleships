@@ -71,20 +71,8 @@ class Ships(Board):
 player_board = Board(10, "Player", 5)
 pprint(player_board.build_board())
 
-player_name = input("What is your name? ")
-player = Ship(player_name)
-computer = Ship("Computer")
 
 
-pprint(player.__dict__)
-pprint(computer.__dict__)
-
-print(player.name + ", place your ships!")
-
-Ships.print_board(player)
-Ships.print_board(computer)
-Ships.auto_deploy(player)
-
-print(issubclass(Ships, Player))
+print(issubclass(Board, Player))
 print(isinstance(player, Player))
 #print(help(Ships))
