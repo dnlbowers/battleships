@@ -68,13 +68,15 @@ ship_keys = ["name", "length"]
 name_list = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
 length_list = [5, 4, 3, 3, 2]
 fleet = []
-ship_dict = {}
-for key in ship_keys:
-    ship_dict[key] = []
-    for i in range(len(name_list)):
-        ship_dict[key].append(name_list[i])
-        ship_dict[key].append(length_list[i])
-print(ship_dict)
+
+# the logic to auto create fleet and auto place them on the board.
+for i in range(len(name_list)):
+    ship = Ship(name_list[i], length_list[i], (random.randint(0, 9), random.randint(0, 9)), random.choice(["r", "d"]), [])
+    fleet.append(ship) 
+    
+    print(ship.__dict__)
+print(fleet[0].build_ship())
+print(fleet[1].build_ship())
 
 
 
