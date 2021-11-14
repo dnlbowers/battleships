@@ -23,18 +23,68 @@ class Board:
 
 
 #this may be a subclass of board to place ships
-class Ship:
-    """
-    Creates the ship class for later sub class of ships.
-    """
-    def __init__(self, length, start_position, direction, damaged_tiles):
-        self.length = length
-        self.start_position = start_position
-        self.direction = direction
-        self.damaged_tiles = damaged_tiles
 
+class Ships(Board):
+    """
+    Creates a naval fleet to be placed on the board by the player.
+    Give method for auto deployment of ships on the board.
+    Auto deployment is optional for the player but mandatory for the computer.
+    """
+    def __init__(self, name):
+        super().__init__(name)
+        self.naval_fleet = {
+            "Carrier": 5,
+            "Battleship": 4,
+            "Cruiser": 3,
+            "Submarine": 3,
+            "Destroyer": 2
+    }
+
+    def auto_deploy(self):
+        """
+        Auto deploys ships on the board.
+        """
+        coordinates = [(random.randint(0, 9), random.randint(0, 9))
+            for _ in range(len(self.naval_fleet))]
+        direction = [random.randint(0,1) for _ in range(len(self.naval_fleet))]
+        
+        print (direction)
+        print (coordinates)
+
+
+    #Possible method to place ships on the board:
+    # def place_ship(self, ship, start_row, start_col, end_row, end_col):
+    #     """
+    #     Places a ship on the board.
+    #     """
+    #     if start_row == end_row:
+    #         for col in range(start_col, end_col + 1):
+    #             self.board[start_row][col] = ship
+    #     elif start_col == end_col:
+    #         for row in range(start_row, end_row + 1):
+    #             self.board[row][start_col] = ship
+    #     else:
+    #         raise ValueError("Invalid ship placement.")
 
 
 # Build boards
 player_board = Board(10, "Player", 5)
 pprint(player_board.build_board())
+
+player_name = input("What is your name? ")
+player = Ship(player_name)
+computer = Ship("Computer")
+
+
+pprint(player.__dict__)
+pprint(computer.__dict__)
+
+print(player.name + ", place your ships!")
+
+Ships.print_board(player)
+Ships.print_board(computer)
+Ships.auto_deploy(player)
+
+print(issubclass(Ships, Player))
+print(isinstance(player, Player))
+#print(help(Ships))

@@ -1,5 +1,6 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 from pprint import pprint
+import random
 
 class Player:
     """
@@ -35,48 +36,28 @@ class Board(Player):
         for row in self.board:
             print(" ".join(row))
 
-
-class Ships(Board, Player):
+class Ship:
     """
-    Creates a naval fleet to be placed on the board by the player.
-    Give method for auto deployment of ships on the board.
-    Auto deployment is optional for the player but mandatory for the computer.
+    Creates the ship class for later sub class of ships.
     """
-    naval_fleet = {
-        "Carrier": 5,
-        "Battleship": 4,
-        "Cruiser": 3,
-        "Submarine": 3,
-        "Destroyer": 2
-    }
-    #How to __init__ ? 
+    def __init__(self, length, start_position, direction, damaged_tiles):
+        self.length = length
+        self.start_position = start_position
+        self.direction = direction
+        self.damaged_tiles = damaged_tiles
+        self.coordinates = []
 
-    #Possible method to place ships on the board:
-    # def place_ship(self, ship, start_row, start_col, end_row, end_col):
-    #     """
-    #     Places a ship on the board.
-    #     """
-    #     if start_row == end_row:
-    #         for col in range(start_col, end_col + 1):
-    #             self.board[start_row][col] = ship
-    #     elif start_col == end_col:
-    #         for row in range(start_row, end_row + 1):
-    #             self.board[row][start_col] = ship
-    #     else:
-    #         raise ValueError("Invalid ship placement.")
-
-player_name = input("What is your name? ")
-player = Board(player_name)
-computer = Board("Computer")
+    def position_ship(self):
+        """
+        Creates list of coordinates for the ship.
+        """
+        for i in range(self.length):
+            if self.direction == "r":
+                self.coordinates.append((self.start_position[0], self.start_position[1] + i))
+            elif self.direction == "d":
+                self.coordinates.append((self.start_position[0] + i, self.start_position[1]))
 
 
-pprint(player.__dict__)
-pprint(computer.__dict__)
-
-print(player.name + ", place your ships!")
-
-Board.print_board(player)
-Board.print_board(computer)
-
-print(issubclass(Ships, Player))
-print(isinstance(player, Player))
+Carrier =Ship(5, [4, 5], "d", [])
+Carrier.position_ship()
+print(Carrier.coordinates)
