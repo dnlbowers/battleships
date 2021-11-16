@@ -1,5 +1,5 @@
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
-from pprint import pprint
+
 import random
 
 
@@ -24,10 +24,12 @@ class Board(Player):
         Builds a blank board with coordinates as a key.
         """
         board = []
+
         for row in range(self.board_size):
             board.append([])
             for _ in range(self.board_size):
                 board[row].append("~")
+
         return board
 
     def print_board(self):
@@ -35,15 +37,17 @@ class Board(Player):
         Prints the board.
         """
         print(self.name + "'s board:")
+
         for row in self.board:
             print(" ".join(row))
 
 
-class Ship:
+class Ship(Board):
     """
     Creates the ship class for later sub class of ships.
     """
     def __init__(self, name, length, start_coordinate, direction, damaged_tiles):
+        super().__init__(name)
         self.name = name
         self.length = length
         self.start_coordinate = start_coordinate
@@ -51,24 +55,35 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
 
+
     def build_ship_objects(self, set_up_type):
         """
         Builds a list of ship objects.
         """
-        name_list = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
-        length_list = [5, 4, 3, 3, 2]
+        ship_type = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
+        ship_length = [5, 4, 3, 3, 2]
         fleet = []
+
         if set_up_type == "auto":
-            for i in range(len(name_list)):
-                ship = Ship(name_list[i], length_list[i], (random.randint(0, 9), random.randint(0, 9)), random.choice(["r", "d"]), [])
-                fleet.append(ship)
+#Need to break these up before creating instance of object. and check to ensure no clashes or off the board 
+            for i in range(len(ship_type)):
+                ship_instance = Ship(ship_type[i], ship_length[i], (random.randint(0, 9),
+                    random.randint(0, 9)), random.choice(["r", "d"]), [])
+                fleet.append(ship_instance)
+
             return fleet
+
         elif set_up_type == "manual":
-            for i in range(len(name_list)):
-                start_position = input(f"Start coordinate for your {name_list[i]}?/n Separate to numbers with a comma i.e 4,5 : ").split(",")
+ 
+            for i in range(len(ship_type)):
+
+                start_position = input(f"Start coordinate for your {ship_type[i]}?/n"
+                    "Separate to numbers with a comma i.e 4,5 : ").split(",")
                 start_position = [int(i) for i in start_position]
-                test = Ship(name_list[i], length_list[i], start_position, (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
-                fleet.append(test)
+                ship_instance = Ship(ship_type[i], ship_length[i], start_position,
+                    (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
+                fleet.append(ship_instance)
+
             return fleet
 
     def build_ship(self):
@@ -84,12 +99,29 @@ class Ship:
         return self.coordinates
 
 
-# test = Ship.build_ship_objects(Board, "auto")
-# for i in test:
-#     print(i.build_ship())
+#Construction of the game
+
 username= input("What is your name?: ")
 user_board = Board(username)
 CPU_board = Board("CPU")
 user_board.print_board()
 CPU_board.print_board()
 
+#Build a fleet and place at the same time
+test = Ship.build_ship_objects(CPU_board, "auto")
+for ship in test:
+    print(ship.build_ship())
+
+
+#test for object creation
+# for obj in test:
+#     print("-----")
+#     print(obj.name)
+#     print(obj.length)
+#     print(obj.start_coordinate)
+#     print(obj.direction)
+#     print(obj.damaged_tiles)
+#     print(obj.coordinates)
+
+print(issubclass(Ship, Player))
+print(isinstance(CPU_board, Ship))
