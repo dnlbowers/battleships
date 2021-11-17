@@ -9,15 +9,19 @@ class Player:
     """
     def __init__(self, name):
         self.name = name
+        self.board = Board()
+        self.guesses = []
+        self.guess_index = 0
 
 
-class Board(Player):
+class Board:
     """"Build the boards"""
     board_size = 10
 
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, player):      
+        self.player = player
         self.board = self.build_board()
+        self.fleet = self.build_fleet() #This needs to colate all ship objects
 
     def build_board(self):
         """
@@ -40,26 +44,26 @@ class Board(Player):
 
         for row in self.board:
             print(" ".join(row))
+    #Build fleet here
 
-
-class Ship(Board):
+class Ship:
     """
     Creates the ship class for later sub class of ships.
     """
     def __init__(self, name, length, start_coordinate, direction, damaged_tiles):
-        super().__init__(name)
-        self.name = name
-        self.length = length
+        self.name = name #sub class
+        self.length = length #sub
         self.start_coordinate = start_coordinate
         self.direction = direction
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
 
-
+    #This needs to be moved into the board class.
     def build_ship_objects(self, set_up_type):
         """
         Builds a list of ship objects.
         """
+        #these will be the sub classes of the ship.
         ship_type = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
         ship_length = [5, 4, 3, 3, 2]
         fleet = []
@@ -79,7 +83,7 @@ class Ship(Board):
 
                 start_position = input(f"Start coordinate for your {ship_type[i]}?/n"
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                start_position = [int(i) for i in start_position]
+                start_position = [int(i) for i in start_position]                
                 ship_instance = Ship(ship_type[i], ship_length[i], start_position,
                     (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
                 fleet.append(ship_instance)
@@ -98,22 +102,40 @@ class Ship(Board):
                 self.coordinates.append((self.start_coordinate[0] + i, self.start_coordinate[1]))
         return self.coordinates
 
+class Carrier(Ship):
+
+    name = "Carrier"
+    length = 5
+
+    def __init__(self, start_coordinate, direction, damaged_tiles):
+        super().__init__(start_coordinate, direction, damaged_tiles)
+        
+
+
+class Battleship(Ship):
+    def __init__(self, start_coordinate, direction, damaged_tiles):
+        super().__init__(name, length, start_coordinate, direction, damaged_tiles)
+        self.name = "Battleship"
+        self.length = 4
+
+
+print(Carrier.name)
 
 #Construction of the game
 
-username= input("What is your name?: ")
-user_board = Board(username)
-CPU_board = Board("CPU")
-user_board.print_board()
-CPU_board.print_board()
+# username= input("What is your name?: ")
+# user = Player(username)
+# cpu = Player("cpu")
+# user_board = Board(user)
+# cpu_board = Board(cpu)
 
-#Build a fleet and place at the same time
-test = Ship.build_ship_objects(CPU_board, "auto")
-for ship in test:
-    print(ship.build_ship())
+# #Build a fleet and place at the same time
+# test = Ship.build_ship_objects(CPU_board, "auto")
+# for ship in test:
+#     print(ship.build_ship())
 
 
-#test for object creation
+# #test for object creation
 # for obj in test:
 #     print("-----")
 #     print(obj.name)
@@ -123,5 +145,5 @@ for ship in test:
 #     print(obj.damaged_tiles)
 #     print(obj.coordinates)
 
-print(issubclass(Ship, Player))
-print(isinstance(CPU_board, Ship))
+# print(issubclass(Ship, Player))
+# print(isinstance(test[1], Player))
