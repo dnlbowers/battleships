@@ -18,10 +18,10 @@ class Board:
     """"Build the boards"""
     board_size = 10
 
-    def __init__(self, player):      
-        self.player = player
+    def __init__(self):      
+        # self.player = player
         self.board = self.build_board()
-        self.fleet = self.build_fleet() #This needs to colate all ship objects
+        # self.fleet = self.build_fleet() #This needs to colate all ship objects
 
     def build_board(self):
         """
@@ -40,10 +40,11 @@ class Board:
         """
         Prints the board.
         """
-        print(self.name + "'s board:")
+        # print(self.name + "'s board:")
 
         for row in self.board:
             print(" ".join(row))
+    
     #Build fleet here
 
 class Ship:
@@ -158,6 +159,15 @@ class Destroyer(Ship):
 print(Carrier.name)
 
 #Construction of the game
+
+user = Player("User")
+computer = Player("Computer")
+
+# user.board.build_board()
+user.board.print_board()
+computer.board.print_board()
+
+print(user.__dict__)
 
 # username= input("What is your name?: ")
 # user = Player(username)
