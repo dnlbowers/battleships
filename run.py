@@ -103,7 +103,9 @@ class Ship:
         return self.coordinates
 
 class Carrier(Ship):
-
+    """
+    Creates an instance of the Carrier class.
+    """
     name = "Carrier"
     length = 5
 
@@ -113,10 +115,44 @@ class Carrier(Ship):
 
 
 class Battleship(Ship):
+    """
+    Creates an instance of the Battleship class.
+    """
+    
+    name = "Battleship"
+    length = 4
     def __init__(self, start_coordinate, direction, damaged_tiles):
-        super().__init__(name, length, start_coordinate, direction, damaged_tiles)
-        self.name = "Battleship"
-        self.length = 4
+        super().__init__(start_coordinate, direction, damaged_tiles)
+
+
+class Cruiser(Ship):
+    """
+    Creates an instance of the Cruiser class.
+    """
+    name = "Cruiser"
+    length = 3
+    def __init__(self, start_coordinate, direction, damaged_tiles):
+        super().__init__(start_coordinate, direction, damaged_tiles)
+
+
+class Submarine(Ship):
+    """
+    Creates an instance of the Submarine class.
+    """
+    name = "Submarine"
+    length = 3
+    def __init__(self, start_coordinate, direction, damaged_tiles):
+        super().__init__(start_coordinate, direction, damaged_tiles)
+
+    
+class Destroyer(Ship):
+    """
+    Creates an instance of the Destroyer class.
+    """
+    name = "Destroyer"
+    length = 2
+    def __init__(self, start_coordinate, direction, damaged_tiles):
+        super().__init__(start_coordinate, direction, damaged_tiles)
 
 
 print(Carrier.name)
