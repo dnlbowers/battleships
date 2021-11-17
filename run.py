@@ -36,11 +36,11 @@ class Board:
 
         return board
 
-    def print_board(self):
+    def print_board(self, player_object):
         """
         Prints the board.
         """
-        # print(self.name + "'s board:")
+        print(f"{player_object.name}'s board:")
 
         for row in self.board:
             print(" ".join(row))
@@ -51,9 +51,7 @@ class Ship:
     """
     Creates the ship class for later sub class of ships.
     """
-    def __init__(self, name, length, start_coordinate, direction, damaged_tiles):
-        self.name = name #sub class
-        self.length = length #sub
+    def __init__(self, start_coordinate, direction, damaged_tiles):
         self.start_coordinate = start_coordinate
         self.direction = direction
         self.damaged_tiles = damaged_tiles
@@ -159,13 +157,13 @@ class Destroyer(Ship):
 print(Carrier.name)
 
 #Construction of the game
-
-user = Player("User")
+player_name = input("What is your name? ")
+user = Player(player_name)
 computer = Player("Computer")
 
 # user.board.build_board()
-user.board.print_board()
-computer.board.print_board()
+user.board.print_board(user)
+computer.board.print_board(computer)
 
 print(user.__dict__)
 
