@@ -1,3 +1,8 @@
+#to do
+# in build_fleet function - if first ship in fleet build_ship() before appending and add coordinates to a list
+                    #any ship after this make sure that the coordinates are not already
+                    #in the above mentioned list before creating the ship object
+
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 import random
