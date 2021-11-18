@@ -19,9 +19,8 @@ class Board:
     board_size = 10
 
     def __init__(self):      
-        # self.player = player
         self.board = self.build_board()
-        # self.fleet = self.build_fleet() #This needs to colate all ship objects
+        self.fleet =  self.build_fleet(input("auto  or manual?: ")) #How to add a conditional here so it doesn't ask for input if it's a computer
 
     def build_board(self):
         """
@@ -46,6 +45,30 @@ class Board:
             print(" ".join(row))
     
     #Build fleet here
+    def build_fleet(self, placement_type):
+        """
+        Builds a fleet of ships.
+        """
+        fleet = []
+        ship_obj_type = [Carrier, Battleship, Cruiser, Submarine, Destroyer]
+        
+        if placement_type == "auto":
+            for i in range(5):
+                fleet.append(ship_obj_type[i]((random.randint(0, 9),
+                    random.randint(0, 9)), random.choice(["r", "d"]), []))
+
+            return fleet
+        elif placement_type == "manual":
+            for i in range(5):
+                start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?/n"
+                    "Separate to numbers with a comma i.e 4,5 : ").split(",")
+                start_position = [int(i) for i in start_position]
+
+                ship_instance = ship_obj_type[i](start_position,
+                    (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
+                fleet.append(ship_instance)
+            return fleet
+        
 
 class Ship:
     """
@@ -56,38 +79,6 @@ class Ship:
         self.direction = direction
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
-
-    #This needs to be moved into the board class.
-    def build_ship_objects(self, set_up_type):
-        """
-        Builds a list of ship objects.
-        """
-        #these will be the sub classes of the ship.
-        ship_type = ["Carrier", "Battleship", "Cruiser", "Submarine", "Destroyer"]
-        ship_length = [5, 4, 3, 3, 2]
-        fleet = []
-
-        if set_up_type == "auto":
-#Need to break these up before creating instance of object. and check to ensure no clashes or off the board 
-            for i in range(len(ship_type)):
-                ship_instance = Ship(ship_type[i], ship_length[i], (random.randint(0, 9),
-                    random.randint(0, 9)), random.choice(["r", "d"]), [])
-                fleet.append(ship_instance)
-
-            return fleet
-
-        elif set_up_type == "manual":
- 
-            for i in range(len(ship_type)):
-
-                start_position = input(f"Start coordinate for your {ship_type[i]}?/n"
-                    "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                start_position = [int(i) for i in start_position]                
-                ship_instance = Ship(ship_type[i], ship_length[i], start_position,
-                    (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
-                fleet.append(ship_instance)
-
-            return fleet
 
     def build_ship(self):
         """
@@ -157,15 +148,26 @@ class Destroyer(Ship):
 print(Carrier.name)
 
 #Construction of the game
+
+#This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
-computer = Player("Computer")
 
+#Need to figure out how to tell this to default auto placement of ships.
+# computer = Player("Computer")
+
+
+
+
+#----------------------------------Junk constructors------------------------------------------------------------------
 # user.board.build_board()
-user.board.print_board(user)
-computer.board.print_board(computer)
+# user.board.print_board(user)
+# computer.board.print_board(computer)
+
+# print(user.board.fleet[1].name)
 
 print(user.__dict__)
+print(user.board.__dict__)
 
 # username= input("What is your name?: ")
 # user = Player(username)
