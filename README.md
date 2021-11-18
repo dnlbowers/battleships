@@ -32,6 +32,8 @@ Once a ship is sunk the whole ship will convert from :boom: to :diving_mask:
 
 Last side with a ship still afloat wins.
 
+##issues/testing
+* Classes and sub classes, I was trying to figure out how to link all objects together. At first I was making all classes a sub class of "Player" The after much research I realised that board and ship were not types of player but something the player posessed. Realising this I made the board class part of the innit method in player so it celonged to the player but was not a sub class of.
 
 ## Credits:
 Python OOP Tutorial series by Corey Schafer  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)
@@ -42,7 +44,7 @@ To get a general idea of the game logic I used this video on the Devpost Youtube
 # To be deleted when finally deployed
 ![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome USER_NAME,
+Welcome dnlbowers,
 
 This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
 
