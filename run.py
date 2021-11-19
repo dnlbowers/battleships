@@ -25,7 +25,7 @@ class Board:
 
     def __init__(self):      
         self.board = self.build_board()
-        self.fleet =  self.build_fleet(input("auto  or manual?: ")) #How to add a conditional here so it doesn't ask for input if it's a computer
+        self.fleet =  self.build_fleet(input("(a)uto  or (m)anual?: ")) #How to add a conditional here so it doesn't ask for input if it's a computer
 
     def build_board(self):
         """
@@ -57,13 +57,14 @@ class Board:
         fleet = []
         ship_obj_type = [Carrier, Battleship, Cruiser, Submarine, Destroyer]
         
-        if placement_type == "auto":
+        if placement_type == "a":
             for i in range(5):
-                fleet.append(ship_obj_type[i]((random.randint(0, 9),
-                    random.randint(0, 9)), random.choice(["r", "d"]), []))
+                random_start = random.randint(0, 9), random.randint(0, 9)
+                fleet.append(ship_obj_type[i](random_start, random.choice(["r", "d"]), [], random_start))
+                # fleet[i].coordinate.append(random_start)
 
             return fleet
-        elif placement_type == "manual":
+        elif placement_type == "m":
             for i in range(5):
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?/n"
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
@@ -79,11 +80,11 @@ class Ship:
     """
     Creates the ship class for later sub class of ships.
     """
-    def __init__(self, start_coordinate, direction, damaged_tiles):
+    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         self.start_coordinate = start_coordinate
         self.direction = direction
         self.damaged_tiles = damaged_tiles
-        self.coordinates = []
+        self.coordinates = coordinates
 
     def build_ship(self):
         """
@@ -94,7 +95,7 @@ class Ship:
             if self.direction == "r":
                 self.coordinates.append((self.start_coordinate[0], self.start_coordinate[1] + i))
             elif self.direction == "d":
-                self.coordinates.append((self.start_coordinate[0] + i, self.start_coordinate[1]))
+                self.coordinate.append((self.start_coordinate[0] + i, self.start_coordinate[1]))
         return self.coordinates
 
 class Carrier(Ship):
@@ -104,8 +105,8 @@ class Carrier(Ship):
     name = "Carrier"
     length = 5
 
-    def __init__(self, start_coordinate, direction, damaged_tiles):
-        super().__init__(start_coordinate, direction, damaged_tiles)
+    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
+        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
         
 
 
@@ -116,8 +117,8 @@ class Battleship(Ship):
     
     name = "Battleship"
     length = 4
-    def __init__(self, start_coordinate, direction, damaged_tiles):
-        super().__init__(start_coordinate, direction, damaged_tiles)
+    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
+        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
 
 class Cruiser(Ship):
@@ -126,8 +127,8 @@ class Cruiser(Ship):
     """
     name = "Cruiser"
     length = 3
-    def __init__(self, start_coordinate, direction, damaged_tiles):
-        super().__init__(start_coordinate, direction, damaged_tiles)
+    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
+        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
 
 class Submarine(Ship):
@@ -136,8 +137,8 @@ class Submarine(Ship):
     """
     name = "Submarine"
     length = 3
-    def __init__(self, start_coordinate, direction, damaged_tiles):
-        super().__init__(start_coordinate, direction, damaged_tiles)
+    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
+        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
     
 class Destroyer(Ship):
@@ -146,11 +147,11 @@ class Destroyer(Ship):
     """
     name = "Destroyer"
     length = 2
-    def __init__(self, start_coordinate, direction, damaged_tiles):
-        super().__init__(start_coordinate, direction, damaged_tiles)
+    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
+        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
 
-print(Carrier.name)
+
 
 #Construction of the game
 
@@ -160,7 +161,10 @@ user = Player(player_name)
 
 #Need to figure out how to tell this to default auto placement of ships.
 # computer = Player("Computer")
-
+for ship in user.board.fleet:
+    print (ship.start_coordinate)
+    print(ship.direction)
+    print(ship.coordinates)
 
 
 
