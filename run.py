@@ -62,8 +62,19 @@ class Board:
             for i in range(5):
 
                 random_start = [random.randint(0, 9), random.randint(0, 9)]
+                occupied_coordinates.append(random_start)
                 random_direction = random.choice(["r", "d"])
                 ship_instance = ship_obj_type[i](random_start, random_direction, [], random_start)
+                print(ship_instance.name)
+                print(ship_instance.coordinates)
+                print(ship_instance.direction)
+
+                ship_instance.build_ship()
+                # here we need to build the ship by adding coordinates to the obj(ship_instance.coordinaes) and check 
+                #each tile agains the occupied tile list before placing
+
+
+                
                 fleet.append(ship_instance)
                 #how do i add the coordinates to the list of coordinates?
                 #occupied_coordinates.append(ship_instance.coordinates) 
@@ -72,23 +83,17 @@ class Board:
                 # hi = ship_instance.build_ship(ship_instance.coordinates, ship_instance.direction, ship_instance.length, ship_instance.coordinates)
                 # print(hi)
                 
-                # for i in range(ship_instance.length):
-                #     if random_direction == "r":
-                #         ship_instance.coordinates.append(random_start[i+ 1][0] + i)
-                #     elif random_direction == "d":
-                #         ship_instance.coordinatescoordinates.append(random_start[i+1][1] + i)               
-                # # start is now a list of lists
-                # print(ship_instance.coordinates)
+                
                 
                 print(occupied_coordinates)
-                occupied_coordinates.append(random_start)
-                print(occupied_coordinates[0][1])
-                # this is how to add to it
-                print(occupied_coordinates[0][1]+1)
-                print(occupied_coordinates[0])
-                print(fleet[i].name)
-                print(fleet[i].length)
-                print(fleet[i].__dict__)
+                
+                # print(occupied_coordinates[0][1])
+                # # this is how to add to it
+                # print(occupied_coordinates[0][1]+1)
+                # print(occupied_coordinates[0])
+                # print(fleet[i].name)
+                # print(fleet[i].length)
+                # print(fleet[i].__dict__)
                 
             return fleet
             # print(fleet)
@@ -103,7 +108,7 @@ class Board:
                     (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [], start_position)
                 fleet.append(ship_instance)
             return fleet    
-        
+    
 
         
 
@@ -115,7 +120,17 @@ class Ship:
         self.start_coordinate = start_coordinate
         self.direction = direction
         self.damaged_tiles = damaged_tiles
-        self.coordinates = coordinates
+        self.coordinates = []
+
+    # Check the output here and how to get this into the ship opject
+    def build_ship(self):
+        for i in range(5):
+            if self.direction == "r":
+                self.coordinates.append([self.start_coordinate[0] + i, self.start_coordinate[1]])
+            elif self.direction == "d":
+                self.coordinates.append([self.start_coordinate[1], self.start_coordinate[1] + i])               
+        # start is now a list of lists
+        print(self.coordinates)
 
     # @classmethod
     # def build_ship(cls, start_coordinate, direction, length, coordinates):
@@ -153,6 +168,7 @@ class Aircraft_carrier(Ship):
 
     def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
+        
         
 
 
@@ -211,6 +227,9 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
+# print(user.__dict__)
+# print(user.board.__dict__)
+# print(user.board.fleet[0].__dict__)
 
 #Need to figure out how to tell this to default auto placement of ships.
 # computer = Player("Computer")
