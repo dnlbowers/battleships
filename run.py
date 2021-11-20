@@ -62,12 +62,19 @@ class Board:
             for i in range(5):
 
                 random_start = (random.randint(0, 9), random.randint(0, 9))
-                fleet.append(ship_obj_type[i](random_start, random.choice(["r", "d"]), [], (random_start)))
+                random_direction = random.choice(["r", "d"])
+                ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                fleet.append(ship_instance)
                 #how do i add the coordinates to the list of coordinates?
-
+                #occupied_coordinates.append(ship_instance.coordinates) 
+                # ship = ship_instance.build_ship()
+                # print(ship) 
                 occupied_coordinates.append(tuple(random_start))
                 print(occupied_coordinates)
-
+                print(fleet[i].name)
+                print(fleet[i].length)
+                print(fleet[i].__dict__)
+                
             return fleet
             # print(fleet)
 
@@ -82,7 +89,7 @@ class Board:
                 fleet.append(ship_instance)
             return fleet
         
-         
+        
 
         
 
@@ -96,6 +103,18 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = coordinates
 
+    # def build_ship(self):
+    #     """
+    #     Builds a ship.
+    #     """
+    #     if self.direction == "r":
+    #         for i in range(self.length):
+    #             self.coordinates.append(tuple(self.start_coordinate[0] + i, self.start_coordinate[1]))
+    #         return self.coordinates  
+    #     elif self.direction == "d":
+    #         for i in range(len(self.coordinates)):
+    #             self.coordinates.append(tuple(self.start_coordinate[0], self.start_coordinate[1] + i))
+    #         return self.coordinates
 
 class Aircraft_carrier(Ship):
     """
