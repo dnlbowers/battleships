@@ -62,41 +62,34 @@ class Board:
             for i in range(5):
 
                 random_start = [random.randint(0, 9), random.randint(0, 9)]
-                occupied_coordinates.append(random_start)
+                # occupied_coordinates.append(tuple(random_start))
                 random_direction = random.choice(["r", "d"])
-                ship_instance = ship_obj_type[i](random_start, random_direction, [], random_start)
+                ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                 print(ship_instance.name)
-                print(ship_instance.coordinates)
+                # print(ship_instance.coordinates)
                 print(ship_instance.direction)
-
+                print(ship_instance)
                 ship_instance.build_ship()
-                # here we need to build the ship by adding coordinates to the obj(ship_instance.coordinaes) and check 
-                #each tile agains the occupied tile list before placing
-
+                print(f"Ship coords: {ship_instance.coordinates}")
+                 
+                # Check each tile agains the occupied tile list before placing
+                occupied_coordinates.append(ship_instance.coordinates)
 
                 
                 fleet.append(ship_instance)
-                #how do i add the coordinates to the list of coordinates?
-                #occupied_coordinates.append(ship_instance.coordinates) 
-                # ship = ship_instance.build_ship()
-                # print(ship) 
-                # hi = ship_instance.build_ship(ship_instance.coordinates, ship_instance.direction, ship_instance.length, ship_instance.coordinates)
-                # print(hi)
+              
                 
-                
-                
-                print(occupied_coordinates)
+                # need to append full ship coords to occupied coords
+                print(f"occupid: {occupied_coordinates}")
                 
                 # print(occupied_coordinates[0][1])
-                # # this is how to add to it
-                # print(occupied_coordinates[0][1]+1)
-                # print(occupied_coordinates[0])
+
                 # print(fleet[i].name)
                 # print(fleet[i].length)
                 # print(fleet[i].__dict__)
                 
             return fleet
-            # print(fleet)
+
 
         elif placement_type == "m":
             for i in range(5):
@@ -130,7 +123,7 @@ class Ship:
             elif self.direction == "d":
                 self.coordinates.append([self.start_coordinate[1], self.start_coordinate[1] + i])               
         # start is now a list of lists
-        print(self.coordinates)
+        return self.coordinates
 
     # @classmethod
     # def build_ship(cls, start_coordinate, direction, length, coordinates):
@@ -227,9 +220,7 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
-# print(user.__dict__)
-# print(user.board.__dict__)
-# print(user.board.fleet[0].__dict__)
+
 
 #Need to figure out how to tell this to default auto placement of ships.
 # computer = Player("Computer")
