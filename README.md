@@ -32,8 +32,9 @@ Once a ship is sunk the whole ship will convert from :boom: to :diving_mask:
 
 Last side with a ship still afloat wins.
 
-##issues/testing
-* Classes and sub classes, I was trying to figure out how to link all objects together. At first I was making all classes a sub class of "Player" The after much research I realised that board and ship were not types of player but something the player posessed. Realising this I made the board class part of the innit method in player so it celonged to the player but was not a sub class of.
+##issues/testing (rough notes)
+* Classes and sub classes, I was trying to figure out how to link all objects together. At first I was making all classes a sub class of "Player" The after much research I realised that board and ship were not types of player but something the player posessed. Realising this I made the board class part of the innit method in player so it Belonged to the player but was not a sub class of.
+* I needed a way to check if a ship had already been place on a tile. I was trying to access the coordinates from the ship obj directly and bu simply using += to add to the list the was no definaition between the set of coords (row, column). when I then realised the error saying that fleet[i].coordinates error saying it lack the append attribute I realised I could do  from with in the build fleet function using the predefined list and the coords used to innit the obj. after realising this I was able to use occupied_coordinates.append(tuple(random_start)) to place the row and column coordinate as a tuple set with in the predivined occupied_coordinates list
 
 ## Credits:
 Python OOP Tutorial series by Corey Schafer  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)
