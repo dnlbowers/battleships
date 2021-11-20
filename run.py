@@ -55,15 +55,22 @@ class Board:
         Builds a fleet of ships.
         """
         fleet = []
-        ship_obj_type = [Carrier, Battleship, Cruiser, Submarine, Destroyer]
+        occupied_coordinates = []
+        ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
         
         if placement_type == "a":
             for i in range(5):
-                random_start = random.randint(0, 9), random.randint(0, 9)
-                fleet.append(ship_obj_type[i](random_start, random.choice(["r", "d"]), [], random_start))
-                # fleet[i].coordinate.append(random_start)
+
+                random_start = (random.randint(0, 9), random.randint(0, 9))
+                fleet.append(ship_obj_type[i](random_start, random.choice(["r", "d"]), [], (random_start)))
+                #how do i add the coordinates to the list of coordinates?
+
+                occupied_coordinates.append(tuple(random_start))
+                print(occupied_coordinates)
 
             return fleet
+            # print(fleet)
+
         elif placement_type == "m":
             for i in range(5):
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?/n"
@@ -71,9 +78,12 @@ class Board:
                 start_position = [int(i) for i in start_position]
 
                 ship_instance = ship_obj_type[i](start_position,
-                    (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [])
+                    (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [], start_position)
                 fleet.append(ship_instance)
             return fleet
+        
+         
+
         
 
 class Ship:
@@ -86,24 +96,14 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = coordinates
 
-    def build_ship(self):
-        """
-        Creates list of coordinates for the ship.
-        """
-#Need to add a checking statement here to make sure the ship is not placed off the board.
-        for i in range(self.length):
-            if self.direction == "r":
-                self.coordinates.append((self.start_coordinate[0], self.start_coordinate[1] + i))
-            elif self.direction == "d":
-                self.coordinate.append((self.start_coordinate[0] + i, self.start_coordinate[1]))
-        return self.coordinates
 
-class Carrier(Ship):
+class Aircraft_carrier(Ship):
     """
-    Creates an instance of the Carrier class.
+    Creates an instance of the Aircraft_carrier class.
     """
-    name = "Carrier"
+    name =  "Aircraft_carrier"
     length = 5
+    symbol = "A"
 
     def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
@@ -114,9 +114,10 @@ class Battleship(Ship):
     """
     Creates an instance of the Battleship class.
     """
-    
     name = "Battleship"
     length = 4
+    symbol = "B"
+
     def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
@@ -127,6 +128,8 @@ class Cruiser(Ship):
     """
     name = "Cruiser"
     length = 3
+    symbol = "C"
+
     def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
@@ -137,6 +140,8 @@ class Submarine(Ship):
     """
     name = "Submarine"
     length = 3
+    symbol = "S"
+
     def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
@@ -147,6 +152,8 @@ class Destroyer(Ship):
     """
     name = "Destroyer"
     length = 2
+    symbol = "D"
+
     def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
         super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
 
@@ -161,10 +168,10 @@ user = Player(player_name)
 
 #Need to figure out how to tell this to default auto placement of ships.
 # computer = Player("Computer")
-for ship in user.board.fleet:
-    print (ship.start_coordinate)
-    print(ship.direction)
-    print(ship.coordinates)
+# for ship in user.board.fleet:
+#     print (ship.start_coordinate)
+#     print(ship.direction)
+#     print(ship.coordinates)
 
 
 
@@ -175,8 +182,8 @@ for ship in user.board.fleet:
 
 # print(user.board.fleet[1].name)
 
-print(user.__dict__)
-print(user.board.__dict__)
+# print(user.__dict__)
+# print(user.board.__dict__)
 
 # username= input("What is your name?: ")
 # user = Player(username)
