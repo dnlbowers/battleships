@@ -61,16 +61,31 @@ class Board:
         if placement_type == "a":
             for i in range(5):
 
-                random_start = (random.randint(0, 9), random.randint(0, 9))
+                random_start = [random.randint(0, 9), random.randint(0, 9)]
                 random_direction = random.choice(["r", "d"])
-                ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                ship_instance = ship_obj_type[i](random_start, random_direction, [], random_start)
                 fleet.append(ship_instance)
                 #how do i add the coordinates to the list of coordinates?
                 #occupied_coordinates.append(ship_instance.coordinates) 
                 # ship = ship_instance.build_ship()
                 # print(ship) 
-                occupied_coordinates.append(tuple(random_start))
+                # hi = ship_instance.build_ship(ship_instance.coordinates, ship_instance.direction, ship_instance.length, ship_instance.coordinates)
+                # print(hi)
+                
+                # for i in range(ship_instance.length):
+                #     if random_direction == "r":
+                #         ship_instance.coordinates.append(random_start[i+ 1][0] + i)
+                #     elif random_direction == "d":
+                #         ship_instance.coordinatescoordinates.append(random_start[i+1][1] + i)               
+                # # start is now a list of lists
+                # print(ship_instance.coordinates)
+                
                 print(occupied_coordinates)
+                occupied_coordinates.append(random_start)
+                print(occupied_coordinates[0][1])
+                # this is how to add to it
+                print(occupied_coordinates[0][1]+1)
+                print(occupied_coordinates[0])
                 print(fleet[i].name)
                 print(fleet[i].length)
                 print(fleet[i].__dict__)
@@ -87,8 +102,7 @@ class Board:
                 ship_instance = ship_obj_type[i](start_position,
                     (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [], start_position)
                 fleet.append(ship_instance)
-            return fleet
-        
+            return fleet    
         
 
         
@@ -102,6 +116,19 @@ class Ship:
         self.direction = direction
         self.damaged_tiles = damaged_tiles
         self.coordinates = coordinates
+
+    # @classmethod
+    # def build_ship(cls, start_coordinate, direction, length, coordinates):
+    #     """
+    #     Builds a ship object.
+    #     """
+    #     for i in range(length):
+    #         if direction == "r":
+    #             coordinates.append(tuple(start_coordinate[0] + i))
+    #         elif direction == "d":
+    #             coordinates.append(tuple(start_coordinate[1] + i))
+    #     return  coordinates
+
 
     # def build_ship(self):
     #     """
