@@ -56,28 +56,38 @@ class Board:
         """
         fleet = []
         occupied_coordinates = []
+        start_list = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
+        first_occurrence = False
+
         
         if placement_type == "a":
             for i in range(5):
-
                 random_start = [random.randint(0, 9), random.randint(0, 9)]
-                # occupied_coordinates.append(tuple(random_start))
+                if i == 0:
+                    start_list.append(random_start)
+                else:
+                    while first_occurrence == False:
+                        first_occurrence = random_start not in occupied_coordinates
+                    # here we need to check if index of coordinates equals true or false before appending
+                
                 random_direction = random.choice(["r", "d"])
+                
+                print(f"index of : {check}")
                 ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                 print(ship_instance.name)
-                # print(ship_instance.coordinates)
+                
                 print(ship_instance.direction)
-                print(ship_instance)
+                
                 ship_instance.build_ship()
                 print(f"Ship coords: {ship_instance.coordinates}")
-                 
+                
                 # Check each tile agains the occupied tile list before placing
                 occupied_coordinates.append(ship_instance.coordinates)
 
                 
                 fleet.append(ship_instance)
-              
+            
                 
                 # need to append full ship coords to occupied coords
                 print(f"occupid: {occupied_coordinates}")
@@ -117,6 +127,7 @@ class Ship:
 
     # Check the output here and how to get this into the ship opject
     def build_ship(self):
+        #How do I access the ship length (sub class variable) from here for the range(len(length))
         for i in range(5):
             if self.direction == "r":
                 self.coordinates.append([self.start_coordinate[0] + i, self.start_coordinate[1]])
