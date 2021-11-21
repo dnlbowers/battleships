@@ -71,12 +71,12 @@ class Board:
                 if i == 0:
                     print("if")
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                    ship_instance.build_ship(ship_instance.length)
+                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     first_occurrence = True
                 elif random_start not in occupied_coordinates:
                     print("elif")
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                    ship_instance.build_ship(ship_instance.length)
+                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     first_occurrence = True
                 else:
                     print("else")
@@ -88,17 +88,12 @@ class Board:
                         first_occurrence = random_start not in occupied_coordinates
                         print(f"first instance : {first_occurrence}")
                         ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                        ship_instance.build_ship(ship_instance.length)
+                        ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     # here we need to check if index of coordinates equals true or false before appending
-                
 
-                
-                
-                
                 print(ship_instance.name)
                 
                 print(ship_instance.direction)
-                
                 
                 print(f"Ship coords: {ship_instance.coordinates}")
                 
@@ -111,12 +106,7 @@ class Board:
                 
                 # need to append full ship coords to occupied coords
                 print(f"occupied: {occupied_coordinates}")
-                
-                # print(occupied_coordinates[0][1])
 
-                # print(fleet[i].name)
-                # print(fleet[i].length)
-                # print(fleet[i].__dict__)
                 
             return fleet
 
@@ -145,14 +135,28 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
 
-    def build_ship(self, length):
+    def build_ship(self, length, occupied_tiles):
         for i in range(length):
-            original_coordinate = False
+            original_coordinate = True
+            temp_ship = []
             # Need to replicate the check like above before appending the coordinates
-            if self.direction == "r":
-                self.coordinates.append([self.start_coordinate[0] + i, self.start_coordinate[1]])
-            elif self.direction == "d":
-                self.coordinates.append([self.start_coordinate[1], self.start_coordinate[1] + i])               
+            while original_coordinate == True and i < range(length):    
+                if self.direction == "r":
+                    next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
+                    if next_tile not in occupied_tiles:
+                        temp_ship.append(next_tile)
+                    else:
+                        temp_ship = []
+                        original_coordinate = False
+                elif self.direction == "d":
+                    
+                    if self.direction == "r":
+                        next_tile = [[self.start_coordinate[1], self.start_coordinate[1] + i]]
+                    if next_tile not in occupied_tiles:
+                        temp_ship.append(next_tile)
+                    else:
+                        temp_ship = []
+                        original_coordinate = False               
         # start is now a list of lists
         return self.coordinates
 
