@@ -56,31 +56,50 @@ class Board:
         """
         fleet = []
         occupied_coordinates = []
-        start_list = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
 
         
         if placement_type == "a":
             for i in range(5):
+                print("------------")
                 first_occurrence = False
+                
 
                 random_start = [random.randint(0, 9), random.randint(0, 9)]
+                random_direction = random.choice(["r", "d"])
+
                 if i == 0:
-                    start_list.append(random_start)
+                    print("if")
+                    ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                    ship_instance.build_ship(ship_instance.length)
+                    first_occurrence = True
+                elif random_start not in occupied_coordinates:
+                    print("elif")
+                    ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                    ship_instance.build_ship(ship_instance.length)
+                    first_occurrence = True
                 else:
+                    print("else")
                     while first_occurrence == False:
+                        print(f"Duplicate {i}{random_start}")
+                        random_start = [random.randint(0, 9), random.randint(0, 9)]
+                        print(f"New {i}{random_start}")
+                        print(f"first instance check : {first_occurrence}")
                         first_occurrence = random_start not in occupied_coordinates
+                        print(f"first instance : {first_occurrence}")
+                        ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                        ship_instance.build_ship(ship_instance.length)
                     # here we need to check if index of coordinates equals true or false before appending
                 
-                random_direction = random.choice(["r", "d"])
+
                 
-                print(f"index of : {first_occurrence}")
-                ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                
+                
                 print(ship_instance.name)
                 
                 print(ship_instance.direction)
                 
-                ship_instance.build_ship(ship_instance.length)
+                
                 print(f"Ship coords: {ship_instance.coordinates}")
                 
                 # Check each tile agains the occupied tile list before placing
