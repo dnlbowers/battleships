@@ -70,13 +70,14 @@ class Board:
 
                 if i == 0:
                     print("if")
+                    occupied_coordinates.append(random_start)
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     first_occurrence = True
                 elif random_start not in occupied_coordinates:
                     print("elif")
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+                    ship_instance.build_ship(ship_instance.length, random_start)
                     first_occurrence = True
                 else:
                     print("else")
@@ -139,25 +140,29 @@ class Ship:
         for i in range(length):
             original_coordinate = True
             temp_ship = []
-            # Need to replicate the check like above before appending the coordinates
-            while original_coordinate == True and i < range(length):    
+            # This works, but I need a way to stop the check if start tile + length is greater than 9,
+            # then is a tile is already occupied it needs to ask for a new start tile
+               
+            if self.direction == "r":
+                next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
+                if next_tile not in occupied_tiles:
+                    temp_ship.append(next_tile)
+                    print(temp_ship)
+                else:
+                    temp_ship = []
+                    original_coordinate = False
+            elif self.direction == "d":
+                
                 if self.direction == "r":
-                    next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
+                    next_tile = [[self.start_coordinate[1], self.start_coordinate[1] + i]]
                     if next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
-                    else:
-                        temp_ship = []
-                        original_coordinate = False
-                elif self.direction == "d":
-                    
-                    if self.direction == "r":
-                        next_tile = [[self.start_coordinate[1], self.start_coordinate[1] + i]]
-                    if next_tile not in occupied_tiles:
-                        temp_ship.append(next_tile)
+                        print(temp_ship)
                     else:
                         temp_ship = []
                         original_coordinate = False               
         # start is now a list of lists
+        print(temp_ship)
         return self.coordinates
 
     # @classmethod
