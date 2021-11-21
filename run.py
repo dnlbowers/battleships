@@ -58,11 +58,12 @@ class Board:
         occupied_coordinates = []
         start_list = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
-        first_occurrence = False
 
         
         if placement_type == "a":
             for i in range(5):
+                first_occurrence = False
+
                 random_start = [random.randint(0, 9), random.randint(0, 9)]
                 if i == 0:
                     start_list.append(random_start)
@@ -73,13 +74,13 @@ class Board:
                 
                 random_direction = random.choice(["r", "d"])
                 
-                print(f"index of : {check}")
+                print(f"index of : {first_occurrence}")
                 ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                 print(ship_instance.name)
                 
                 print(ship_instance.direction)
                 
-                ship_instance.build_ship()
+                ship_instance.build_ship(ship_instance.length)
                 print(f"Ship coords: {ship_instance.coordinates}")
                 
                 # Check each tile agains the occupied tile list before placing
@@ -90,7 +91,7 @@ class Board:
             
                 
                 # need to append full ship coords to occupied coords
-                print(f"occupid: {occupied_coordinates}")
+                print(f"occupied: {occupied_coordinates}")
                 
                 # print(occupied_coordinates[0][1])
 
@@ -125,10 +126,10 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
 
-    # Check the output here and how to get this into the ship opject
-    def build_ship(self):
-        #How do I access the ship length (sub class variable) from here for the range(len(length))
-        for i in range(5):
+    def build_ship(self, length):
+        for i in range(length):
+            original_coordinate = False
+            # Need to replicate the check like above before appending the coordinates
             if self.direction == "r":
                 self.coordinates.append([self.start_coordinate[0] + i, self.start_coordinate[1]])
             elif self.direction == "d":
