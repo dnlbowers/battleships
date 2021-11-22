@@ -74,18 +74,14 @@ class Board:
                 random_direction = random.choice(["r", "d"])
 
                 if i == 0:
-                    print("if")
-                    occupied_coordinates.append(random_start)
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     first_occurrence = True
                 elif random_start not in occupied_coordinates:
-                    print("elif")
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     first_occurrence = True
                 else:
-                    print("else")
                     while first_occurrence == False:
                         print(f"Duplicate {i}{random_start}")
                         random_start = [random.randint(0, 9), random.randint(0, 9)]
@@ -141,36 +137,29 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
 
-#runs twice then loops same coord infinately
+
     def build_ship(self, length, occupied_tiles):
         placement_process = True
         while placement_process:
             
             temp_ship = []
             temp_ship.append(self.start_coordinate)
-            # This works, but I need a way to stop the check if start tile + length is greater than 9,
-            # then is a tile is already occupied it needs to ask for a new start tile
-           
-               
+
             if self.direction == "r":
                 for i in range(1, length):
                     next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
-                    print(f"next tile value 0 {self.start_coordinate[0] + i}")
+
                     if self.start_coordinate[0] + length > 9:
                         self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
                         self.direction = random.choice(["r", "d"]) 
                         break 
                     elif next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
-                        print(temp_ship)
-                        
-                        print(f"i = {i} NT not in OT (r)")
                         if len(temp_ship) == length:
                             self.coordinates = temp_ship
                             placement_process = False
                             return self.coordinates 
                     else:
-                        print(f"i = {i} new cord")
                         self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
                         self.direction = random.choice(["r", "d"]) 
                         break   
@@ -178,22 +167,18 @@ class Ship:
             elif self.direction == "d":
                 for i in range(1, length):
                     next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
-                    print(f"next tile value 0 {self.start_coordinate[1] + i}")
+
                     if self.start_coordinate[1] + length > 9:
                         self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
                         self.direction = random.choice(["r", "d"]) 
                         break 
-                    if next_tile not in occupied_tiles:
+                    elif next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
-                        print(temp_ship)
-                        
-                        print(f"i = {i} NT not in OT(d)")
                         if len(temp_ship) == length:
                             self.coordinates = temp_ship
                             placement_process = False
                             return self.coordinates 
                     else:
-                        print(f"i = {i} new cord")
                         self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
                         self.direction = random.choice(["r", "d"]) 
                         break              
