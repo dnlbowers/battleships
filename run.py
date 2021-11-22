@@ -1,7 +1,7 @@
 #INFINATE LOOP IN BUILD SHIP()
 
 # To check:
-# in self.fleet(Board) How do I add an if statement, can I add one?
+
 
 #to do
 # MAke choices a mixin, random and manual and add third param/ if else statement to build ship
@@ -19,18 +19,35 @@ class Player:
     """
     def __init__(self, name):
         self.name = name
-        self.board = Board()
+        if self.name == "computer":
+            self.board = Board()
+        else:
+            result = input("(a)uto  or (m)anual?: ")
+            auto = self.input_checker(result)
+            self.board = Board(auto)
         self.guesses = []
         self.guess_index = 0
+
+
+    @classmethod #static method maybe
+    def input_checker(cls, result):
+        # add checks later includeding  one for m - needs to return True or False 
+        if result == "a":
+            return True
+        elif result == "m":
+            return False
+        else:
+            print("not valid input will add while loop, variable called valid = false and set to true when a or m is press")
 
 
 class Board:
     """"Build the boards"""
     board_size = 10
 
-    def __init__(self):      
+    def __init__(self, auto = True):      
         self.board = self.build_board()
-        self.fleet =  self.build_fleet(input("(a)uto  or (m)anual?: ")) #How to add a conditional here so it doesn't ask for input if it's a computer
+
+        self.fleet =  self.build_fleet(auto) #How to add a conditional here so it doesn't ask for input if it's a computer
 
     def build_board(self):
         """
@@ -64,13 +81,13 @@ class Board:
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
 
         
-        if placement_type == "a":
+        if placement_type:
             for i in range(5):
                 print("------------")
                 first_occurrence = False
                 
 
-                random_start = [random.randint(0, 9), random.randint(0, 9)]
+                random_start = (random.randint(0, 9), random.randint(0, 9))
                 random_direction = random.choice(["r", "d"])
 
                 if i == 0:
@@ -84,7 +101,7 @@ class Board:
                 else:
                     while first_occurrence == False:
                         print(f"Duplicate {i}{random_start}")
-                        random_start = [random.randint(0, 9), random.randint(0, 9)]
+                        random_start = (random.randint(0, 9), random.randint(0, 9))
                         print(f"New {i}{random_start}")
                         print(f"first instance check : {first_occurrence}")
                         first_occurrence = random_start not in occupied_coordinates
@@ -113,7 +130,7 @@ class Board:
             return fleet
 
 
-        elif placement_type == "m":
+        elif not placement_type:
             for i in range(5):
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?/n"
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
@@ -147,10 +164,10 @@ class Ship:
 
             if self.direction == "r":
                 for i in range(1, length):
-                    next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
+                    next_tile = (self.start_coordinate[0] + i, self.start_coordinate[1])
 
                     if self.start_coordinate[0] + length > 9:
-                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                         self.direction = random.choice(["r", "d"]) 
                         break 
                     elif next_tile not in occupied_tiles:
@@ -160,16 +177,16 @@ class Ship:
                             placement_process = False
                             return self.coordinates 
                     else:
-                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                         self.direction = random.choice(["r", "d"]) 
                         break   
                 
             elif self.direction == "d":
                 for i in range(1, length):
-                    next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
+                    next_tile = (self.start_coordinate[0], self.start_coordinate[1] + i)
 
                     if self.start_coordinate[1] + length > 9:
-                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                         self.direction = random.choice(["r", "d"]) 
                         break 
                     elif next_tile not in occupied_tiles:
@@ -179,7 +196,7 @@ class Ship:
                             placement_process = False
                             return self.coordinates 
                     else:
-                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                         self.direction = random.choice(["r", "d"]) 
                         break              
         # start is now a list of lists
@@ -187,31 +204,6 @@ class Ship:
         
         return self.coordinates
 
-    # @classmethod
-    # def build_ship(cls, start_coordinate, direction, length, coordinates):
-    #     """
-    #     Builds a ship object.
-    #     """
-    #     for i in range(length):
-    #         if direction == "r":
-    #             coordinates.append(tuple(start_coordinate[0] + i))
-    #         elif direction == "d":
-    #             coordinates.append(tuple(start_coordinate[1] + i))
-    #     return  coordinates
-
-
-    # def build_ship(self):
-    #     """
-    #     Builds a ship.
-    #     """
-    #     if self.direction == "r":
-    #         for i in range(self.length):
-    #             self.coordinates.append(tuple(self.start_coordinate[0] + i, self.start_coordinate[1]))
-    #         return self.coordinates  
-    #     elif self.direction == "d":
-    #         for i in range(len(self.coordinates)):
-    #             self.coordinates.append(tuple(self.start_coordinate[0], self.start_coordinate[1] + i))
-    #         return self.coordinates
 
 class Aircraft_carrier(Ship):
     """
@@ -282,7 +274,7 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
-
+# Player("computer")
 
 #Need to figure out how to tell this to default auto placement of ships.
 # computer = Player("Computer")
