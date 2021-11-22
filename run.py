@@ -150,11 +150,17 @@ class Ship:
             temp_ship.append(self.start_coordinate)
             # This works, but I need a way to stop the check if start tile + length is greater than 9,
             # then is a tile is already occupied it needs to ask for a new start tile
+           
                
             if self.direction == "r":
                 for i in range(1, length):
                     next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
-                    if next_tile not in occupied_tiles:
+                    print(f"next tile value 0 {self.start_coordinate[0] + i}")
+                    if self.start_coordinate[0] + length > 9:
+                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.direction = random.choice(["r", "d"]) 
+                        break 
+                    elif next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
                         print(temp_ship)
                         
@@ -172,6 +178,11 @@ class Ship:
             elif self.direction == "d":
                 for i in range(1, length):
                     next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
+                    print(f"next tile value 0 {self.start_coordinate[1] + i}")
+                    if self.start_coordinate[1] + length > 9:
+                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.direction = random.choice(["r", "d"]) 
+                        break 
                     if next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
                         print(temp_ship)
