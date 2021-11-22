@@ -1,7 +1,10 @@
+# To check:
+# in self.fleet(Board) How do I add an if statement, can I add one?
+
 #to do
-# in build_fleet function - if first ship in fleet build_ship() before appending and add coordinates to a list
-                    #any ship after this make sure that the coordinates are not already
-                    #in the above mentioned list before creating the ship object
+# MAke choices a mixin, random and manual and add third param/ if else statement to build ship
+# so that when ship build fails it calls the function to get new coord and direction. Remember to 
+# upgrade the start coord on the ship instance
 
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
@@ -137,8 +140,9 @@ class Ship:
         self.coordinates = []
 
     def build_ship(self, length, occupied_tiles):
-        for i in range(length):
-            original_coordinate = True
+        placement_process = True
+        while placement_process:
+            i = 0
             temp_ship = []
             # This works, but I need a way to stop the check if start tile + length is greater than 9,
             # then is a tile is already occupied it needs to ask for a new start tile
@@ -148,19 +152,26 @@ class Ship:
                 if next_tile not in occupied_tiles:
                     temp_ship.append(next_tile)
                     print(temp_ship)
+                    i =+ 1
+                    if len(temp_ship) == length:
+                        placement_process = False
                 else:
-                    temp_ship = []
-                    original_coordinate = False
+                    self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                    self.direction = random.choice(["r", "d"])
+            
             elif self.direction == "d":
                 
                 if self.direction == "r":
-                    next_tile = [[self.start_coordinate[1], self.start_coordinate[1] + i]]
-                    if next_tile not in occupied_tiles:
-                        temp_ship.append(next_tile)
-                        print(temp_ship)
-                    else:
-                        temp_ship = []
-                        original_coordinate = False               
+                    next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
+                if next_tile not in occupied_tiles:
+                    temp_ship.append(next_tile)
+                    print(temp_ship)
+                    i =+ 1
+                    if len(temp_ship) == length:
+                        placement_process = False
+                else:
+                    self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                    self.direction = random.choice(["r", "d"])               
         # start is now a list of lists
         print(temp_ship)
         return self.coordinates
