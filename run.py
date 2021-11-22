@@ -1,3 +1,5 @@
+#INFINATE LOOP IN BUILD SHIP()
+
 # To check:
 # in self.fleet(Board) How do I add an if statement, can I add one?
 
@@ -80,7 +82,7 @@ class Board:
                 elif random_start not in occupied_coordinates:
                     print("elif")
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                    ship_instance.build_ship(ship_instance.length, random_start)
+                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
                     first_occurrence = True
                 else:
                     print("else")
@@ -142,8 +144,9 @@ class Ship:
     def build_ship(self, length, occupied_tiles):
         placement_process = True
         while placement_process:
-            i = 0
+            i = 1
             temp_ship = []
+            temp_ship.append(self.start_coordinate)
             # This works, but I need a way to stop the check if start tile + length is greater than 9,
             # then is a tile is already occupied it needs to ask for a new start tile
                
@@ -160,9 +163,7 @@ class Ship:
                     self.direction = random.choice(["r", "d"])
             
             elif self.direction == "d":
-                
-                if self.direction == "r":
-                    next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
+                next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
                 if next_tile not in occupied_tiles:
                     temp_ship.append(next_tile)
                     print(temp_ship)
