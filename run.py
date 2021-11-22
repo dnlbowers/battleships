@@ -141,40 +141,54 @@ class Ship:
         self.damaged_tiles = damaged_tiles
         self.coordinates = []
 
+#runs twice then loops same coord infinately
     def build_ship(self, length, occupied_tiles):
         placement_process = True
         while placement_process:
-            i = 1
+            
             temp_ship = []
             temp_ship.append(self.start_coordinate)
             # This works, but I need a way to stop the check if start tile + length is greater than 9,
             # then is a tile is already occupied it needs to ask for a new start tile
                
             if self.direction == "r":
-                next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
-                if next_tile not in occupied_tiles:
-                    temp_ship.append(next_tile)
-                    print(temp_ship)
-                    i =+ 1
-                    if len(temp_ship) == length:
-                        placement_process = False
-                else:
-                    self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
-                    self.direction = random.choice(["r", "d"])
-            
+                for i in range(1, length):
+                    next_tile = [self.start_coordinate[0] + i, self.start_coordinate[1]]
+                    if next_tile not in occupied_tiles:
+                        temp_ship.append(next_tile)
+                        print(temp_ship)
+                        
+                        print(f"i = {i} NT not in OT (r)")
+                        if len(temp_ship) == length:
+                            self.coordinates = temp_ship
+                            placement_process = False
+                            return self.coordinates 
+                    else:
+                        print(f"i = {i} new cord")
+                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.direction = random.choice(["r", "d"]) 
+                        break   
+                
             elif self.direction == "d":
-                next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
-                if next_tile not in occupied_tiles:
-                    temp_ship.append(next_tile)
-                    print(temp_ship)
-                    i =+ 1
-                    if len(temp_ship) == length:
-                        placement_process = False
-                else:
-                    self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
-                    self.direction = random.choice(["r", "d"])               
+                for i in range(1, length):
+                    next_tile = [[self.start_coordinate[0], self.start_coordinate[1] + i]]
+                    if next_tile not in occupied_tiles:
+                        temp_ship.append(next_tile)
+                        print(temp_ship)
+                        
+                        print(f"i = {i} NT not in OT(d)")
+                        if len(temp_ship) == length:
+                            self.coordinates = temp_ship
+                            placement_process = False
+                            return self.coordinates 
+                    else:
+                        print(f"i = {i} new cord")
+                        self.start_coordinate = [random.randint(0, 9), random.randint(0, 9)]
+                        self.direction = random.choice(["r", "d"]) 
+                        break              
         # start is now a list of lists
-        print(temp_ship)
+        print(f"i = {temp_ship} print at end")
+        
         return self.coordinates
 
     # @classmethod

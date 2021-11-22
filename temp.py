@@ -75,6 +75,15 @@ pprint(player_board.build_board())
 
 print(issubclass(Board, Player))
 print(isinstance(player, Player))
+
+ if next_tile[0] + i > 9:
+                        print("Out of bounds")
+                        placement_process = False
+                        break
+                    elif next_tile in occupied_tiles:
+                        print("Tile occupied")
+                        placement_process = False
+                        break
 #print(help(Ships))
 
 # how do I put this into the class?
