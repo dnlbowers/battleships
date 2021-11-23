@@ -91,12 +91,12 @@ class Board:
 
                 if i == 0:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                    ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
+                    ship_instance.build_ship(True, occupied_coordinates)
                     # first_occurrence = True
 
                 elif random_start not in occupied_coordinates:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                    ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
+                    ship_instance.build_ship(True, occupied_coordinates)
                     # first_occurrence = True
 
                 else:
@@ -108,7 +108,7 @@ class Board:
                         first_occurrence = random_start not in occupied_coordinates
                         print(f"first instance : {first_occurrence}")
                         ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
-                        ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
+                        ship_instance.build_ship(True, occupied_coordinates)
                     # here we need to check if index of coordinates equals true or false before appending
 
                 print(ship_instance.name)
@@ -143,13 +143,13 @@ class Board:
                 
                 if i == 0:
                     ship_instance = ship_obj_type[i]((start_position), direction, [], (start_position))
-                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+                    ship_instance.build_ship(False, occupied_coordinates)
                     # first_occurrence = True
 
                 elif start_position not in occupied_coordinates:
                     print(f"{start_position not in occupied_coordinates} not in")
                     ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
-                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+                    ship_instance.build_ship(False, occupied_coordinates)
                     # first_occurrence = True
 
                 else:
@@ -166,7 +166,7 @@ class Board:
                         first_occurrence = start_position not in occupied_coordinates
                         print(f"first instance : {first_occurrence}")
                         ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
-                        ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+                        ship_instance.build_ship(False, occupied_coordinates)
 
                 print(ship_instance.name)
                 
@@ -201,7 +201,7 @@ class Ship:
         self.coordinates = []
 
 
-    def build_ship(self, length, occupied_tiles, auto_placement = False):
+    def build_ship(self, auto_placement = False, *occupied_tiles):
         placement_process = True
         
         while placement_process:
@@ -210,10 +210,10 @@ class Ship:
             temp_ship.append(self.start_coordinate)
 
             if self.direction == "r":
-                for i in range(1, length):
+                for i in range(1, self.length):
                     next_tile = (self.start_coordinate[0] + i, self.start_coordinate[1])
                     
-                    if self.start_coordinate[0] + length > 9:
+                    if self.start_coordinate[0] + self.length > 9:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                             self.direction = random.choice(["r", "d"]) 
@@ -229,7 +229,7 @@ class Ship:
                     elif next_tile not in occupied_tiles:
                         print(f"{next_tile} appended")
                         temp_ship.append(next_tile)
-                        if len(temp_ship) == length:
+                        if len(temp_ship) == self.length:
                             print(f"{temp_ship} length == to the ship length")
                             self.coordinates = temp_ship
                             placement_process = False
@@ -249,10 +249,10 @@ class Ship:
                             break      
                 
             elif self.direction == "d":
-                for i in range(1, length):
+                for i in range(1, self.length):
                     next_tile = (self.start_coordinate[0], self.start_coordinate[1] + i)
 
-                    if self.start_coordinate[1] + length > 9:
+                    if self.start_coordinate[1] + self.length > 9:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                             self.direction = random.choice(["r", "d"]) 
@@ -268,7 +268,7 @@ class Ship:
                     elif next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
                         print(f"{next_tile} appended")
-                        if len(temp_ship) == length:
+                        if len(temp_ship) == self.length:
                             print(f"{temp_ship} length == to the ship length")
                             self.coordinates = temp_ship
                             placement_process = False
