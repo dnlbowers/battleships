@@ -1,11 +1,11 @@
 #INFINATE LOOP IN BUILD SHIP()
 
 # To check:
-# 1 .[int(i) for i in self.start_coordinate] - in manual set up need to make a tuple - how
+
 
 #to do
 #Make a dictionary for occupied tiles which has the coord as the key and the fleet[i].symbol as the value (i.e. S or C) 
-#fix the above check (1)
+# why doesn't build fleet detect same coord used twice? likely in the build ship function - *args?
 # set else statement in build fleet not auto placement
 
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
@@ -92,12 +92,12 @@ class Board:
                 if i == 0:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
-                    first_occurrence = True
+                    # first_occurrence = True
 
                 elif random_start not in occupied_coordinates:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
-                    first_occurrence = True
+                    # first_occurrence = True
 
                 else:
                     while first_occurrence == False:
@@ -143,15 +143,31 @@ class Board:
                 
                 if i == 0:
                     ship_instance = ship_obj_type[i]((start_position), direction, [], (start_position))
-                    ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
-                    first_occurrence = True
+                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+                    # first_occurrence = True
 
                 elif start_position not in occupied_coordinates:
+                    print(f"{start_position not in occupied_coordinates} not in")
                     ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
                     ship_instance.build_ship(ship_instance.length, occupied_coordinates)
-                    first_occurrence = True
+                    # first_occurrence = True
 
-                # else:
+                else:
+                    
+                    while first_occurrence == False:
+                        print(f"Duplicate {i}{start_position}")
+                        start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
+                            "Separate to numbers with a comma i.e 4,5 : ").split(",")
+                        
+                        start_position = tuple(int(i) for i in start_position)
+                        direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
+                        print(f"New {i}{direction}")
+                        print(f"first instance check : {first_occurrence}")
+                        first_occurrence = start_position not in occupied_coordinates
+                        print(f"first instance : {first_occurrence}")
+                        ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
+                        ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+
                 print(ship_instance.name)
                 
                 print(ship_instance.direction)
@@ -187,33 +203,38 @@ class Ship:
 
     def build_ship(self, length, occupied_tiles, auto_placement = False):
         placement_process = True
+        
         while placement_process:
-            
+            print(f"within function occupied: {occupied_tiles}")
             temp_ship = []
             temp_ship.append(self.start_coordinate)
 
             if self.direction == "r":
                 for i in range(1, length):
                     next_tile = (self.start_coordinate[0] + i, self.start_coordinate[1])
-
+                    
                     if self.start_coordinate[0] + length > 9:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                             self.direction = random.choice(["r", "d"]) 
                             break
                         elif not auto_placement:
-                            print("Your ship does fit here")
+                            print("Your ship does not fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
                             self.start_coordinate = (int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break    
+                    
                     elif next_tile not in occupied_tiles:
+                        print(f"{next_tile} appended")
                         temp_ship.append(next_tile)
                         if len(temp_ship) == length:
+                            print(f"{temp_ship} length == to the ship length")
                             self.coordinates = temp_ship
                             placement_process = False
                             return self.coordinates 
+                        
                     else:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
@@ -243,12 +264,16 @@ class Ship:
                             self.start_coordinate = (int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break   
+                    
                     elif next_tile not in occupied_tiles:
                         temp_ship.append(next_tile)
+                        print(f"{next_tile} appended")
                         if len(temp_ship) == length:
+                            print(f"{temp_ship} length == to the ship length")
                             self.coordinates = temp_ship
                             placement_process = False
                             return self.coordinates 
+                            
                     else:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
