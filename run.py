@@ -1,12 +1,12 @@
 #INFINATE LOOP IN BUILD SHIP()
 
 # To check:
-
+# 1 .[int(i) for i in self.start_coordinate] - in manual set up need to make a tuple - how
 
 #to do
-# MAke choices a mixin, random and manual and add third param/ if else statement to build ship
-# so that when ship build fails it calls the function to get new coord and direction. Remember to 
-# upgrade the start coord on the ship instance
+#Make a dictionary for occupied tiles which has the coord as the key and the fleet[i].symbol as the value (i.e. S or C) 
+#fix the above check (1)
+# set else statement in build fleet not auto placement
 
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
@@ -133,12 +133,41 @@ class Board:
 
         elif not auto_placement:
             for i in range(5):
-                start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?/n"
+                start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                start_position = (int(i) for i in start_position)
+                
+                start_position = tuple(int(i) for i in start_position)
 
-                ship_instance = ship_obj_type[i](start_position,
-                    (input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")), [], start_position)
+                print (start_position)
+                direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
+                
+                if i == 0:
+                    ship_instance = ship_obj_type[i]((start_position), direction, [], (start_position))
+                    ship_instance.build_ship(ship_instance.length, occupied_coordinates, auto_placement)
+                    first_occurrence = True
+
+                elif start_position not in occupied_coordinates:
+                    ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
+                    ship_instance.build_ship(ship_instance.length, occupied_coordinates)
+                    first_occurrence = True
+
+                # else:
+                print(ship_instance.name)
+                
+                print(ship_instance.direction)
+                
+                print(f"Ship coords: {ship_instance.coordinates}")
+                
+                # Check each tile agains the occupied tile list before placing
+                occupied_coordinates.append(ship_instance.coordinates)
+
+                
+                fleet.append(ship_instance)
+            
+                
+                # need to append full ship coords to occupied coords
+                print(f"occupied: {occupied_coordinates}")
+                             
                 fleet.append(ship_instance)
             return fleet    
     
@@ -229,7 +258,7 @@ class Ship:
                             print("Your ship does fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                            self.start_coordinate = (int(i) for i in self.start_coordinate) 
+                            self.start_coordinate = [int(i) for i in self.start_coordinate]
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break               
         # start is now a list of lists
