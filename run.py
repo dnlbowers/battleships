@@ -6,7 +6,9 @@
 #to do
 #Make a dictionary for occupied tiles which has the coord as the key and the fleet[i].symbol as the value (i.e. S or C) 
 # why doesn't build fleet detect same coord used twice? likely in the build ship function - *args?
-# set else statement in build fleet not auto placement
+# Consider making the occupied tiles a dictionary with the coord as the key and the 
+# ship_instance_symbol as the value. This way we maybe skip ship coords and 
+# just check the occupied tiles dictionary. Do we still need fleet?
 
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
@@ -46,8 +48,7 @@ class Board:
 
     def __init__(self, auto = True):      
         self.board = self.build_board()
-
-        self.fleet =  self.build_fleet(auto) #How to add a conditional here so it doesn't ask for input if it's a computer
+        self.fleet =  self.build_fleet(auto) 
 
     def build_board(self):
         """
@@ -71,7 +72,7 @@ class Board:
         for row in self.board:
             print(" ".join(row))
     
-    #Build fleet here
+
     def build_fleet(self, auto_placement):
         """
         Builds a fleet of ships.
@@ -186,9 +187,7 @@ class Board:
                              
                 fleet.append(ship_instance)
             return fleet    
-    
 
-        
 
 class Ship:
     """
