@@ -1,7 +1,7 @@
 #INFINATE LOOP IN BUILD SHIP()
 
 # To check:
-
+#Mixin for the static methods? i,e original tile check in ship also used in board
 
 #to do
 #Make a dictionary for occupied tiles which has the coord as the key and the fleet[i].symbol as the value (i.e. S or C) 
@@ -85,7 +85,7 @@ class Board:
         if auto_placement:
             for i in range(5):
                 print("------------")
-                first_occurrence = False
+                not_original = False
                 
                 random_start = (random.randint(0, 9), random.randint(0, 9))
                 random_direction = random.choice(["r", "d"])
@@ -93,21 +93,21 @@ class Board:
                 if i == 0:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(True, occupied_coordinates)
-                    # first_occurrence = True
+                    # not_original = True
 
                 elif random_start not in occupied_coordinates:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(True, occupied_coordinates)
-                    # first_occurrence = True
+                    # not_original = True
 
                 else:
-                    while first_occurrence == False:
+                    while not_original == False:
                         print(f"Duplicate {i}{random_start}")
                         random_start = (random.randint(0, 9), random.randint(0, 9))
                         print(f"New {i}{random_start}")
-                        print(f"first instance check : {first_occurrence}")
-                        first_occurrence = random_start not in occupied_coordinates
-                        print(f"first instance : {first_occurrence}")
+                        print(f"first instance check : {not_original}")
+                        not_original = random_start not in occupied_coordinates
+                        print(f"first instance : {not_original}")
                         ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                         ship_instance.build_ship(True, occupied_coordinates)
                     # here we need to check if index of coordinates equals true or false before appending
@@ -138,34 +138,34 @@ class Board:
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
                 
                 start_position = tuple(int(i) for i in start_position)
-
+                duplicate_tile = Ship.duplicate_tile_check(occupied_coordinates, start_position)
                 print (start_position)
                 direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                 
                 if i == 0:
                     ship_instance = ship_obj_type[i]((start_position), direction, [], (start_position))
                     ship_instance.build_ship(False, occupied_coordinates)
-                    # first_occurrence = True
+                    # not_original = True
 
-                elif start_position not in occupied_coordinates:
-                    print(f"{start_position not in occupied_coordinates} not in")
+                elif not duplicate_tile:
+                    print(f"{occupied_coordinates} not in")
                     ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
                     ship_instance.build_ship(False, occupied_coordinates)
-                    # first_occurrence = True
+                    # not_original = True
 
                 else:
-                    
-                    while first_occurrence == False:
+                    not_original = True
+                    while not_original == True:
                         print(f"Duplicate {i}{start_position}")
-                        start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
+                        start_position = input(f"Start coordinate for your {ship_obj_type[i].name}? "
                             "Separate to numbers with a comma i.e 4,5 : ").split(",")
                         
                         start_position = tuple(int(i) for i in start_position)
                         direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                         print(f"New {i}{direction}")
-                        print(f"first instance check : {first_occurrence}")
-                        first_occurrence = start_position not in occupied_coordinates
-                        print(f"first instance : {first_occurrence}")
+                        print(f"first instance check : {not_original}")
+                        not_original = Ship.duplicate_tile_check(occupied_coordinates, start_position)
+                        print(f"first instance : {not_original}")
                         ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
                         ship_instance.build_ship(False, occupied_coordinates)
 
@@ -200,7 +200,7 @@ class Ship:
         self.coordinates = []
 
 
-    def build_ship(self, auto_placement = False, *occupied_tiles):
+    def build_ship(self, auto_placement, *occupied_tiles):
         placement_process = True
         
         while placement_process:
@@ -211,7 +211,7 @@ class Ship:
             if self.direction == "r":
                 for i in range(1, self.length):
                     next_tile = (self.start_coordinate[0] + i, self.start_coordinate[1])
-                    
+                    duplicate_tile = self.duplicate_tile_check(occupied_tiles, self.start_coordinate)
                     if self.start_coordinate[0] + self.length > 9:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
@@ -219,14 +219,14 @@ class Ship:
                             break
                         elif not auto_placement:
                             print("Your ship does not fit here")
-                            self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
+                            self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}? /n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
                             self.start_coordinate = tuple(int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break    
                     
-                    elif next_tile not in occupied_tiles:
-                        print(f"{next_tile} appended")
+                    elif not duplicate_tile:
+                        print(f"{not duplicate_tile} appended")
                         temp_ship.append(next_tile)
                         if len(temp_ship) == self.length:
                             print(f"{temp_ship} length == to the ship length")
@@ -250,21 +250,21 @@ class Ship:
             elif self.direction == "d":
                 for i in range(1, self.length):
                     next_tile = (self.start_coordinate[0], self.start_coordinate[1] + i)
-
+                    duplicate_tile = self.duplicate_tile_check(occupied_tiles, self.start_coordinate)
                     if self.start_coordinate[1] + self.length > 9:
                         if auto_placement:
                             self.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
                             self.direction = random.choice(["r", "d"]) 
                             break 
                         elif not auto_placement:
-                            print("Your ship does fit here")
+                            print("Your ship does not fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
                             self.start_coordinate = tuple(int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break   
                     
-                    elif next_tile not in occupied_tiles:
+                    elif not duplicate_tile:
                         temp_ship.append(next_tile)
                         print(f"{next_tile} appended")
                         if len(temp_ship) == self.length:
@@ -292,11 +292,11 @@ class Ship:
 
     #use this above to check the list of lists (occupied tiles)
     @staticmethod
-    def original_tile_check(occupied_tiles, next_tile):
+    def duplicate_tile_check(occupied_tiles, next_tile):
         for list in occupied_tiles:
             for coord in list:
                 if  next_tile in list:
-                    return False
+                    return True
 
 class Aircraft_carrier(Ship):
     """
