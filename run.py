@@ -221,7 +221,7 @@ class Ship:
                             print("Your ship does not fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                            self.start_coordinate = (int(i) for i in self.start_coordinate) 
+                            self.start_coordinate = tuple(int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break    
                     
@@ -243,7 +243,7 @@ class Ship:
                             print("Your ship does fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                            self.start_coordinate = (int(i) for i in self.start_coordinate) 
+                            self.start_coordinate = tuple(int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break      
                 
@@ -260,7 +260,7 @@ class Ship:
                             print("Your ship does fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                            self.start_coordinate = (int(i) for i in self.start_coordinate) 
+                            self.start_coordinate = tuple(int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break   
                     
@@ -282,7 +282,7 @@ class Ship:
                             print("Your ship does fit here")
                             self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                            self.start_coordinate = [int(i) for i in self.start_coordinate]
+                            self.start_coordinate = tuple(int(i) for i in self.start_coordinate)
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break               
         # start is now a list of lists
