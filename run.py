@@ -89,24 +89,25 @@ class Board:
                 
                 random_start = (random.randint(0, 9), random.randint(0, 9))
                 random_direction = random.choice(["r", "d"])
-
+                duplicate_tile = Ship.duplicate_tile_check(occupied_coordinates, random_start)
                 if i == 0:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(True, occupied_coordinates)
                     # not_original = True
 
-                elif random_start not in occupied_coordinates:
+                elif not duplicate_tile:
                     ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                     ship_instance.build_ship(True, occupied_coordinates)
                     # not_original = True
 
                 else:
-                    while not_original == False:
+                    not_original = True
+                    while not_original == True:
                         print(f"Duplicate {i}{random_start}")
                         random_start = (random.randint(0, 9), random.randint(0, 9))
                         print(f"New {i}{random_start}")
                         print(f"first instance check : {not_original}")
-                        not_original = random_start not in occupied_coordinates
+                        not_original = duplicate_tile = Ship.duplicate_tile_check(occupied_coordinates, random_start)
                         print(f"first instance : {not_original}")
                         ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
                         ship_instance.build_ship(True, occupied_coordinates)
@@ -258,7 +259,7 @@ class Ship:
                             break 
                         elif not auto_placement:
                             print("Your ship does not fit here")
-                            self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}?/n"
+                            self.start_coordinate = input(f"Pick a new start coordinate for your {self.name}? /n"
                                 "Separate to numbers with a comma i.e 4,5 : ").split(",")
                             self.start_coordinate = tuple(int(i) for i in self.start_coordinate) 
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
