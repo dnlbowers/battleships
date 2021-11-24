@@ -290,6 +290,13 @@ class Ship:
         
         return self.coordinates
 
+    #use this above to check the list of lists (occupied tiles)
+    @staticmethod
+    def original_tile_check(occupied_tiles, next_tile):
+        for list in occupied_tiles:
+            for coord in list:
+                if  next_tile in list:
+                    return False
 
 class Aircraft_carrier(Ship):
     """
