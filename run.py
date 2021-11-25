@@ -97,12 +97,12 @@ class Board:
                 
                 duplicate_tile = Ship.duplicate_tile_check(random_start, occupied_coordinates, random_start)
                 if i == 0:
-                    ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                    ship_instance = ship_obj_type[i](random_start, random_direction, (random_start))
                     ship_instance.build_ship(True, occupied_coordinates)
                     # not_original = True
 
                 elif not duplicate_tile:
-                    ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                    ship_instance = ship_obj_type[i](random_start, random_direction, (random_start))
                     ship_instance.build_ship(True, occupied_coordinates)
                     # not_original = True
 
@@ -111,7 +111,7 @@ class Board:
                     while not_original == True:
                         random_start = (random.randint(0, 9), random.randint(0, 9))
                         not_original = duplicate_tile = Ship.duplicate_tile_check(random_start, occupied_coordinates, random_start)
-                        ship_instance = ship_obj_type[i](random_start, random_direction, [], (random_start))
+                        ship_instance = ship_obj_type[i](random_start, random_direction, (random_start))
                         ship_instance.build_ship(True, occupied_coordinates)
                     # here we need to check if index of coordinates equals true or false before appending
 
@@ -123,7 +123,7 @@ class Board:
                 
                 # Check each tile agains the occupied tile list before placing
                 occupied_coordinates.append(ship_instance.coordinates)
-
+                
                 
                 fleet.append(ship_instance)
             
@@ -147,12 +147,12 @@ class Board:
                 
                 
                 if i == 0:
-                    ship_instance = ship_obj_type[i]((start_position), direction, [], (start_position))
+                    ship_instance = ship_obj_type[i]((start_position), direction, (start_position))
                     ship_instance.build_ship(False, occupied_coordinates)
                     # not_original = True
 
                 elif not duplicate_tile:
-                    ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
+                    ship_instance = ship_obj_type[i](start_position, direction, (start_position))
                     ship_instance.build_ship(False, occupied_coordinates)
                     # not_original = True
 
@@ -187,15 +187,20 @@ class Board:
             return fleet    
 
 
+    def ship_log(self, fleet):
+        pass
+
+     
+
 class Ship:
     """
     Creates the ship class for later sub class of ships.
     """
-    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
+    def __init__(self, start_coordinate, direction, coordinates):
         self.start_coordinate = start_coordinate
         self.direction = direction
-        self.damaged_tiles = damaged_tiles
-        self.coordinates = []
+        self.damaged_tiles = [False] * self.length
+        self.coordinates = coordinates
 
 
     def build_ship(self, auto_placement, *occupied_tiles):
@@ -296,6 +301,7 @@ class Ship:
                     print("Already a ship here")
                     return True
 
+
 class Aircraft_carrier(Ship):
     """
     Creates an instance of the Aircraft_carrier class.
@@ -304,8 +310,8 @@ class Aircraft_carrier(Ship):
     length = 5
     symbol = "A"
 
-    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
-        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
+    def __init__(self, start_coordinate, direction, coordinates):
+        super().__init__(start_coordinate, direction, coordinates)
         
         
 
@@ -318,8 +324,8 @@ class Battleship(Ship):
     length = 4
     symbol = "B"
 
-    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
-        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
+    def __init__(self, start_coordinate, direction, coordinates):
+        super().__init__(start_coordinate, direction, coordinates)
 
 
 class Cruiser(Ship):
@@ -330,8 +336,8 @@ class Cruiser(Ship):
     length = 3
     symbol = "C"
 
-    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
-        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
+    def __init__(self, start_coordinate, direction, coordinates):
+        super().__init__(start_coordinate, direction, coordinates)
 
 
 class Submarine(Ship):
@@ -342,8 +348,8 @@ class Submarine(Ship):
     length = 3
     symbol = "S"
 
-    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
-        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
+    def __init__(self, start_coordinate, direction, coordinates):
+        super().__init__(start_coordinate, direction, coordinates)
 
     
 class Destroyer(Ship):
@@ -354,8 +360,8 @@ class Destroyer(Ship):
     length = 2
     symbol = "D"
 
-    def __init__(self, start_coordinate, direction, damaged_tiles, coordinates):
-        super().__init__(start_coordinate, direction, damaged_tiles, coordinates)
+    def __init__(self, start_coordinate, direction, coordinates):
+        super().__init__(start_coordinate, direction, coordinates)
 
 
 
@@ -365,5 +371,7 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
+for i in range(len(user.board.fleet)):
+    print(user.board.fleet[i].__dict__)
 # Player("computer")
 
