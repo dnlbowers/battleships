@@ -141,3 +141,47 @@ print(isinstance(player, Player))
 
 # Board.print_board(player)
 # Board.print_board(computer)
+
+#Need to figure out how to tell this to default auto placement of ships.
+# computer = Player("Computer")
+# for ship in user.board.fleet:
+#     print (ship.start_coordinate)
+#     print(ship.direction)
+#     print(ship.coordinates)
+
+
+
+#----------------------------------Junk constructors------------------------------------------------------------------
+# user.board.build_board()
+# user.board.print_board(user)
+# computer.board.print_board(computer)
+
+# print(user.board.fleet[1].name)
+
+# print(user.__dict__)
+# print(user.board.__dict__)
+
+# username= input("What is your name?: ")
+# user = Player(username)
+# cpu = Player("cpu")
+# user_board = Board(user)
+# cpu_board = Board(cpu)
+
+# #Build a fleet and place at the same time
+# test = Ship.build_ship_objects(CPU_board, "auto")
+# for ship in test:
+#     print(ship.build_ship())
+
+
+# #test for object creation
+# for obj in test:
+#     print("-----")
+#     print(obj.name)
+#     print(obj.length)
+#     print(obj.start_coordinate)
+#     print(obj.direction)
+#     print(obj.damaged_tiles)
+#     print(obj.coordinates)
+
+# print(issubclass(Ship, Player))
+# print(isinstance(test[1], Player))
