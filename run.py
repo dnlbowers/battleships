@@ -55,6 +55,7 @@ class Board:
     def __init__(self, auto = True):      
         self.board = self.build_board()
         self.fleet =  self.build_fleet(auto)
+        self.fleet_coords_map= {}
         
 
     def build_board(self):
@@ -87,7 +88,7 @@ class Board:
         fleet = []
         occupied_coordinates = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
-        ship_log = {} 
+        # ship_log = {} 
 
         
         if auto_placement:
@@ -131,12 +132,12 @@ class Board:
                 
                 
                 #needs to go into its own function and form a dict from the fleet.
-                ship_log.update(Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list))
-                print(ship_log)
+                # ship_log.update(Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list))
+                # print(ship_log)
 
                 
                 fleet.append(ship_instance)
-                
+                print(type(fleet[i]))
             return fleet
 
 
@@ -182,12 +183,18 @@ class Board:
                 occupied_coordinates.append(ship_instance.coordinates)
 
                 #needs to go into its own function and form a dict from the fleet.
-                ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
-                print(ship_log)
+                # ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
+                # print(ship_log)
                 fleet.append(ship_instance)
-                             
+                print(fleet[i])            
                 # fleet.append(ship_instance)
             return fleet    
+
+    
+    def fleet_coords_map(self):
+        for i in range(5):
+            self.fleet_coords_map.update(self.fleet[i].coordinates, self.fleet[i].symbol_list)
+            print(self.fleet_coords_map)
 
     @staticmethod
     def ship_log(coords, symbol):
@@ -373,6 +380,7 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
+user.board.fleet_coords_map()
 
 # print(user.board.ship_log())
 # for i in range(len(user.board.fleet)):
