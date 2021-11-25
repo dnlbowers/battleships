@@ -54,7 +54,7 @@ class Board:
     
     def __init__(self, auto = True):      
         self.board = self.build_board()
-        self.ship_log =  self.build_fleet(auto)
+        self.fleet =  self.build_fleet(auto)
         
 
     def build_board(self):
@@ -125,20 +125,19 @@ class Board:
                 print(ship_instance.direction)
                 
                 print(f"Ship coords: {ship_instance.coordinates}")
-                
-                # Check each tile agains the occupied tile list before placing
+
                 occupied_coordinates.append(ship_instance.coordinates)
+                print(f"Occupied: {occupied_coordinates}")
                 
-                ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
+                
+                #needs to go into its own function and form a dict from the fleet.
+                ship_log.update(Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list))
                 print(ship_log)
-                # fleet.append(ship_instance)
-            
-                
-                # need to append full ship coords to occupied coords
-                print(f"occupied: {occupied_coordinates}")
 
                 
-            return ship_log
+                fleet.append(ship_instance)
+                
+            return fleet
 
 
         elif not auto_placement:
@@ -179,25 +178,21 @@ class Board:
                 
                 print(f"Ship coords: {ship_instance.coordinates}")
                 
-                # Check each tile agains the occupied tile list before placing
+                
                 occupied_coordinates.append(ship_instance.coordinates)
 
+                #needs to go into its own function and form a dict from the fleet.
                 ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
                 print(ship_log)
-                # fleet.append(ship_instance)
-            
-                
-                # need to append full ship coords to occupied coords
-                print(f"occupied: {occupied_coordinates}")
+                fleet.append(ship_instance)
                              
                 # fleet.append(ship_instance)
-            return ship_log    
+            return fleet    
 
     @staticmethod
     def ship_log(coords, symbol):
-
-        inner_log = dict(zip(coords, symbol))
-        return inner_log
+        log = dict(zip(coords, symbol))
+        return log
             
 
 
@@ -378,7 +373,7 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
-print (user.board.fleet[1].__dict__)
+
 # print(user.board.ship_log())
 # for i in range(len(user.board.fleet)):
 #     print(user.board.ship_log(user.board.fleet[i]))
