@@ -13,6 +13,9 @@
 # ship_instance_symbol as the value. This way we maybe skip ship coords and 
 # just check the occupied tiles dictionary. Do we still need fleet?
 
+#notes
+#MAy be able to do away with damaged tiles
+
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
 import random
@@ -48,10 +51,11 @@ class Player:
 class Board:
     """"Build the boards"""
     board_size = 10
-
+    
     def __init__(self, auto = True):      
         self.board = self.build_board()
-        self.fleet =  self.build_fleet(auto) 
+        self.ship_log =  self.build_fleet(auto)
+        
 
     def build_board(self):
         """
@@ -83,6 +87,7 @@ class Board:
         fleet = []
         occupied_coordinates = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
+        ship_log = {} 
 
         
         if auto_placement:
@@ -124,15 +129,16 @@ class Board:
                 # Check each tile agains the occupied tile list before placing
                 occupied_coordinates.append(ship_instance.coordinates)
                 
-                
-                fleet.append(ship_instance)
+                ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
+                print(ship_log)
+                # fleet.append(ship_instance)
             
                 
                 # need to append full ship coords to occupied coords
                 print(f"occupied: {occupied_coordinates}")
 
                 
-            return fleet
+            return ship_log
 
 
         elif not auto_placement:
@@ -176,19 +182,24 @@ class Board:
                 # Check each tile agains the occupied tile list before placing
                 occupied_coordinates.append(ship_instance.coordinates)
 
-                
-                fleet.append(ship_instance)
+                ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
+                print(ship_log)
+                # fleet.append(ship_instance)
             
                 
                 # need to append full ship coords to occupied coords
                 print(f"occupied: {occupied_coordinates}")
                              
                 # fleet.append(ship_instance)
-            return fleet    
+            return ship_log    
 
+    @staticmethod
+    def ship_log(coords, symbol):
 
-    def ship_log(self, fleet):
-        pass
+        inner_log = dict(zip(coords, symbol))
+        return inner_log
+            
+
 
      
 
@@ -308,21 +319,19 @@ class Aircraft_carrier(Ship):
     """
     name =  "Aircraft_carrier"
     length = 5
-    symbol = "A"
+    symbol_list = ["A"] * length
 
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
         
         
-
-
 class Battleship(Ship):
     """
     Creates an instance of the Battleship class.
     """
     name = "Battleship"
     length = 4
-    symbol = "B"
+    symbol_list = ["B"] * length
 
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
@@ -334,7 +343,7 @@ class Cruiser(Ship):
     """
     name = "Cruiser"
     length = 3
-    symbol = "C"
+    symbol_list = ["C"] * length
 
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
@@ -346,7 +355,7 @@ class Submarine(Ship):
     """
     name = "Submarine"
     length = 3
-    symbol = "S"
+    symbol_list = ["S"] * length
 
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
@@ -358,12 +367,10 @@ class Destroyer(Ship):
     """
     name = "Destroyer"
     length = 2
-    symbol = "D"
+    symbol_list = ["D"] * length
 
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
-
-
 
 
 #Construction of the game
@@ -371,7 +378,9 @@ class Destroyer(Ship):
 #This now creates a player, board, and feet.
 player_name = input("What is your name? ")
 user = Player(player_name)
-for i in range(len(user.board.fleet)):
-    print(user.board.fleet[i].__dict__)
+print (user.board.fleet[1].__dict__)
+# print(user.board.ship_log())
+# for i in range(len(user.board.fleet)):
+#     print(user.board.ship_log(user.board.fleet[i]))
 # Player("computer")
 
