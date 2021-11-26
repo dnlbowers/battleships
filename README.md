@@ -40,6 +40,10 @@ Last side with a ship still afloat wins.
 * When trying to determine within the build ship function with auto placement it was then asking the player to place ships manually. I found that this partly because I have placed the auto placement parameter after the *arg and was being added to the list of occupied tiles and as such it was failing to recognize us it auto placement or manual being past, Moving the parameter from the last to the first fix this,
 * After trying to understand why it was not able to read the list within a list I search for iterating through a list of lists. I was then able to create a static method in the ship class that searched each list within the list of occupied tiles and return True if the coord was found in one of the nested lists. This would then be used within a conditional statement to be triggered it the enter coord was original and not in the occupied tiles.
 * The while loop in the build fleet function wasn't working because I forgot to define the variable in the while loop prior to using it.
+*In order to zip the symbol and cords together as a reference dictionary I needed to make the symbol *length
+
+*When trying to place the ships on the board the logic was showing no error but the board, did not update when printed - 
+
 
 ## Credits:
 Python OOP Tutorial series by Corey Schafer  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)

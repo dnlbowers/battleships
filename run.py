@@ -75,11 +75,11 @@ class Board:
 
         return board
 
-    def print_board(self, player_object):
+    def print_board(self):  #add back as parameter later , player_object
         """
         Prints the board.
         """
-        print(f"{player_object.name}'s board:")
+        # print(f"{player_object}'s board:")
 
         for row in self.board:
             print(" ".join(row))
@@ -92,7 +92,7 @@ class Board:
         fleet = []
         occupied_coordinates = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
-        ship_log = {} 
+        
 
         
         if auto_placement:
@@ -134,7 +134,7 @@ class Board:
                 occupied_coordinates.append(ship_instance.coordinates)
                 print(f"Occupied: {occupied_coordinates}")
                 
-                
+                self.initial_placement(ship_instance, auto_placement)
                 #needs to go into its own function and form a dict from the fleet.
                 # ship_log.update(Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list))
                 # print(ship_log)
@@ -142,6 +142,7 @@ class Board:
                 
                 fleet.append(ship_instance)
                 print(type(fleet[i]))
+            self.print_board()
             return fleet
 
 
@@ -174,7 +175,7 @@ class Board:
                         start_position = tuple(int(i) for i in start_position)
                         direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                         not_original = Ship.duplicate_tile_check(start_position, occupied_coordinates, start_position)
-                        ship_instance = ship_obj_type[i](start_position, direction, [], (start_position))
+                        ship_instance = ship_obj_type[i](start_position, direction, (start_position))
                         ship_instance.build_ship(False, occupied_coordinates)
 
                 print(ship_instance.name)
@@ -185,7 +186,8 @@ class Board:
                 
                 
                 occupied_coordinates.append(ship_instance.coordinates)
-
+                
+                self.initial_placement(ship_instance)
                 #needs to go into its own function and form a dict from the fleet.
                 # ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
                 # print(ship_log)
@@ -198,14 +200,17 @@ class Board:
     def fleet_coords_map(self):
         ship_log = {}
         for i in range(5):
-            ship_log.update(Board.ship_log(self.fleet[i].coordinates, self.fleet[i].symbol_list))
+            ship_log.update(dict(zip(self.fleet[i].coordinates, self.fleet[i].symbol_list)))
         return ship_log 
 
-    @staticmethod
-    def ship_log(coords, symbol):
-        log = dict(zip(coords, symbol))
-        return log
-            
+    
+    def initial_placement(self, ship, auto_placement = False):
+
+        for i in range(ship.length):
+            self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
+        if not auto_placement:    
+            self.print_board()
+
    
 
 class Ship:
@@ -227,7 +232,7 @@ class Ship:
             temp_ship = []
             temp_ship.append(self.start_coordinate)
 
-            if self.direction == "r":
+            if self.direction == "d":
                 for i in range(1, self.length):
 
                     next_tile = (self.start_coordinate[0] + i, self.start_coordinate[1])
@@ -265,7 +270,7 @@ class Ship:
                             self.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
                             break      
                 
-            elif self.direction == "d":
+            elif self.direction == "r":
                 for i in range(1, self.length):
                     next_tile = (self.start_coordinate[0], self.start_coordinate[1] + i)
                     duplicate_tile = self.duplicate_tile_check(occupied_tiles, self.start_coordinate)
@@ -381,11 +386,12 @@ class Destroyer(Ship):
 #Construction of the game
 
 #This now creates a player, board, and feet.
-# player_name = input("What is your name? ")
-# user = Player(player_name)
+player_name = input("What is your name? ")
+user = Player(player_name)
 # print(user.board.fleet_coords_map)
-cpu = Player("computer")
-print(cpu.board.fleet_coords_map)
+# cpu = Player("computer")
+# print(cpu.board.fleet_coords_map)
+# print(cpu.board.__dict__)
 
 
 # print(user.board.ship_log())
