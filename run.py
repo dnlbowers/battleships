@@ -47,6 +47,10 @@ class Player:
         else:
             print("not valid input will add while loop, variable called valid = false and set to true when a or m is press")
 
+    
+    def user_guess():
+        pass
+
 
 class Board:
     """"Build the boards"""
@@ -55,7 +59,7 @@ class Board:
     def __init__(self, auto = True):      
         self.board = self.build_board()
         self.fleet =  self.build_fleet(auto)
-        self.fleet_coords_map= {}
+        self.fleet_coords_map = self.fleet_coords_map()
         
 
     def build_board(self):
@@ -88,7 +92,7 @@ class Board:
         fleet = []
         occupied_coordinates = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
-        # ship_log = {} 
+        ship_log = {} 
 
         
         if auto_placement:
@@ -192,18 +196,17 @@ class Board:
 
     
     def fleet_coords_map(self):
+        ship_log = {}
         for i in range(5):
-            self.fleet_coords_map.update(self.fleet[i].coordinates, self.fleet[i].symbol_list)
-            print(self.fleet_coords_map)
+            ship_log.update(Board.ship_log(self.fleet[i].coordinates, self.fleet[i].symbol_list))
+        return ship_log 
 
     @staticmethod
     def ship_log(coords, symbol):
         log = dict(zip(coords, symbol))
         return log
             
-
-
-     
+   
 
 class Ship:
     """
@@ -378,9 +381,12 @@ class Destroyer(Ship):
 #Construction of the game
 
 #This now creates a player, board, and feet.
-player_name = input("What is your name? ")
-user = Player(player_name)
-user.board.fleet_coords_map()
+# player_name = input("What is your name? ")
+# user = Player(player_name)
+# print(user.board.fleet_coords_map)
+cpu = Player("computer")
+print(cpu.board.fleet_coords_map)
+
 
 # print(user.board.ship_log())
 # for i in range(len(user.board.fleet)):
