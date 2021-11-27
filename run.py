@@ -1,14 +1,3 @@
-#IAfter cutting down the code I got this error once after manual placement- refers to computer turn
-#  File "C:\code\battleships\run.py", line 31, in __init__
-#     self.board = Board(name)
-#   File "C:\code\battleships\run.py", line 63, in __init__
-#     self.fleet =  self.build_fleet()
-#   File "C:\code\battleships\run.py", line 136, in build_fleet
-#     self.initial_placement(ship_instance, self.auto)
-#   File "C:\code\battleships\run.py", line 218, in initial_placement
-#     self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
-# IndexError: list assignment index out of range
-
 # To check:
 # How to print the boards side by side
 #How to add index to the outside - LOW Priority
@@ -107,81 +96,32 @@ class Board:
         
 
         
-        if self.auto:
-            for i in range(5):
-                # print("------------")
-                not_original = False # still needed ?
-                
+        
+        for i in range(5):
+
+            if self.auto:
                 random_start = (random.randint(0, 9), random.randint(0, 9))
                 random_direction = random.choice(["r", "d"])
                 ship_instance = ship_obj_type[i](random_start, random_direction, (random_start))
-                ship_instance.build_ship(self.auto, occupied_coordinates)                
-                #could this be class method in ship?
 
-                # print(ship_instance.name)
-                
-                # print(ship_instance.direction)
-                
-                print(f"Ship coords: {ship_instance.coordinates}")
-
-                occupied_coordinates.append(ship_instance.coordinates)
-                # print(f"Occupied: {occupied_coordinates}")
-                
-                self.initial_placement(ship_instance, self.auto)
-                #needs to go into its own function and form a dict from the fleet.
-                # ship_log.update(Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list))
-                # print(ship_log)
-
-                
-                fleet.append(ship_instance)
-                # print(type(fleet[i]))
-            self.print_board()
-            return fleet
-
-
-        else:
-            for i in range(5):
+            else:
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
                 
                 start_position = tuple(int(i) for i in start_position)
                 direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
-
                 ship_instance = ship_obj_type[i]((start_position), direction, (start_position))
-                ship_instance.build_ship(self.auto, occupied_coordinates)
 
-                # print(ship_instance.name)
-                
-                # print(ship_instance.direction)
-                
-                # print(f"Ship coords: {ship_instance.coordinates}")
-                
-                
-                occupied_coordinates.append(ship_instance.coordinates)
-                
-                self.initial_placement(ship_instance)
-                #needs to go into its own function and form a dict from the fleet.
-                # ship_log[ship_instance.name] = Board.ship_log(ship_instance.coordinates, ship_instance.symbol_list)
-                # print(ship_log)
-                fleet.append(ship_instance)
-                # print(fleet[i])            
-                # fleet.append(ship_instance)
-            return fleet    
+            ship_instance.build_ship(self.auto, occupied_coordinates)  
+            occupied_coordinates.append(ship_instance.coordinates)
+            
+            self.initial_placement(ship_instance, self.auto)
+            
+            fleet.append(ship_instance)
+        if self.auto:
+            self.print_board()
+        return fleet
 
-        
-
-    #use this above to check the list of lists (occupied tiles)
-    # @staticmethod
-    # def duplicate_tile_check(start_coordinate, occupied_tiles, next_tile):
-    #     for list in occupied_tiles:
-    #         for coord in list:
-    #             if  next_tile in list:
-    #                 print("Already a ship here")
-    #                 return True
-    #             elif start_coordinate in list:
-    #                 print("Already a ship here")
-    #                 return True
-    
     def fleet_coords_map(self):
         ship_log = {}
         for i in range(5):
@@ -214,7 +154,7 @@ class Ship:
     
     def build_ship(self, auto_placement, occupied_tiles):
         placement_process = True
-        print(f"start{self.start_coordinate}")
+
         while placement_process:
             
             temp_ship = []
