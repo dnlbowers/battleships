@@ -42,7 +42,7 @@ Last side with a ship still afloat wins.
 * The while loop in the build fleet function wasn't working because I forgot to define the variable in the while loop prior to using it.
 *In order to zip the symbol and cords together as a reference dictionary I needed to make the symbol *length
 
-*When trying to place the ships on the board the logic was showing no error but the board, did not update when printed - 
+*When trying to place the ships on the board the logic was showing no error but the board, did not update when printed - I was trying to append the symbol when all I needed to do was use the assignment operator.
 
 
 ## Credits:
