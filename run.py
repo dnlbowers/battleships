@@ -1,3 +1,5 @@
+#possible reference print boards side by side https://www.codegrepper.com/code-examples/python/how+to+print+two+lists+side+by+side+in+python
+
 # To check:
 # How to print the boards side by side
 #How to add index to the outside - LOW Priority
@@ -46,7 +48,7 @@ class Player:
             print("not valid input will add while loop, variable called valid = false and set to true when a or m is press")
 
     
-    def user_guess():
+    def user_fire():
         pass
 
 
@@ -59,8 +61,7 @@ class Board:
         self.auto = auto     
         self.board = self.build_board()
         self.fleet =  self.build_fleet()
-        self.fleet_coords_map = self.fleet_coords_map()
-        
+        self.fleet_coords_map = self.fleet_coords_map() 
         
 
     def build_board(self):
@@ -80,10 +81,15 @@ class Board:
         """
         Prints the board.
         """
-        print(f"{self.owner}'s board:")
-
+        print(f"     {self.owner}'s board:")
+        print(" ")
+        print("    0 1 2 3 4 5 6 7 8 9")
+        print("   +-+-+-+-+-+-+-+-+-+-")
+        row_num = 0
         for row in self.board:
-            print(" ".join(row))
+            print(row_num, "|", " ".join(row))
+            row_num += 1
+        print(" ")
     
 
     def build_fleet(self):
@@ -147,10 +153,6 @@ class Ship:
         self.direction = direction
         self.damaged_tiles = [False] * self.length
         self.coordinates = coordinates
-
-
-    #all boroken
-    #dmages tiles, 
     
     def build_ship(self, auto_placement, occupied_tiles):
         placement_process = True
@@ -165,10 +167,13 @@ class Ship:
                 if self.direction == "d":
                     next_tile = (self.start_coordinate[0] + i, self.start_coordinate[1])
                     index_to_increment = 0
+
                 elif self.direction == "r":
                     next_tile = (self.start_coordinate[0], self.start_coordinate[1] + i)
                     index_to_increment = 1
+
                 duplicate_tile = self.duplicate_tile_check(occupied_tiles, next_tile)
+
                 if self.start_coordinate[index_to_increment] + self.length > 9:
                     
                     if auto_placement:
@@ -212,11 +217,13 @@ class Ship:
         for list in occupied_tiles:
             for coord in list:
                 if  next_tile in list:
-                    # print("Already a ship here")
                     return True
                 elif self.start_coordinate in list:
-                    # print("Already a ship here")
                     return True
+
+
+    def is_destroyed():
+        pass
 
 class Aircraft_carrier(Ship):
     """
@@ -284,11 +291,15 @@ class Destroyer(Ship):
 # player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
 computer = Player("computer")
+
 # print(user.board.fleet_coords_map)
 # cpu = Player("computer")
 # print(cpu.board.fleet_coords_map)
 # print(cpu.board.__dict__)
 
+#How do I apply this?
+# res = "\n".join("{} {}".format(x, y) for x, y in zip(Board.print_board(user), Board.print_board(computer)))
+# print(res)
 
 # print(user.board.ship_log())
 # for i in range(len(user.board.fleet)):
