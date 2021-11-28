@@ -34,28 +34,59 @@ class Player:
         self.name = name
         if self.name == "computer":
             self.board = Board(name)
-        else:
-            result = input("(a)uto  or (m)anual?: ") #place inout into a function with while loop and then call input checker from there
-            auto = self.input_checker(result)
+        else: #place inout into a function with while loop and then call input checker from there
+            auto = self.quick_start_check()
             self.board = Board(name, auto)
         self.guesses = []
         # self.guess_index = 0
 
 
-    @classmethod #static method maybe
-    def input_checker(cls, result):
+    @staticmethod #static method maybe
+    def quick_start_check():
         # add checks later includeding  one for m - needs to return True or False 
-        if result == "a":
-            return True
-        elif result == "m":
-            return False
-        else:
-            print("not valid input will add while loop, variable called valid = false and set to true when a or m is press")
+        invalid_input= True
+        while invalid_input:
+            setup_type = input('Type "Quick" to place your ships randomly, or "Manual" to place your ships yourself\n').lower()
+            if setup_type == "quick":
+                invalid_input = False
+                return True
+            elif setup_type == "manual":
+                invalid_input = False
+                return False
+            else:
+                print('Not valid input please only type "Quick" or "Manual: \n')
+                
 
     
-    def user_fire(self):
-        guess_coordinate = input('"Sir! Where should we fire the first excess round?" : eg 0,4 \n').split(",")
-        guess_coordinate = self.guesses.append(tuple(int(i) for i in guess_coordinate))
+    def take_aim(self):
+        valid_guess = False
+        while valid_guess == False:
+            if self.name == "computer":
+                while valid_guess == False:
+                    guess_coordinate = (random.randint(0, 9), random.randint(0, 9))
+                    previously_guessed = guess_coordinate in self.guesses
+                    if previously_guessed: 
+                        break
+                    else:
+                        self.guesses.append(guess_coordinate)
+                        return guess_coordinate
+            else:
+                guess_coordinate = input('"Sir! To which coordinate should we unload the chamber?" : eg 0,4 \n').split(",")
+                guess_coordinate = (tuple(int(i) for i in guess_coordinate))
+            
+            previously_guessed = guess_coordinate in self.guesses
+            
+            #Somewhere in here I need to account for invalid input types
+            if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
+                print("But capt'n thats out of bounds, respectively I ask you again...")
+
+            elif previously_guessed:
+                print("Sir? has the war driven you crazy? We've already fired there, so with all due respect I repeat....")
+            
+            else:
+                print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
+                self.guesses.append(guess_coordinate)
+                return guess_coordinate
 
 
 class Board:
@@ -305,6 +336,9 @@ class Destroyer(Ship):
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
 
+class Play_game:
+
+    pass
 
 #Construction of the game
 
