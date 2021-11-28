@@ -8,8 +8,15 @@
 #infinate loop sporadically occurs in build ship. 
 
 #to do
-#still occasional clashes. I suspect from the while loop before check coord function
-#"Already ship here prints even for auto placement.... move print statement elsewhere"
+# If computer create a blank board. 
+# create a firing round
+    # take guess as input/ generates randon guess for the computer
+    # checks coordinate
+        # if in dictionary replaces the tile with the value "@"
+        # If not in dictionary mark with "X"
+# create sink function
+#catch all input errors
+
 
 #notes
 
@@ -32,7 +39,7 @@ class Player:
             auto = self.input_checker(result)
             self.board = Board(name, auto)
         self.guesses = []
-        self.guess_index = 0
+        # self.guess_index = 0
 
 
     @classmethod #static method maybe
@@ -54,42 +61,45 @@ class Player:
 class Board:
     """"Build the boards"""
     board_size = 10
+    number_of_ships = 5
     
     def __init__(self, owner, auto = True): 
         self.owner = owner
         self.auto = auto     
         self.board = self.build_board()
         self.fleet =  self.build_fleet()
-        self.fleet_coords_map = self.fleet_coords_map() 
+        self.fleet_coords_map = self.fleet_coords_map()
         
 
     def build_board(self):
         """
         Builds a blank board with coordinates as a key.
         """
-        board = []
+        self.board = []
 
         for row in range(self.board_size):
-            board.append([])
+            self.board.append([])
             for _ in range(self.board_size):
-                board[row].append("~")
+                self.board[row].append("~")
 
-        return board
+        return self.board
 
     def print_board(self): 
         """
         Prints the board.
         """
-        print(f"     {self.owner}'s board:")
-        print(" ")
-        print("    0 1 2 3 4 5 6 7 8 9")
-        print("   +-+-+-+-+-+-+-+-+-+-")
-        row_num = 0
-        for row in self.board:
-            print(row_num, "|", " ".join(row))
-            row_num += 1
-        print(" ")
-    
+        if self.owner != "computer":
+         
+            print(f"     {self.owner}'s board:")
+            print(" ")
+            print("    0 1 2 3 4 5 6 7 8 9")
+            print("   +-+-+-+-+-+-+-+-+-+-")
+            row_num = 0
+            for row in self.board:
+                print(row_num, "|", " ".join(row))
+                row_num += 1
+            print(" ")
+        
 
     def build_fleet(self):
         """
@@ -99,7 +109,7 @@ class Board:
         occupied_coordinates = []
         ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
    
-        for i in range(5):
+        for i in range(self.number_of_ships):
 
             if self.auto:
                 random_start = (random.randint(0, 9), random.randint(0, 9))
@@ -205,7 +215,7 @@ class Board:
         """
         
         ship_log = {}
-        for i in range(5):
+        for i in range(self.number_of_ships):
             ship_log.update(dict(zip(self.fleet[i].coordinates, self.fleet[i].symbol_list)))
         return ship_log 
 
@@ -302,6 +312,8 @@ class Destroyer(Ship):
 # player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
 computer = Player("computer")
+# user_guess_board = Player("CPU")
+
 
 # print(user.board.fleet_coords_map)
 # cpu = Player("computer")
@@ -309,10 +321,11 @@ computer = Player("computer")
 # print(cpu.board.__dict__)
 
 #How do I apply this propely? reference print boards side by side https://www.codegrepper.com/code-examples/python/how+to+print+two+lists+side+by+side+in+python
-res = "\n".join("{} {}".format(x, y) for x, y in zip(user.board.board, computer.board.board))
+# res = "\n".join("{} {}".format(x, y) for x, y in zip(user.board.board, computer.board.board))
 
-# it works but I cannot access the print board to tidy it up
-print(res)
+# # it works but I cannot access the print board to tidy it up
+# print(res)
+
 # print(user.board.__dict__)
 # print(computer.__dict__)
 
