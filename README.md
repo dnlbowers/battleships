@@ -33,22 +33,33 @@ Once a ship is sunk the whole ship will convert from :boom: to :diving_mask:
 Last side with a ship still afloat wins.
 
 ##issues/testing (rough notes)
+
 * Classes and sub classes, I was trying to figure out how to link all objects together. At first I was making all classes a sub class of "Player" The after much research I realized that board and ship were not types of player but something the player possessed. Realising this I made the board class part of the innit method in player so it Belonged to the player but was not a sub class of.
+
 * I needed a way to check if a ship had already been place on a tile. I was trying to access the coordinates from the ship obj directly and bu simply using += to add to the list the was no definition between the set of coords (row, column). when I then realized the error saying that fleet[i].coordinates error saying it lack the append attribute I realized I could do  from with in the build fleet function using the predefined list and the coords used to innit the obj. after realising this I was able to use occupied_coordinates.append(tuple(random_start)) to place the row and column coordinate as a tuple set with in the predefined occupied_coordinates list.
   * This changed - go back to review
+
 * When creating an object for the computer it was asking how it wanted to place the ships, this was fix with an if statement in the innit method of the class.
+
 * When trying to determine within the build ship function with auto placement it was then asking the player to place ships manually. I found that this partly because I have placed the auto placement parameter after the *arg and was being added to the list of occupied tiles and as such it was failing to recognize us it auto placement or manual being past, Moving the parameter from the last to the first fix this,
-* After trying to understand why it was not able to read the list within a list I search for iterating through a list of lists. I was then able to create a static method in the ship class that searched each list within the list of occupied tiles and return True if the coord was found in one of the nested lists. This would then be used within a conditional statement to be triggered it the enter coord was original and not in the occupied tiles.
-* The while loop in the build fleet function wasn't working because I forgot to define the variable in the while loop prior to using it.
+
+* After trying to understand why it was not able to read the list within a list I search for iterating through a list of lists. I was then able to create a static method in the board class that searched each list within the list of occupied tiles and return True if the coord was found in one of the nested lists. This would then be used within a conditional statement to be triggered it the entered coord was original and not in the occupied tiles.
+
+* The while loop in the build fleet function wasn't working because I forgot to define the variable in the while loop prior to using it. THis was later abandoned and all the checking of the user input was done within the build ship function
+
 *In order to zip the symbol and cords together as a reference dictionary I needed to make the symbol *length
 
 *When trying to place the ships on the board the logic was showing no error but the board, did not update when printed - I was trying to append the symbol when all I needed to do was use the assignment operator.
 
 
-## Credits:
-Python OOP Tutorial series by Corey Schafer  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)
-To get a general idea of the game logic I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I
+## future development ideas:
+* multiplayer - The user would be asked for the name of the second player, they enter computer for 1 player mode and any other string for two player.
+  * This would would by asking the next player if they were ready after player ones turn, when they hit enter they would then see player 1 board blank (minus hits and misses). After player two trun the console would clear asking player 1 if they are ready and so on.
 
+## Credits:
+* Python OOP Tutorial series by Corey Schafer for general reference on working with classes and OOP in general  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)  
+* To get a general idea of the game logic I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I  
+* The idea to decorate the board with numbers above and to the side came from Knowledge Mavens you tube channel - https://youtu.be/alJH_c9t4zw
 
 
 # To be deleted when finally deployed

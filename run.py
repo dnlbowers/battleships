@@ -1,7 +1,5 @@
-#possible reference print boards side by side https://www.codegrepper.com/code-examples/python/how+to+print+two+lists+side+by+side+in+python
-
 # To check:
-# How to print the boards side by side
+# How to print the boards side by side 
 #How to add index to the outside - LOW Priority
 #line 78 how to access the player name from board for the initial placement function
 #Mixin for the static methods? i,e original tile check in ship also used in board
@@ -48,8 +46,9 @@ class Player:
             print("not valid input will add while loop, variable called valid = false and set to true when a or m is press")
 
     
-    def user_fire():
-        pass
+    def user_fire(self):
+        guess_coordinate = input('"Sir! Where should we fire the first excess round?" : eg 0,4 \n').split(",")
+        guess_coordinate = self.guesses.append(tuple(int(i) for i in guess_coordinate))
 
 
 class Board:
@@ -127,6 +126,10 @@ class Board:
 
 
     def build_ship(self, auto_placement, ship, occupied_tiles):
+        """
+        Builds the ship in the chosen direction and advises user if the intended location
+        is already occupied. if required asks for/generates randomly a new start coordinate.
+        """
         placement_process = True
 
         while placement_process:
@@ -182,9 +185,11 @@ class Board:
         return ship.coordinates
     
 
-    #This is also in board, Mixin or sort it out - no longer in board 
     @staticmethod
     def duplicate_tile_check(ship, occupied_tiles, next_tile):
+        """
+        Checks if a tile is occupied before allowing a ship to be placed across it.
+        """
         for list in occupied_tiles:
             for coord in list:
                 if  next_tile in list:
@@ -193,6 +198,12 @@ class Board:
                     return True    
     
     def fleet_coords_map(self):
+        """"
+        Creates a dictionary of the fleets coordinates. 
+        Key = coordinate 
+        Value = Ship symbol to identify which ship was hit
+        """
+        
         ship_log = {}
         for i in range(5):
             ship_log.update(dict(zip(self.fleet[i].coordinates, self.fleet[i].symbol_list)))
@@ -200,7 +211,10 @@ class Board:
 
     
     def initial_placement(self, ship, auto_placement = False):
+        """
+        If auto placement = False (Manually placed ships) - Prints a board showing each ship in the chose location
 
+        """
         for i in range(ship.length):
             self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
         if not auto_placement:    
@@ -294,12 +308,16 @@ computer = Player("computer")
 # print(cpu.board.fleet_coords_map)
 # print(cpu.board.__dict__)
 
-#How do I apply this?
-# res = "\n".join("{} {}".format(x, y) for x, y in zip(Board.print_board(user), Board.print_board(computer)))
-# print(res)
+#How do I apply this propely? reference print boards side by side https://www.codegrepper.com/code-examples/python/how+to+print+two+lists+side+by+side+in+python
+res = "\n".join("{} {}".format(x, y) for x, y in zip(user.board.board, computer.board.board))
+
+# it works but I cannot access the print board to tidy it up
+print(res)
+# print(user.board.__dict__)
+# print(computer.__dict__)
+
 
 # print(user.board.ship_log())
 # for i in range(len(user.board.fleet)):
 #     print(user.board.ship_log(user.board.fleet[i]))
 # Player("computer")
-
