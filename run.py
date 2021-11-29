@@ -43,22 +43,29 @@ class Player:
 
     @staticmethod #static method maybe
     def quick_start_check():
+        """"
+        Asks human player if they wish to set the ships up themselves or use the quick start feature.
+        """
+        
         # add checks later includeding  one for m - needs to return True or False 
         invalid_input= True
         while invalid_input:
-            setup_type = input('Type "Quick" to place your ships randomly, or "Manual" to place your ships yourself\n').lower()
-            if setup_type == "quick":
+            setup_type = input('Type "(Q)uick" to place your ships randomly, or "(M)anual" to place your ships yourself\n').lower()
+            if setup_type == "quick" or setup_type == "q":
                 invalid_input = False
                 return True
-            elif setup_type == "manual":
+            elif setup_type == "manual" or setup_type == "m":
                 invalid_input = False
                 return False
             else:
                 print('Not valid input please only type "Quick" or "Manual: \n')
                 
 
-    
     def take_aim(self):
+        """
+        Sets the guess coordinates by input or random and returns only original guesses
+        """
+        
         valid_guess = False
         while valid_guess == False:
             if self.name == "computer":
@@ -79,10 +86,8 @@ class Player:
             #Somewhere in here I need to account for invalid input types
             if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
                 print("But capt'n thats out of bounds, respectively I ask you again...")
-
             elif previously_guessed:
                 print("Sir? has the war driven you crazy? We've already fired there, so with all due respect I repeat....")
-            
             else:
                 print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                 self.guesses.append(guess_coordinate)
@@ -119,17 +124,16 @@ class Board:
         """
         Prints the board.
         """
-        if self.owner != "computer":
-         
-            print(f"     {self.owner}'s board:")
-            print(" ")
-            print("    0 1 2 3 4 5 6 7 8 9")
-            print("   +-+-+-+-+-+-+-+-+-+-")
-            row_num = 0
-            for row in self.board:
-                print(row_num, "|", " ".join(row))
-                row_num += 1
-            print(" ")
+    # if self.owner != "computer":
+        # How can I make this a return value and use it in the below zip format string?
+        print(f"     {self.owner}'s board:")
+        print("    0 1 2 3 4 5 6 7 8 9")
+        print("  -+-+-+-+-+-+-+-+-+-+-")
+        row_num = 0
+        for row in self.board:
+            print(row_num, "|", " ".join(row))
+            row_num += 1
+        print("\n")
         
 
     def build_fleet(self):
@@ -152,7 +156,7 @@ class Board:
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
                 
                 start_position = tuple(int(i) for i in start_position)
-                direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
+                direction = input('From the bow in which direction is stern pointing, "(R)ight" or "(D)own": ').lower()
                 ship_instance = ship_obj_type[i]((start_position), direction, (start_position))
 
             self.build_ship(self.auto, ship_instance, occupied_coordinates)  
@@ -180,16 +184,16 @@ class Board:
 
             for i in range(1, ship.length):
                 
-                if ship.direction == "d":
+                if ship.direction == "d" or self.direction == "down":
                     next_tile = (ship.start_coordinate[0] + i, ship.start_coordinate[1])
                     index_to_increment = 0
 
-                elif ship.direction == "r":
+                elif ship.direction == "r" or self.direction == "right":
                     next_tile = (ship.start_coordinate[0], ship.start_coordinate[1] + i)
                     index_to_increment = 1
                 duplicate_tile = self.duplicate_tile_check(ship, occupied_tiles, next_tile)
 
-                if ship.start_coordinate[index_to_increment] + ship.length > 9:
+                if ship.start_coordinate[index_to_increment] + (ship.length - 1) > 9:
                     
                     if auto_placement:
                         ship.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
@@ -200,7 +204,7 @@ class Board:
                         ship.start_coordinate = input(f"Pick a new start coordinate for your {ship.name}? /n"
                             "Separate two numbers with a comma i.e 4,5 : ").split(",")
                         ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate) 
-                        ship.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
+                        ship.direction = input('From the bow in which direction is stern pointing, "(R)ight" or "(D)own": ').lower()
                         break    
 
                 elif not duplicate_tile:
@@ -256,10 +260,11 @@ class Board:
         If auto placement = False (Manually placed ships) - Prints a board showing each ship in the chose location
 
         """
-        for i in range(ship.length):
-            self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
-        if not auto_placement:    
-            self.print_board()
+        if self.owner != "computer":
+            for i in range(ship.length):
+                self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
+            if not auto_placement:    
+                self.print_board()
 
    
 
