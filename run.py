@@ -102,10 +102,10 @@ class Board:
     def __init__(self, owner, auto = True):
         self.owner = owner
         self.auto = auto
+        self.guess_board = self.build_guess_board()
         self.board = self.build_board()
-        if self.owner != "blank":
-            self.fleet =  self.build_fleet()
-            self.fleet_coords_map = self.fleet_coords_map()
+        self.fleet =  self.build_fleet()
+        self.fleet_coords_map = self.fleet_coords_map()
 
 
     def build_board(self):
@@ -118,15 +118,26 @@ class Board:
             self.board.append([])
             for _ in range(self.board_size):
                 self.board[row].append("~")
-
+        # for index, row in enumerate(zip(player_board, player_guess_board))
         return self.board
+
+    def build_guess_board(self):
+        """"
+        Builds a the board for the user to track their guess results
+        """
+        self.guess_board =[]
+        for row in range(self.board_size):
+            self.guess_board.append([])
+            for _ in range(self.board_size):
+                self.guess_board[row].append("~")
+        return self.guess_board
 
     def print_board(self):
         """
         Prints the board.
         """
     # if self.owner != "computer":
-        # How can I make this a return value and use it in the below zip format string?
+    #     How can I make this a return value and use it in the below zip format string?
         if self.owner == "blank":
             self.owner = "Computer"
         print(f"     {self.owner}'s board:")
@@ -378,8 +389,7 @@ class Game:
 # player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
 computer = Player("Computer")
-blank_board = Board("blank")
-blank_board.print_board()
+
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
@@ -394,7 +404,8 @@ blank_board.print_board()
 # print(cpu.board.__dict__)
 
 #How do I apply this propely? reference print boards side by side https://www.codegrepper.com/code-examples/python/how+to+print+two+lists+side+by+side+in+python
-# res = "\n".join("{} {}".format(x, y) for x, y in zip(user.board.board, computer.board.board))
+# self.board = "\n".join("{} {}".format(x, y) for x, y in zip(player_board, player_guess_board))
+
 
 # # it works but I cannot access the print board to tidy it up
 # print(res)
