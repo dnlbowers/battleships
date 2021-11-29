@@ -1,21 +1,17 @@
 # To check:
-# How to print the boards side by side 
-#How to add index to the outside - LOW Priority
-#line 78 how to access the player name from board for the initial placement function
-#Mixin for the static methods? i,e original tile check in ship also used in board
-# better way to do duplicate_tile_check() I am thinking class method, but there is a call in ship and in board so maybe a mixin?
+# How to print the boards side by side - if I could make the print board a return value would ZIP work ?
 
-#infinate loop sporadically occurs in build ship. 
+#When can I use try and except
 
 #to do
 # If computer create a blank board. 
 # create a firing round
-    # take guess as input/ generates randon guess for the computer
-    # checks coordinate
+    # take guess as input/ generates randon guess for the computer - done
+    # checks coordinate - where to place....?
         # if in dictionary replaces the tile with the value "@"
         # If not in dictionary mark with "X"
 # create sink function
-#catch all input errors
+#catch all input errors 
 
 
 #notes
@@ -32,9 +28,9 @@ class Player:
     """
     def __init__(self, name):
         self.name = name
-        if self.name == "computer":
+        if self.name == "Computer":
             self.board = Board(name)
-        else: #place inout into a function with while loop and then call input checker from there
+        else: 
             auto = self.quick_start_check()
             self.board = Board(name, auto)
         self.guesses = []
@@ -103,8 +99,9 @@ class Board:
         self.owner = owner
         self.auto = auto     
         self.board = self.build_board()
-        self.fleet =  self.build_fleet()
-        self.fleet_coords_map = self.fleet_coords_map()
+        if self.owner != "blank":
+            self.fleet =  self.build_fleet()
+            self.fleet_coords_map = self.fleet_coords_map()
         
 
     def build_board(self):
@@ -126,9 +123,11 @@ class Board:
         """
     # if self.owner != "computer":
         # How can I make this a return value and use it in the below zip format string?
+        if self.owner == "blank":
+            self.owner = "Computer"
         print(f"     {self.owner}'s board:")
         print("    0 1 2 3 4 5 6 7 8 9")
-        print("  -+-+-+-+-+-+-+-+-+-+-")
+        print("   +-+-+-+-+-+-+-+-+-+-")
         row_num = 0
         for row in self.board:
             print(row_num, "|", " ".join(row))
@@ -184,11 +183,11 @@ class Board:
 
             for i in range(1, ship.length):
                 
-                if ship.direction == "d" or self.direction == "down":
+                if ship.direction == "d" or ship.direction == "down":
                     next_tile = (ship.start_coordinate[0] + i, ship.start_coordinate[1])
                     index_to_increment = 0
 
-                elif ship.direction == "r" or self.direction == "right":
+                elif ship.direction == "r" or ship.direction == "right":
                     next_tile = (ship.start_coordinate[0], ship.start_coordinate[1] + i)
                     index_to_increment = 1
                 duplicate_tile = self.duplicate_tile_check(ship, occupied_tiles, next_tile)
@@ -341,16 +340,52 @@ class Destroyer(Ship):
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
 
-class Play_game:
+class Game:
 
-    pass
+    """ 
+    Creates objects and plays the game
+    """
+    
+    def __innit__(self, player, opponent, visible_to_user):
+        self.player = player
+        self.opponent = opponent
+        self.visible_to_user = visible_to_user
+        
 
+
+    def welcome():
+        """"
+        Displays title art, offers user to view the game rules and asks it they wish to begin the game
+        """
+        print(hi)
+
+    
+    def user_turn(self):
+        """"
+        Player fires at the computer and players visual for the opponents board updates with a result
+        """
+        pass
+
+
+    def opponent_turn(self):
+        """"
+        Computer fires at the player and the players board is updated accordingly. 
+        """
+        
+        
 #Construction of the game
 
 #This now creates a player, board, and feet.
 # player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
-computer = Player("computer")
+computer = Player("Computer")
+blank_board = Board("blank")
+blank_board.print_board()
+
+#doesn't work
+# Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
+
+# Play_game(user, computer, "B")
 # user_guess_board = Player("CPU")
 
 
