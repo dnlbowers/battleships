@@ -74,7 +74,7 @@ class Player:
                         break
                     else:
                         self.guesses.append(guess_coordinate)
-                        return guess_coordinate
+                        valid_guess = True
             else:
                 guess_coordinate = input('"Sir! To which coordinate should we unload the chamber?":'
                   ' eg 0,4 \n').split(",")
@@ -91,7 +91,8 @@ class Player:
             else:
                 print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                 self.guesses.append(guess_coordinate)
-                return guess_coordinate
+                valid_guess = True
+        self.board.test(guess_coordinate)
 
 
 class Board:
@@ -105,7 +106,7 @@ class Board:
         self.guess_board = self.build_guess_board()
         self.board = self.build_board()
         self.fleet =  self.build_fleet()
-        self.fleet_coords_map = self.fleet_coords_map()
+        self.map_of_fleet = self.fleet_coords_map()
 
 
     def build_board(self):
@@ -193,12 +194,12 @@ class Board:
         placement_process = True
 
         while placement_process:
-            
+
             temp_ship = []
             temp_ship.append(ship.start_coordinate)
 
             for i in range(1, ship.length):
-                
+
                 if ship.direction == "d" or ship.direction == "down":
                     next_tile = (ship.start_coordinate[0] + i, ship.start_coordinate[1])
                     index_to_increment = 0
@@ -209,40 +210,43 @@ class Board:
                 duplicate_tile = self.duplicate_tile_check(ship, occupied_tiles, next_tile)
 
                 if ship.start_coordinate[index_to_increment] + (ship.length - 1) > 9:
-                    
+
                     if auto_placement:
                         ship.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
-                        ship.direction = random.choice(["r", "d"]) 
+                        ship.direction = random.choice(["r", "d"])
                         break
                     else:
                         print("Out of bounds")
-                        ship.start_coordinate = input(f"Pick a new start coordinate for your {ship.name}? /n"
-                            "Separate two numbers with a comma i.e 4,5 : ").split(",")
-                        ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate) 
-                        ship.direction = input('From the bow in which direction is stern pointing, "(R)ight" or "(D)own": ').lower()
-                        break    
+                        ship.start_coordinate = input("Pick a new start coordinate for your "
+                            f"{ship.name}?/nSeparate two numbers with a comma i.e 4,5: ").split(",")
+                        ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate)
+                        ship.direction = input('From the bow in which direction is stern pointing,'
+                            ' "(R)ight" or "(D)own": ').lower()
+                        break
 
                 elif not duplicate_tile:
                     temp_ship.append(next_tile)
                     if len(temp_ship) == ship.length:
                         ship.coordinates = temp_ship
                         placement_process = False
-                        return ship.coordinates 
-                #look to condense   
+                        return ship.coordinates
+                #look to condense
                 else:
                     if auto_placement:
                         ship.start_coordinate = (random.randint(0, 9), random.randint(0, 9))
-                        ship.direction = random.choice(["r", "d"]) 
+                        ship.direction = random.choice(["r", "d"])
                         break
                     elif not auto_placement:
                         print("There is already another ship here...")
-                        ship.start_coordinate = input(f"Pick a new start coordinate for your {ship.name}? /n"
-                            "Separate two numbers with a comma i.e 4,5 : ").split(",")
-                        ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate) 
-                        ship.direction = input("From the bow in which direction is stern pointing? (r)ight or (d)own: ")
-                        break                   
-        
+                        ship.start_coordinate = input("Pick a new start coordinate for your "
+                            f"{ship.name}?\nSeparate two numbers with a comma i.e 4,5: ").split(",")
+                        ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate)
+                        ship.direction = input("From the bow in which direction is stern pointing?"
+                            "(r)ight or (d)own: ")
+                        break
+
         return ship.coordinates
+
 
     @staticmethod
     def duplicate_tile_check(ship, occupied_tiles, next_tile):
@@ -263,11 +267,15 @@ class Board:
         Key = coordinate
         Value = Ship symbol to identify which ship was hit
         """
-
         ship_log = {}
         for i in range(self.number_of_ships):
             ship_log.update(dict(zip(self.fleet[i].coordinates, self.fleet[i].symbol_list)))
         return ship_log
+
+
+    def guess_checker(self, guess):
+        print(self.__dict__)
+        print(guess)
 
 
     def initial_placement(self, ship, auto_placement = False):
@@ -280,6 +288,13 @@ class Board:
                 self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
             if not auto_placement:
                 self.print_board()
+
+    # If made a class method can I call the user guess from player?
+    def check_for_hit(self):
+        """
+        Takes guess and check agains fleet dictionary.
+        """      
+
 
 
 class Ship:
@@ -304,9 +319,9 @@ class AircraftCarrier(Ship):
     name =  "Aircraft_carrier"
     length = 5
     symbol_list = ["A"] * length
-
-    def __init__(self, start_coordinate, direction, coordinates):
-        super().__init__(start_coordinate, direction, coordinates)
+    #it told me these were useless seems to work without
+    # def __init__(self, start_coordinate, direction, coordinates):
+    #     super().__init__(start_coordinate, direction, coordinates)
 
 
 class Battleship(Ship):
@@ -317,8 +332,8 @@ class Battleship(Ship):
     length = 4
     symbol_list = ["B"] * length
 
-    def __init__(self, start_coordinate, direction, coordinates):
-        super().__init__(start_coordinate, direction, coordinates)
+    # def __init__(self, start_coordinate, direction, coordinates):
+    #     super().__init__(start_coordinate, direction, coordinates)
 
 
 class Cruiser(Ship):
@@ -329,8 +344,8 @@ class Cruiser(Ship):
     length = 3
     symbol_list = ["C"] * length
 
-    def __init__(self, start_coordinate, direction, coordinates):
-        super().__init__(start_coordinate, direction, coordinates)
+    # def __init__(self, start_coordinate, direction, coordinates):
+    #     super().__init__(start_coordinate, direction, coordinates)
 
 
 class Submarine(Ship):
@@ -341,8 +356,8 @@ class Submarine(Ship):
     length = 3
     symbol_list = ["S"] * length
 
-    def __init__(self, start_coordinate, direction, coordinates):
-        super().__init__(start_coordinate, direction, coordinates)
+    # def __init__(self, start_coordinate, direction, coordinates):
+    #     super().__init__(start_coordinate, direction, coordinates)
 
 
 class Destroyer(Ship):
@@ -353,20 +368,17 @@ class Destroyer(Ship):
     length = 2
     symbol_list = ["D"] * length
 
-    def __init__(self, start_coordinate, direction, coordinates):
-        super().__init__(start_coordinate, direction, coordinates)
+    # def __init__(self, start_coordinate, direction, coordinates):
+    #     super().__init__(start_coordinate, direction, coordinates)
 
 class Game:
 
     """
     Creates objects and plays the game
     """
-    def __innit__(self, player, opponent, visible_to_user):
-        self.player = player
-        self.opponent = opponent
-        self.visible_to_user = visible_to_user
 
-    def welcome(self):
+
+    def welcome():
         """"
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
@@ -389,7 +401,8 @@ class Game:
 # player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
 computer = Player("Computer")
-
+# print(user.board.__dict__)
+user.take_aim()
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
