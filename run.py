@@ -4,14 +4,14 @@
 #When can I use try and except
 
 #to do
-# If computer create a blank board. 
+# If computer create a blank board.
 # create a firing round
     # take guess as input/ generates randon guess for the computer - done
     # checks coordinate - where to place....?
         # if in dictionary replaces the tile with the value "@"
         # If not in dictionary mark with "X"
 # create sink function
-#catch all input errors 
+#catch all input errors
 
 
 #notes
@@ -30,7 +30,7 @@ class Player:
         self.name = name
         if self.name == "Computer":
             self.board = Board(name)
-        else: 
+        else:
             auto = self.quick_start_check()
             self.board = Board(name, auto)
         self.guesses = []
@@ -40,13 +40,15 @@ class Player:
     @staticmethod #static method maybe
     def quick_start_check():
         """"
-        Asks human player if they wish to set the ships up themselves or use the quick start feature.
+        Asks human player if they wish to set the ships up themselves
+        or use the quick start feature.
         """
-        
-        # add checks later includeding  one for m - needs to return True or False 
+
+        # add checks later includeding  one for m - needs to return True or False
         invalid_input= True
         while invalid_input:
-            setup_type = input('Type "(Q)uick" to place your ships randomly, or "(M)anual" to place your ships yourself\n').lower()
+            setup_type = input('Type "(Q)uick" to place your ships randomly,'
+                ' or "(M)anual" to place your ships yourself\n').lower()
             if setup_type == "quick" or setup_type == "q":
                 invalid_input = False
                 return True
@@ -55,35 +57,37 @@ class Player:
                 return False
             else:
                 print('Not valid input please only type "Quick" or "Manual: \n')
-                
+
 
     def take_aim(self):
         """
         Sets the guess coordinates by input or random and returns only original guesses
         """
-        
+
         valid_guess = False
-        while valid_guess == False:
+        while valid_guess is False:
             if self.name == "computer":
-                while valid_guess == False:
+                while valid_guess is False:
                     guess_coordinate = (random.randint(0, 9), random.randint(0, 9))
                     previously_guessed = guess_coordinate in self.guesses
-                    if previously_guessed: 
+                    if previously_guessed:
                         break
                     else:
                         self.guesses.append(guess_coordinate)
                         return guess_coordinate
             else:
-                guess_coordinate = input('"Sir! To which coordinate should we unload the chamber?" : eg 0,4 \n').split(",")
+                guess_coordinate = input('"Sir! To which coordinate should we unload the chamber?":'
+                  ' eg 0,4 \n').split(",")
                 guess_coordinate = (tuple(int(i) for i in guess_coordinate))
-            
+
             previously_guessed = guess_coordinate in self.guesses
-            
+
             #Somewhere in here I need to account for invalid input types
             if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
                 print("But capt'n thats out of bounds, respectively I ask you again...")
             elif previously_guessed:
-                print("Sir? has the war driven you crazy? We've already fired there, so with all due respect I repeat....")
+                print("Sir? has the war driven you crazy? We've already fired there,"
+                    "so with all due respect I repeat....")
             else:
                 print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                 self.guesses.append(guess_coordinate)
@@ -94,15 +98,15 @@ class Board:
     """"Build the boards"""
     board_size = 10
     number_of_ships = 5
-    
-    def __init__(self, owner, auto = True): 
+
+    def __init__(self, owner, auto = True):
         self.owner = owner
-        self.auto = auto     
+        self.auto = auto
         self.board = self.build_board()
         if self.owner != "blank":
             self.fleet =  self.build_fleet()
             self.fleet_coords_map = self.fleet_coords_map()
-        
+
 
     def build_board(self):
         """
@@ -117,7 +121,7 @@ class Board:
 
         return self.board
 
-    def print_board(self): 
+    def print_board(self):
         """
         Prints the board.
         """
@@ -133,7 +137,7 @@ class Board:
             print(row_num, "|", " ".join(row))
             row_num += 1
         print("\n")
-        
+
 
     def build_fleet(self):
         """
@@ -141,8 +145,8 @@ class Board:
         """
         fleet = []
         occupied_coordinates = []
-        ship_obj_type =  [Aircraft_carrier, Battleship, Cruiser, Submarine, Destroyer]
-   
+        ship_obj_type =  [AircraftCarrier, Battleship, Cruiser, Submarine, Destroyer]
+
         for i in range(self.number_of_ships):
 
             if self.auto:
@@ -153,16 +157,17 @@ class Board:
             else:
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
                     "Separate to numbers with a comma i.e 4,5 : ").split(",")
-                
+
                 start_position = tuple(int(i) for i in start_position)
-                direction = input('From the bow in which direction is stern pointing, "(R)ight" or "(D)own": ').lower()
+                direction = input('From the bow in which direction is stern pointing,'
+                    '"(R)ight" or "(D)own": ').lower()
                 ship_instance = ship_obj_type[i]((start_position), direction, (start_position))
 
-            self.build_ship(self.auto, ship_instance, occupied_coordinates)  
+            self.build_ship(self.auto, ship_instance, occupied_coordinates)
             occupied_coordinates.append(ship_instance.coordinates)
-            
+
             self.initial_placement(ship_instance, self.auto)
-            
+
             fleet.append(ship_instance)
         if self.auto:
             self.print_board()
@@ -227,7 +232,6 @@ class Board:
                         break                   
         
         return ship.coordinates
-    
 
     @staticmethod
     def duplicate_tile_check(ship, occupied_tiles, next_tile):
@@ -235,37 +239,37 @@ class Board:
         Checks if a tile is occupied before allowing a ship to be placed across it.
         """
         for list in occupied_tiles:
-            for coord in list:
+            for _ in list:
                 if  next_tile in list:
                     return True
                 elif ship.start_coordinate in list:
-                    return True    
-    
+                    return True
+
+
     def fleet_coords_map(self):
         """"
-        Creates a dictionary of the fleets coordinates. 
-        Key = coordinate 
+        Creates a dictionary of the fleets coordinates.
+        Key = coordinate
         Value = Ship symbol to identify which ship was hit
         """
-        
+
         ship_log = {}
         for i in range(self.number_of_ships):
             ship_log.update(dict(zip(self.fleet[i].coordinates, self.fleet[i].symbol_list)))
-        return ship_log 
+        return ship_log
 
-    
+
     def initial_placement(self, ship, auto_placement = False):
         """
-        If auto placement = False (Manually placed ships) - Prints a board showing each ship in the chose location
-
+        If auto placement = False (Manually placed ships)
+        Prints a board showing each ship in the chose location
         """
         if self.owner != "computer":
             for i in range(ship.length):
                 self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
-            if not auto_placement:    
+            if not auto_placement:
                 self.print_board()
 
-   
 
 class Ship:
     """
@@ -278,10 +282,11 @@ class Ship:
         self.coordinates = coordinates
 
 
-    def is_destroyed():
-        pass
+    def is_destroyed(self):
+        """"Checks if ships damaged tiles are all true"""
 
-class Aircraft_carrier(Ship):
+
+class AircraftCarrier(Ship):
     """
     Creates an instance of the Aircraft_carrier class.
     """
@@ -291,8 +296,8 @@ class Aircraft_carrier(Ship):
 
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
-        
-        
+
+
 class Battleship(Ship):
     """
     Creates an instance of the Battleship class.
@@ -328,7 +333,7 @@ class Submarine(Ship):
     def __init__(self, start_coordinate, direction, coordinates):
         super().__init__(start_coordinate, direction, coordinates)
 
-    
+
 class Destroyer(Ship):
     """
     Creates an instance of the Destroyer class.
@@ -342,40 +347,34 @@ class Destroyer(Ship):
 
 class Game:
 
-    """ 
+    """
     Creates objects and plays the game
     """
-    
     def __innit__(self, player, opponent, visible_to_user):
         self.player = player
         self.opponent = opponent
         self.visible_to_user = visible_to_user
-        
 
-
-    def welcome():
+    def welcome(self):
         """"
-        Displays title art, offers user to view the game rules and asks it they wish to begin the game
+        Displays title art, offers user to view the game rules and asks if
+        they wish to begin the game
         """
-        print(hi)
 
-    
     def user_turn(self):
         """"
-        Player fires at the computer and players visual for the opponents board updates with a result
+        Player fires at the computer and players visual for the opponents board
+        updates with a result
         """
-        pass
 
 
     def opponent_turn(self):
         """"
-        Computer fires at the player and the players board is updated accordingly. 
+        Computer fires at the player and the players board is updated accordingly.
         """
-        
-        
-#Construction of the game
 
-#This now creates a player, board, and feet.
+#Construction of the game
+# #This now creates a player, board, and feet.
 # player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
 computer = Player("Computer")
