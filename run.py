@@ -20,7 +20,7 @@
 
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
-from os import name
+
 import random
 
 
@@ -68,7 +68,7 @@ class Player:
 
         valid_guess = False
         while valid_guess is False:
-            if self.name == "computer":
+            if self.name == "Computer":
                 while valid_guess is False:
                     guess_coordinate = (random.randint(0, 9), random.randint(0, 9))
                     previously_guessed = guess_coordinate in self.guesses
@@ -298,8 +298,7 @@ class Board:
             for i in range(opponent.number_of_ships):
                 if result is opponent.fleet[i].symbol_list[0]:
                     print(f"Capt'n we made a direct hit! on their {opponent.fleet[i].name}")
-                    
-                    opponent.fleet[i].update_ship_damage()
+                    opponent.fleet[i].update_ship_damage(opponent)
         opponent.update_board(guess, result)
 
 
@@ -314,6 +313,20 @@ class Board:
         self.print_board()
 
 
+    def ships_remaining(self):
+        """
+        Reduces number of ships by one and ends game if all ships sunk.
+        """
+        game_over = False
+        self.number_of_ships -= 1
+        print(f"self{self.owner}")
+        # print(f"opponenet{opponent.owner}")
+        if self.number_of_ships == 0:
+            game_over = True
+            return game_over
+        return game_over
+
+
 class Ship:
     """
     Creates the ship class for later sub class of ships.
@@ -323,14 +336,17 @@ class Ship:
         self.direction = direction
         self.damaged_tiles = []
         self.coordinates = coordinates
+        self.is_sunk = False
 
 
-    def update_ship_damage(self):
+    def update_ship_damage(self, opponent):
         """"
         Checks through the ships damage tiles and updates as required
         """
         self.damaged_tiles.append(True)
-        print(self.damaged_tiles)
+        if len(self.damaged_tiles) == self.length:
+            self.is_sunk = True
+            opponent.ships_remaining()
 
 
 class AircraftCarrier(Ship):
@@ -426,8 +442,13 @@ class Game:
 user = Player(input("What is your name? "))
 computer = Player("Computer")
 # print(user.board.__dict__)
-user.take_guess(computer.board)
-user.take_guess(computer.board)
+# print(computer.board.__dict__)
+game_over = False
+while not game_over:
+
+    user.take_guess(computer.board)
+    computer.take_guess(user.board)
+
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
