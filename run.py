@@ -294,7 +294,7 @@ class Board:
         print("Guess_checker")
         print(f"self = {self.owner}")
         
-        result = self.fleet_coords_map()
+        result = self.map_of_fleet
         print(f"{result}")
         result = result.get(guess)
         if result is None:
