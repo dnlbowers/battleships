@@ -94,7 +94,7 @@ class Player:
                 print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                 self.guesses.append(guess_coordinate)
                 valid_guess = True
-        self.board.guess_checker(guess_coordinate, opponent)
+        opponent.guess_checker(guess_coordinate)
 
 
 class Board:
@@ -108,7 +108,7 @@ class Board:
         self.guess_board = self.build_guess_board()
         self.board = self.build_board()
         self.fleet =  self.build_fleet()
-        self.map_of_fleet = self.fleet_coords_map
+        self.map_of_fleet = self.fleet_coords_map()
 
 
     def build_board(self):
@@ -287,25 +287,48 @@ class Board:
                 self.print_board()
 
 
-    def guess_checker(self, guess, opponent):
+    def guess_checker(self, guess):
         """
         Takes guess and check against fleet dictionary.
         """
-        result = opponent.map_of_fleet().get(guess)
+        print("Guess_checker")
+        print(f"self = {self.owner}")
+        
+        result = self.fleet_coords_map()
+        print(f"{result}")
+        result = result.get(guess)
         if result is None:
             print("Thats a miss capt'n.... nothing but water.")
         else:
-            for i in range(opponent.number_of_ships):
-                if result is opponent.fleet[i].symbol_list[0]:
-                    print(f"Capt'n we made a direct hit! on their {opponent.fleet[i].name}")
-                    opponent.fleet[i].update_ship_damage(opponent)
-        opponent.update_board(guess, result)
+            for i in range(5):
+                if result is self.fleet[i].symbol_list[0]:
+                    print(f"Direct hit was made on {self.owner}'s "
+                        f"{self.fleet[i].name}")
+                    self.update_ship_damage(self.fleet[i])
+        self.update_board(guess, result)
+
+    def update_ship_damage(self, ship):
+        """"
+        Checks through the ships damage tiles and updates as required
+        """
+        print("Update_ship")
+        print(f"opponent is {self.owner}")
+
+        ship.damaged_tiles.append(True)
+        print(f"{ship.damaged_tiles} on {ship.name}")
+        if len(ship.damaged_tiles) == ship.length:
+            ship.is_sunk = True
+            print(f" sunk {self.owner}'s {ship.name}")
+            self.ships_remaining()
 
 
     def update_board(self, guess, result):
         """"
         Updates Board with latest hit or miss.
         """
+        print("update board")
+        print(f"{guess}")
+        print(f"{result} marked for {self.owner}")
         if result is None:
             self.board[guess[0]][guess[1]] = "X"
         else:
@@ -317,11 +340,16 @@ class Board:
         """
         Reduces number of ships by one and ends game if all ships sunk.
         """
+        print("Ships_remaining")
+
+        print(f"self = {self.owner}")
+        # print(f"opponent = {opponent.owner}")
         game_over = False
         self.number_of_ships -= 1
+        print(f"ships left {self.number_of_ships}")
         print(f"self{self.owner}")
         # print(f"opponenet{opponent.owner}")
-        if self.number_of_ships == 0:
+        if self.number_of_ships <= 0:
             game_over = True
             return game_over
         return game_over
@@ -338,15 +366,6 @@ class Ship:
         self.coordinates = coordinates
         self.is_sunk = False
 
-
-    def update_ship_damage(self, opponent):
-        """"
-        Checks through the ships damage tiles and updates as required
-        """
-        self.damaged_tiles.append(True)
-        if len(self.damaged_tiles) == self.length:
-            self.is_sunk = True
-            opponent.ships_remaining()
 
 
 class AircraftCarrier(Ship):
@@ -446,9 +465,10 @@ computer = Player("Computer")
 game_over = False
 while not game_over:
 
-    user.take_guess(computer.board)
-    computer.take_guess(user.board)
-
+    game_over = user.take_guess(computer.board)
+    game_over = computer.take_guess(user.board)
+    
+print("game_over")
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
