@@ -1,6 +1,7 @@
-# To check:
-# How to print the boards side by side - if I could make the print board a return value would ZIP work ?
-
+# To check
+# How to print the boards side by side -
+#     if I could make the print board a return value would ZIP work ?
+#How to sort the error of damaged tile * self length in Ship
 #When can I use try and except
 
 #to do
@@ -19,6 +20,7 @@
 
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 
+from os import name
 import random
 
 
@@ -59,7 +61,7 @@ class Player:
                 print('Not valid input please only type "Quick" or "Manual: \n')
 
 
-    def take_aim(self):
+    def take_guess(self, opponent):
         """
         Sets the guess coordinates by input or random and returns only original guesses
         """
@@ -92,7 +94,7 @@ class Player:
                 print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                 self.guesses.append(guess_coordinate)
                 valid_guess = True
-        self.board.test(guess_coordinate)
+        self.board.guess_checker(guess_coordinate, opponent)
 
 
 class Board:
@@ -106,7 +108,7 @@ class Board:
         self.guess_board = self.build_guess_board()
         self.board = self.build_board()
         self.fleet =  self.build_fleet()
-        self.map_of_fleet = self.fleet_coords_map()
+        self.map_of_fleet = self.fleet_coords_map
 
 
     def build_board(self):
@@ -137,8 +139,8 @@ class Board:
         """
         Prints the board.
         """
-    # if self.owner != "computer":
-    #     How can I make this a return value and use it in the below zip format string?
+        # if self.owner != "computer":
+        #     How can I make this a return value and use it in the below zip format string?
         if self.owner == "blank":
             self.owner = "Computer"
         print(f"     {self.owner}'s board:")
@@ -273,11 +275,6 @@ class Board:
         return ship_log
 
 
-    def guess_checker(self, guess):
-        print(self.__dict__)
-        print(guess)
-
-
     def initial_placement(self, ship, auto_placement = False):
         """
         If auto placement = False (Manually placed ships)
@@ -289,12 +286,32 @@ class Board:
             if not auto_placement:
                 self.print_board()
 
-    # If made a class method can I call the user guess from player?
-    def check_for_hit(self):
-        """
-        Takes guess and check agains fleet dictionary.
-        """      
 
+    def guess_checker(self, guess, opponent):
+        """
+        Takes guess and check against fleet dictionary.
+        """
+        result = opponent.map_of_fleet().get(guess)
+        if result is None:
+            print("Thats a miss capt'n.... nothing but water.")
+        else:
+            for i in range(opponent.number_of_ships):
+                if result is opponent.fleet[i].symbol_list[0]:
+                    print(f"Capt'n we made a direct hit! on their {opponent.fleet[i].name}")
+                    
+                    opponent.fleet[i].update_ship_damage()
+        opponent.update_board(guess, result)
+
+
+    def update_board(self, guess, result):
+        """"
+        Updates Board with latest hit or miss.
+        """
+        if result is None:
+            self.board[guess[0]][guess[1]] = "X"
+        else:
+            self.board[guess[0]][guess[1]] = "%"
+        self.print_board()
 
 
 class Ship:
@@ -304,12 +321,16 @@ class Ship:
     def __init__(self, start_coordinate, direction, coordinates):
         self.start_coordinate = start_coordinate
         self.direction = direction
-        self.damaged_tiles = [False] * self.length
+        self.damaged_tiles = []
         self.coordinates = coordinates
 
 
-    def is_destroyed(self):
-        """"Checks if ships damaged tiles are all true"""
+    def update_ship_damage(self):
+        """"
+        Checks through the ships damage tiles and updates as required
+        """
+        self.damaged_tiles.append(True)
+        print(self.damaged_tiles)
 
 
 class AircraftCarrier(Ship):
@@ -368,8 +389,11 @@ class Destroyer(Ship):
     length = 2
     symbol_list = ["D"] * length
 
-    # def __init__(self, start_coordinate, direction, coordinates):
+    # def __init__(self, name, length, symbol_list, start_coordinate, direction, coordinates):
     #     super().__init__(start_coordinate, direction, coordinates)
+    #     self.name = name
+    #     self.length = length
+    #     self.symbol_list = symbol_list
 
 class Game:
 
@@ -378,7 +402,7 @@ class Game:
     """
 
 
-    def welcome():
+    def welcome(self):
         """"
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
@@ -402,7 +426,8 @@ class Game:
 user = Player(input("What is your name? "))
 computer = Player("Computer")
 # print(user.board.__dict__)
-user.take_aim()
+user.take_guess(computer.board)
+user.take_guess(computer.board)
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
