@@ -1,5 +1,5 @@
 import random
-
+import os
 
 class Player:
     """
@@ -309,6 +309,7 @@ class Board:
             else:
                 self.board[guess[0]][guess[1]] = "%"
         if self.owner != "Computer":
+            self.clear_boards()
             self.user_display()
 
 
@@ -322,6 +323,13 @@ class Board:
             game_over = True
             return game_over
         return game_over
+
+    @staticmethod
+    def clear_boards():
+        command = 'clear'
+        if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+            command = 'cls'
+        os.system(command)
 
 
 class Ship:
@@ -404,6 +412,12 @@ class Game:
         """
 
 #Construction of the game
+
+
+
+
+
+
 user = Player(input("What is your name? \n"))
 computer = Player("Computer")
 
@@ -414,4 +428,5 @@ while play_game:
     computer.take_guess(user.board)
     if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
         play_game = False
+
 print("game_over")
