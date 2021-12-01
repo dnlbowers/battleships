@@ -53,20 +53,26 @@ class Player:
             else:
                 guess_coordinate = input('"Sir! To which coordinate should we unload the chamber?":'
                   ' eg 0,4 \n').split(",")
+                
                 guess_coordinate = (tuple(int(i) for i in guess_coordinate))
 
-            previously_guessed = guess_coordinate in self.guesses
+                previously_guessed = guess_coordinate in self.guesses
 
-            #Somewhere in here I need to account for invalid input types
-            if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
-                print("But capt'n thats out of bounds, respectively I ask you again...")
-            elif previously_guessed:
-                print("Sir? has the war driven you crazy? We've already fired there,"
-                    "so with all due respect I repeat....")
-            else:
-                print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
-                self.guesses.append(guess_coordinate)
-                valid_guess = True
+                #Somewhere in here I need to account for invalid input types
+                while previously_guessed:
+                    if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
+                        print("But capt'n thats out of bounds, respectively I ask you again...")
+                        break
+                    elif previously_guessed:
+                        print("Sir? has the war driven you crazy? We've already fired there,"
+                            "so with all due respect I repeat....")
+                        break
+                if not previously_guessed:
+                    print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
+                    self.guesses.append(guess_coordinate)
+                    
+                    valid_guess = True
+        
         opponent.guess_checker(self, guess_coordinate)
 
 
@@ -270,47 +276,53 @@ class Board:
         """
         result = self.map_of_fleet
         result = result.get(guess)
-        if result is None:
-            print("Thats a miss capt'n.... nothing but water.")
-        else:
+        ship = None
+        if result:
             for i in range(5):
+                ship = self.fleet[i].name
                 if result is self.fleet[i].symbol_list[0]:
-                    print(f"Direct hit was made on {self.owner}'s "
-                        f"{self.fleet[i].name}")
                     self.update_ship_damage(self.fleet[i])
-        self.update_board(guess, result, opponent)
+                    break
+        self.update_board(guess, result, opponent, ship)
 
     def update_ship_damage(self, ship):
         """"
         Checks through the ships damage tiles and updates as required
         """
         ship.damaged_tiles.append(True)
-        print(f"{ship.damaged_tiles} on {ship.name}")
         if len(ship.damaged_tiles) == ship.length:
             ship.is_sunk = True
             print(f" sunk {self.owner}'s {ship.name}")
             self.ships_remaining()
 
 
-    def update_board(self, guess, result, opponent):
+    def update_board(self, guess, result, opponent, ship):
         """"
         Updates Board with latest hit or miss.
         """
-        print(guess)
         if self.owner == "Computer":
             if result is None:
                 opponent.board.guess_board[guess[0]][guess[1]] = "X"
+                # opponent.clear_boards()
+                print("Thats a miss capt'n.... nothing but water.")
             else:
                 opponent.board.guess_board[guess[0]][guess[1]] = "%"
+                # self.clear_boards()
+                print(f"Direct hit was made on {self.owner}'s {ship}")
 
         else:
             if result is None:
                 self.board[guess[0]][guess[1]] = "X"
+                self.clear_boards()
+                print("Sir permission to breathe? they missed us!.")
             else:
                 self.board[guess[0]][guess[1]] = "%"
-        if self.owner != "Computer":
-            self.clear_boards()
-            self.user_display()
+                self.clear_boards()
+                print(f"They hit our {ship} sir! We are are taking on water!")
+
+        # if self.owner != "Computer":
+        #     self.user_display()
+
 
 
     def ships_remaining(self):
@@ -324,12 +336,16 @@ class Board:
             return game_over
         return game_over
 
-    @staticmethod
-    def clear_boards():
+    #Taken from https://www.delftstack.com/howto/python/python-clear-console/
+    def clear_boards(self):
+        """"
+        Clears the console
+        """
         command = 'clear'
         if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
             command = 'cls'
         os.system(command)
+        self.user_display()
 
 
 class Ship:
@@ -415,7 +431,12 @@ class Game:
 
 
 
-
+def is_fleet_sunk():
+    if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
+        return False
+    else:
+        return True
+ 
 
 
 user = Player(input("What is your name? \n"))
@@ -423,10 +444,15 @@ computer = Player("Computer")
 
 play_game = True
 while play_game:
-
+    play_game = is_fleet_sunk()
     user.take_guess(computer.board)
-    computer.take_guess(user.board)
-    if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
-        play_game = False
+    play_game = is_fleet_sunk()
+    if play_game:
+        input("press enter for computer turn")
+        # Board.clear_boards()
+        computer.take_guess(user.board)
+    else:
+        break
+
 
 print("game_over")
