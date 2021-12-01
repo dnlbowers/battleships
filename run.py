@@ -296,10 +296,18 @@ class Board:
         """"
         Updates Board with latest hit or miss.
         """
-        if result is None:
-            opponent.board.guess_board[guess[0]][guess[1]] = "X"
+        print(guess)
+        if self.owner == "Computer":
+            if result is None:
+                opponent.board.guess_board[guess[0]][guess[1]] = "X"
+            else:
+                opponent.board.guess_board[guess[0]][guess[1]] = "%"
+
         else:
-            opponent.board.guess_board[guess[0]][guess[1]] = "%"
+            if result is None:
+                self.board[guess[0]][guess[1]] = "X"
+            else:
+                self.board[guess[0]][guess[1]] = "%"
         if self.owner != "Computer":
             self.user_display()
 

@@ -1,4 +1,4 @@
-# Ocean battalion
+# Ocean battalion - https://dnlbowers-battleship.herokuapp.com/
 This game is a take on the original board game battle ship. Based inside of a mock terminal deployed via Heroku.
 
 As I was a child of the 90's I used the traditional ship naming conventions from the 1990 Milton Bradley game version over the more modern Hasbro rendition. More info on this, the rules and the games history can be found here on [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
