@@ -303,11 +303,11 @@ class Board:
         if self.owner == "Computer":
             if result is None:
                 opponent.board.guess_board[guess[0]][guess[1]] = "X"
-                # opponent.clear_boards()
+                opponent.board.clear_boards()
                 print("Thats a miss capt'n.... nothing but water.")
             else:
                 opponent.board.guess_board[guess[0]][guess[1]] = "%"
-                # self.clear_boards()
+                opponent.board.clear_boards()
                 print(f"Direct hit was made on {self.owner}'s {ship}")
 
         else:
@@ -337,7 +337,7 @@ class Board:
         return game_over
 
     #Taken from https://www.delftstack.com/howto/python/python-clear-console/
-    def clear_boards(self):
+    def clear_boards(self, opponent = None):
         """"
         Clears the console
         """
