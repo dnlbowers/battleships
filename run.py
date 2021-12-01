@@ -94,7 +94,7 @@ class Player:
                 print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                 self.guesses.append(guess_coordinate)
                 valid_guess = True
-        opponent.guess_checker(guess_coordinate)
+        opponent.guess_checker(self, guess_coordinate)
 
 
 class Board:
@@ -141,7 +141,7 @@ class Board:
         # print(display)
         print(f"     {self.owner}'s board:          Computer's board:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
-        print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")     
+        print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
         for index, row in enumerate(zip(self.board, self.guess_board)):
             print(
         # print row numbers for 1st board
@@ -164,9 +164,9 @@ class Board:
         #     How can I make this a return value and use it in the below zip format string?
         if self.owner == "blank":
             self.owner = "Computer"
-        print(f"     {self.owner}'s board:          Computer's board:")
-        print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
-        print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
+        print(f"     {self.owner}'s board:")
+        print("    0 1 2 3 4 5 6 7 8 9")
+        print("   +-+-+-+-+-+-+-+-+-+-")
         row_num = 0
         for row in self.board:
             print(row_num, "|", " ".join(row))
@@ -205,7 +205,7 @@ class Board:
 
             fleet.append(ship_instance)
         if self.auto:
-            self.print_board()
+            self.user_display()
         return fleet
 
 
@@ -305,18 +305,14 @@ class Board:
             for i in range(ship.length):
                 self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
             if not auto_placement:
-                self.print_board()
+                self.user_display()
 
 
-    def guess_checker(self, guess):
+    def guess_checker(self, opponent, guess):
         """
         Takes guess and check against fleet dictionary.
         """
-        print("Guess_checker")
-        print(f"self = {self.owner}")
-        
         result = self.map_of_fleet
-        print(f"{result}")
         result = result.get(guess)
         if result is None:
             print("Thats a miss capt'n.... nothing but water.")
@@ -326,7 +322,7 @@ class Board:
                     print(f"Direct hit was made on {self.owner}'s "
                         f"{self.fleet[i].name}")
                     self.update_ship_damage(self.fleet[i])
-        self.update_board(guess, result)
+        self.update_board(guess, result, opponent)
 
     def update_ship_damage(self, ship):
         """"
@@ -343,18 +339,15 @@ class Board:
             self.ships_remaining()
 
 
-    def update_board(self, guess, result):
+    def update_board(self, guess, result, opponent):
         """"
         Updates Board with latest hit or miss.
         """
-        print("update board")
-        print(f"{guess}")
-        print(f"{result} marked for {self.owner}")
         if result is None:
-            self.board[guess[0]][guess[1]] = "X"
+            opponent.board.guess_board[guess[0]][guess[1]] = "X"
         else:
-            self.board[guess[0]][guess[1]] = "%"
-        self.print_board()
+            opponent.board.guess_board[guess[0]][guess[1]] = "%"
+        self.user_display()
 
 
     def ships_remaining(self):
@@ -484,15 +477,15 @@ computer = Player("Computer")
 # print(user.board.__dict__)
 # print(computer.board.__dict__)
 
-user.board.user_display()
-# play_game = True
-# while play_game:
+# user.board.user_display()
+play_game = True
+while play_game:
 
-#     user.take_guess(computer.board)
-#     computer.take_guess(user.board)
-#     if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
-#         play_game = False
-# print("game_over")
+    user.take_guess(computer.board)
+    computer.take_guess(user.board)
+    if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
+        play_game = False
+print("game_over")
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
