@@ -1,26 +1,3 @@
-# To check
-# How to print the boards side by side -
-#     if I could make the print board a return value would ZIP work ?
-#How to sort the error of damaged tile * self length in Ship
-#When can I use try and except
-
-#to do
-# If computer create a blank board.
-# create a firing round
-    # take guess as input/ generates randon guess for the computer - done
-    # checks coordinate - where to place....?
-        # if in dictionary replaces the tile with the value "@"
-        # If not in dictionary mark with "X"
-# create sink function
-#catch all input errors
-
-
-#notes
-
-
-# Write your code to expect a terminal of 80 characters wide and 24 rows high
-
-
 import random
 
 
@@ -36,18 +13,14 @@ class Player:
             auto = self.quick_start_check()
             self.board = Board(name, auto)
         self.guesses = []
-        # self.guess_index = 0
 
-
-    @staticmethod #static method maybe
+    @staticmethod
     def quick_start_check():
         """"
         Asks human player if they wish to set the ships up themselves
         or use the quick start feature.
         """
-
-        # add checks later includeding  one for m - needs to return True or False
-        invalid_input= True
+        invalid_input = True
         while invalid_input:
             setup_type = input('Type "(Q)uick" to place your ships randomly,'
                 ' or "(M)anual" to place your ships yourself\n').lower()
@@ -58,14 +31,14 @@ class Player:
                 invalid_input = False
                 return False
             else:
-                print('Not valid input please only type "Quick" or "Manual: \n')
-
+                print('Not valid input please only type'
+                    '"Quick" or "Manual: \n')
 
     def take_guess(self, opponent):
         """
-        Sets the guess coordinates by input or random and returns only original guesses
+        Sets the guess coordinates by input or random
+        returns only original guesses
         """
-
         valid_guess = False
         while valid_guess is False:
             if self.name == "Computer":
@@ -121,7 +94,6 @@ class Board:
             self.board.append([])
             for _ in range(self.board_size):
                 self.board[row].append("~")
-        # for index, row in enumerate(zip(player_board, player_guess_board))
         return self.board
 
     def build_guess_board(self):
@@ -137,9 +109,8 @@ class Board:
 
 
     def user_display(self):
-        # display = "\n".join("{} {}".format(x, y) for x, y in zip(self.board, self.guess_board))
-        # print(display)
-        print(f"     {self.owner}'s board:          Computer's board:")
+
+        print(f"     {self.owner}'s board:                  Computer's board:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
         print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
         for index, row in enumerate(zip(self.board, self.guess_board)):
@@ -155,23 +126,6 @@ class Board:
         # print current row for 2nd board, join as string and space out 3 spaces with :3s
         ''.join(f'{str(x):2s}' for x in row[1]),
     )
-
-    def print_board(self):
-        """
-        Prints the board.
-        """
-        # if self.owner != "computer":
-        #     How can I make this a return value and use it in the below zip format string?
-        if self.owner == "blank":
-            self.owner = "Computer"
-        print(f"     {self.owner}'s board:")
-        print("    0 1 2 3 4 5 6 7 8 9")
-        print("   +-+-+-+-+-+-+-+-+-+-")
-        row_num = 0
-        for row in self.board:
-            print(row_num, "|", " ".join(row))
-            row_num += 1
-        print("\n")
 
 
     def build_fleet(self):
@@ -205,7 +159,8 @@ class Board:
 
             fleet.append(ship_instance)
         if self.auto:
-            self.user_display()
+            if self.owner != "Computer":
+                self.user_display()
         return fleet
 
 
@@ -305,7 +260,8 @@ class Board:
             for i in range(ship.length):
                 self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
             if not auto_placement:
-                self.user_display()
+                if self.owner == "Computer":
+                    self.user_display()
 
 
     def guess_checker(self, opponent, guess):
@@ -328,9 +284,6 @@ class Board:
         """"
         Checks through the ships damage tiles and updates as required
         """
-        print("Update_ship")
-        print(f"opponent is {self.owner}")
-
         ship.damaged_tiles.append(True)
         print(f"{ship.damaged_tiles} on {ship.name}")
         if len(ship.damaged_tiles) == ship.length:
@@ -347,22 +300,16 @@ class Board:
             opponent.board.guess_board[guess[0]][guess[1]] = "X"
         else:
             opponent.board.guess_board[guess[0]][guess[1]] = "%"
-        self.user_display()
+        if self.owner != "Computer":
+            self.user_display()
 
 
     def ships_remaining(self):
         """
         Reduces number of ships by one and ends game if all ships sunk.
         """
-        print("Ships_remaining")
-
-        print(f"self = {self.owner}")
-        # print(f"opponent = {opponent.owner}")
         game_over = False
         self.number_of_ships -= 1
-        print(f"ships left {self.number_of_ships}")
-        print(f"self{self.owner}")
-        # print(f"opponenet{opponent.owner}")
         if self.number_of_ships <= 0:
             game_over = True
             return game_over
@@ -389,9 +336,6 @@ class AircraftCarrier(Ship):
     name =  "Aircraft_carrier"
     length = 5
     symbol_list = ["A"] * length
-    #it told me these were useless seems to work without
-    # def __init__(self, start_coordinate, direction, coordinates):
-    #     super().__init__(start_coordinate, direction, coordinates)
 
 
 class Battleship(Ship):
@@ -402,9 +346,6 @@ class Battleship(Ship):
     length = 4
     symbol_list = ["B"] * length
 
-    # def __init__(self, start_coordinate, direction, coordinates):
-    #     super().__init__(start_coordinate, direction, coordinates)
-
 
 class Cruiser(Ship):
     """
@@ -413,9 +354,6 @@ class Cruiser(Ship):
     name = "Cruiser"
     length = 3
     symbol_list = ["C"] * length
-
-    # def __init__(self, start_coordinate, direction, coordinates):
-    #     super().__init__(start_coordinate, direction, coordinates)
 
 
 class Submarine(Ship):
@@ -426,9 +364,6 @@ class Submarine(Ship):
     length = 3
     symbol_list = ["S"] * length
 
-    # def __init__(self, start_coordinate, direction, coordinates):
-    #     super().__init__(start_coordinate, direction, coordinates)
-
 
 class Destroyer(Ship):
     """
@@ -438,19 +373,11 @@ class Destroyer(Ship):
     length = 2
     symbol_list = ["D"] * length
 
-    # def __init__(self, name, length, symbol_list, start_coordinate, direction, coordinates):
-    #     super().__init__(start_coordinate, direction, coordinates)
-    #     self.name = name
-    #     self.length = length
-    #     self.symbol_list = symbol_list
 
 class Game:
-
     """
     Creates objects and plays the game
     """
-
-
     def welcome(self):
         """"
         Displays title art, offers user to view the game rules and asks if
@@ -463,21 +390,15 @@ class Game:
         updates with a result
         """
 
-
     def opponent_turn(self):
         """"
         Computer fires at the player and the players board is updated accordingly.
         """
 
 #Construction of the game
-# #This now creates a player, board, and feet.
-# player_name = input("What is your name? ")
 user = Player(input("What is your name? "))
 computer = Player("Computer")
-# print(user.board.__dict__)
-# print(computer.board.__dict__)
 
-# user.board.user_display()
 play_game = True
 while play_game:
 
@@ -486,31 +407,3 @@ while play_game:
     if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
         play_game = False
 print("game_over")
-
-#doesn't work
-# Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
-
-# Play_game(user, computer, "B")
-# user_guess_board = Player("CPU")
-
-
-# print(user.board.fleet_coords_map)
-# cpu = Player("computer")
-# print(cpu.board.fleet_coords_map)
-# print(cpu.board.__dict__)
-
-#How do I apply this propely? reference print boards side by side https://www.codegrepper.com/code-examples/python/how+to+print+two+lists+side+by+side+in+python
-# self.board = "\n".join("{} {}".format(x, y) for x, y in zip(player_board, player_guess_board))
-
-
-# # it works but I cannot access the print board to tidy it up
-# print(res)
-
-# print(user.board.__dict__)
-# print(computer.__dict__)
-
-
-# print(user.board.ship_log())
-# for i in range(len(user.board.fleet)):
-#     print(user.board.ship_log(user.board.fleet[i]))
-# Player("computer")
