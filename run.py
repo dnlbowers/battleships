@@ -135,6 +135,27 @@ class Board:
                 self.guess_board[row].append("~")
         return self.guess_board
 
+
+    def user_display(self):
+        # display = "\n".join("{} {}".format(x, y) for x, y in zip(self.board, self.guess_board))
+        # print(display)
+        print(f"     {self.owner}'s board:          Computer's board:")
+        print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
+        print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")     
+        for index, row in enumerate(zip(self.board, self.guess_board)):
+            print(
+        # print row numbers for 1st board
+        f'{str(index) + " |":2s}',
+        # print current row for 1st board, join as string and space out 3 spaces with :3s
+        ''.join(f'{str(x):2s}' for x in row[0]),
+        # separate the two boards
+        ' ' * 5,
+        # print row numbers for 2nd board
+        f'{str(index)+" |" :2s}',
+        # print current row for 2nd board, join as string and space out 3 spaces with :3s
+        ''.join(f'{str(x):2s}' for x in row[1]),
+    )
+
     def print_board(self):
         """
         Prints the board.
@@ -143,9 +164,9 @@ class Board:
         #     How can I make this a return value and use it in the below zip format string?
         if self.owner == "blank":
             self.owner = "Computer"
-        print(f"     {self.owner}'s board:")
-        print("    0 1 2 3 4 5 6 7 8 9")
-        print("   +-+-+-+-+-+-+-+-+-+-")
+        print(f"     {self.owner}'s board:          Computer's board:")
+        print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
+        print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
         row_num = 0
         for row in self.board:
             print(row_num, "|", " ".join(row))
@@ -462,13 +483,16 @@ user = Player(input("What is your name? "))
 computer = Player("Computer")
 # print(user.board.__dict__)
 # print(computer.board.__dict__)
-game_over = False
-while not game_over:
 
-    game_over = user.take_guess(computer.board)
-    game_over = computer.take_guess(user.board)
-    
-print("game_over")
+user.board.user_display()
+# play_game = True
+# while play_game:
+
+#     user.take_guess(computer.board)
+#     computer.take_guess(user.board)
+#     if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
+#         play_game = False
+# print("game_over")
 
 #doesn't work
 # Game(Player(input("What is your name? ")), Player("computer"), Player("computer")).welcome()
