@@ -145,11 +145,11 @@ class Board:
 
             else:
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
-                    "Separate to numbers with a comma i.e 4,5 : ").split(",")
+                    "Separate to numbers with a comma i.e 4,5 : \n").split(",")
 
                 start_position = tuple(int(i) for i in start_position)
                 direction = input('From the bow in which direction is stern pointing,'
-                    '"(R)ight" or "(D)own": ').lower()
+                    '"(R)ight" or "(D)own": \n').lower()
                 ship_instance = ship_obj_type[i]((start_position), direction, (start_position))
 
             self.build_ship(self.auto, ship_instance, occupied_coordinates)
@@ -196,10 +196,10 @@ class Board:
                     else:
                         print("Out of bounds")
                         ship.start_coordinate = input("Pick a new start coordinate for your "
-                            f"{ship.name}?/nSeparate two numbers with a comma i.e 4,5: ").split(",")
+                            f"{ship.name}?/nSeparate two numbers with a comma i.e 4,5: \n").split(",")
                         ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate)
                         ship.direction = input('From the bow in which direction is stern pointing,'
-                            ' "(R)ight" or "(D)own": ').lower()
+                            ' "(R)ight" or "(D)own": \n').lower()
                         break
 
                 elif not duplicate_tile:
@@ -217,10 +217,10 @@ class Board:
                     elif not auto_placement:
                         print("There is already another ship here...")
                         ship.start_coordinate = input("Pick a new start coordinate for your "
-                            f"{ship.name}?\nSeparate two numbers with a comma i.e 4,5: ").split(",")
+                            f"{ship.name}?\nSeparate two numbers with a comma i.e 4,5: \n").split(",")
                         ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate)
                         ship.direction = input("From the bow in which direction is stern pointing?"
-                            "(r)ight or (d)own: ")
+                            "(r)ight or (d)own: \n")
                         break
 
         return ship.coordinates
@@ -396,7 +396,7 @@ class Game:
         """
 
 #Construction of the game
-user = Player(input("What is your name? "))
+user = Player(input("What is your name? \n"))
 computer = Player("Computer")
 
 play_game = True
