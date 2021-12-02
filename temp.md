@@ -50,12 +50,7 @@ Choose a quick start for the your ships to be randomly placed or select your bat
   * Make the the AI more intelliegent so that when its last move was a hit it searching the adjasent tiles first before moving back to a randomised firing method.
 
 ## Credits:
-* Python OOP Tutorial series by Corey Schafer for general reference on working with classes and OOP in general  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)  
-* To get a general idea of the game logic I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I  
-* The idea to decorate the board with numbers above and to the side came from Knowledge Mavens you tube channel - https://youtu.be/alJH_c9t4zw
-* Clear console function copied from https://www.delftstack.com/howto/python/python-clear-console/
-* https://www.lucidchart.com/ - used to create the game flow chart
-* Code insitute for providing the template which allowed me gave me a mock terminal to display my game via a webpage.
+
 
 
 # To be deleted when finally deployed
