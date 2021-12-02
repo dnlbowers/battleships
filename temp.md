@@ -1,4 +1,4 @@
-# Ocean battalion - https://dnlbowers-battleship.herokuapp.com/
+# Ocean battalion - 
 This game is a take on the original board game battle ship. Based inside of a mock terminal deployed via Heroku.
 
 As I was a child of the 90's I used the traditional ship naming conventions from the 1990 Milton Bradley game version over the more modern Hasbro rendition. More info on this, the rules and the games history can be found here on [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game))
@@ -15,22 +15,6 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 ## How to play
 
-Firstly select your strategy:  
-
-Place your fate in the hands of the sea god Neptune :merman: and let the currents randomly position your ships before you anchor.   
-
-Or  
-
-Choose to spite the sea god and place your ships before dumping your excess rounds into the enemy... I mean the sea.  
-
-Once the positions are set, its time to let a rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other sides ships, choose your co ordinates on the map (row, column) and remember to call "FIRE IN THE HOLD" (safety first after all). The results of you turn will be indicated as follows:  
-
-Hit = :boom:  
-Miss = :ocean:
-
-Once a ship is sunk the whole ship will convert from :boom: to :diving_mask:
-
-Last side with a ship still afloat wins.
 
 ##issues/testing (rough notes)
 
@@ -59,6 +43,7 @@ Last side with a ship still afloat wins.
 ## future development ideas:
 * multiplayer - The user would be asked for the name of the second player, they enter computer for 1 player mode and any other string for two player.
   * This would would by asking the next player if they were ready after player ones turn, when they hit enter they would then see player 1 board blank (minus hits and misses). After player two trun the console would clear asking player 1 if they are ready and so on.
+  * Make the the AI more intelliegent so that when its last move was a hit it searching the adjasent tiles first before moving back to a randomised firing method.
 
 ## Credits:
 * Python OOP Tutorial series by Corey Schafer for general reference on working with classes and OOP in general  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)  
