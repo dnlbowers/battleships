@@ -39,6 +39,10 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 * after 3 sink were sunk any hit was showing with an x and the text for a miss. After printing several variables I found that the fleet location dictionary was updating every round. Due to the letter being changed to a % or x and I was using the function and not the innit variable every time the flow came to fetch the dictionary it was actually degenerating it from the board.
 
+* after set up struggled with how to then play the game, After speaking with my mentor I realised that if I ran the create object back through the classes I could then trigger everythin in  fewlines nly in the global
+
+* One this I would have loved to do for this project is incorporate some Javascript to animate a back ground where by the user would see a missle or torpedo head towards and ship and explod for a hit or splash in the water for a miss. This was well outside of the scop of the assesment criteria but definately something I will be coming back to try and implement later on.
+
 
 ## future development ideas:
 * multiplayer - The user would be asked for the name of the second player, they enter computer for 1 player mode and any other string for two player.
@@ -50,6 +54,8 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 * To get a general idea of the game logic I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I  
 * The idea to decorate the board with numbers above and to the side came from Knowledge Mavens you tube channel - https://youtu.be/alJH_c9t4zw
 * Clear console function copied from https://www.delftstack.com/howto/python/python-clear-console/
+* https://www.lucidchart.com/ - used to create the game flow chart
+* Code insitute for providing the template which allowed me gave me a mock terminal to display my game via a webpage.
 
 
 # To be deleted when finally deployed

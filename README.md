@@ -54,11 +54,20 @@ To achieve the above, the site will:
     * Offer the user a chance to read the rules and back story before starting the game.
 1. Ensure that all user input provides an appropriate response.
 1. Any time the user input is not as expected by the game, the app will show a message to inform the user that their entry was invalid and guide them on how to input as expected.
-1. Executing all of the above in a way that successfully replicates the original board game of battleships
+1. Executing all of the above in a way that successfully replicates the original board game of battleships.
+
+### ***Game Flow Chart:***
+To understand the steps required in order to program the game, I created the below flowchart using[lucid charts](https://www.lucidchart.com/).  
+
+![Game Logic Flowchart](docs/flowchart.jpeg) 
 
 
 ## **Features**
  
 **TO BE DONE WHEN COMPLETE**
 
+
 ## **Data Model**
+ 
+
+## **Libaries**
