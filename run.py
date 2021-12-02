@@ -115,8 +115,10 @@ class Board:
 
 
     def user_display(self):
-
-        print(f"     {self.owner}'s board:                  Computer's board:")
+        """
+        Prints out the user view, their placement board and their guess tally board
+        """
+        print("    Map of your Fleet:             Enemy hit tracker:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
         print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
         for index, row in enumerate(zip(self.board, self.guess_board)):
@@ -131,7 +133,8 @@ class Board:
         f'{str(index)+" |" :2s}',
         # print current row for 2nd board, join as string and space out 3 spaces with :3s
         ''.join(f'{str(x):2s}' for x in row[1]),
-    )
+        )
+        print("\n")
 
 
     def build_fleet(self):
@@ -150,6 +153,7 @@ class Board:
                 ship_instance = ship_obj_type[i](random_start, random_direction, (random_start))
 
             else:
+                self.clear_boards()
                 start_position = input(f"Start coordinate for your {ship_obj_type[i].name}?"
                     "Separate to numbers with a comma i.e 4,5 : \n").split(",")
 
@@ -266,9 +270,8 @@ class Board:
             for i in range(ship.length):
                 self.board[ship.coordinates[i][0]][ship.coordinates[i][1]] = ship.symbol_list[i]
             if not auto_placement:
-                if self.owner == "Computer":
-                    self.user_display()
-
+                if self.owner != "Computer":
+                    self.clear_boards()
 
     def guess_checker(self, opponent, guess):
         """
@@ -279,9 +282,8 @@ class Board:
         ship = None
         if result:
             for i in range(5):
-                ship = self.fleet[i].name
+                ship = self.fleet[i]
                 if result is self.fleet[i].symbol_list[0]:
-                    self.update_ship_damage(self.fleet[i])
                     break
         self.update_board(guess, result, opponent, ship)
 
@@ -304,23 +306,26 @@ class Board:
             if result is None:
                 opponent.board.guess_board[guess[0]][guess[1]] = "X"
                 opponent.board.clear_boards()
-                print("Thats a miss capt'n.... nothing but water.")
+                print("Thats a miss capt'n.... nothing but water.\n")
+
             else:
                 opponent.board.guess_board[guess[0]][guess[1]] = "%"
                 opponent.board.clear_boards()
-                print(f"Direct hit was made on {self.owner}'s {ship}")
+                print(f"Direct hit was made on {self.owner}'s {ship.name}\n")
+                self.update_ship_damage(ship)
 
         else:
             if result is None:
                 self.board[guess[0]][guess[1]] = "X"
                 self.clear_boards()
-                print("Sir permission to breathe? they missed us!.")
+                print("Sir permission to breathe? they missed us!.\n")
             else:
                 self.board[guess[0]][guess[1]] = "%"
                 self.clear_boards()
-                print(f"They hit our {ship} sir! We are are taking on water!")
+                print(f"They hit our {ship} sir! We are are taking on water!\n")
+                self.update_ship_damage(ship)
 
-        # if self.owner != "Computer":
+            # if self.owner != "Computer":
         #     self.user_display()
 
 
@@ -331,13 +336,14 @@ class Board:
         """
         game_over = False
         self.number_of_ships -= 1
-        if self.number_of_ships <= 0:
-            game_over = True
+        print(f"{self.owner} has {self.number_of_ships} remaining")
+        if self.number_of_ships == 0:
+            return True
+        else:
             return game_over
-        return game_over
 
     #Taken from https://www.delftstack.com/howto/python/python-clear-console/
-    def clear_boards(self, opponent = None):
+    def clear_boards(self,):
         """"
         Clears the console
         """
@@ -451,6 +457,8 @@ while play_game:
         input("press enter for computer turn")
         # Board.clear_boards()
         computer.take_guess(user.board)
+        #The below is for testing only
+        computer.board.user_display()
     else:
         break
 
