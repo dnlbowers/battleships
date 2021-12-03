@@ -35,8 +35,8 @@ class Player:
                 return False
             else:
                 print(
-                    'Not valid input please only type'
-                    '"Q" , M, "Quick", or "Manual (Casing does not matter): \n')
+                    'Not valid input please only type "Q" , M, "Quick",'
+                    'or "Manual (Casing does not matter): \n')
 
     def take_guess(self, opponent_guess_checker):
         """
@@ -70,16 +70,18 @@ class Player:
                 while previously_guessed:
                     if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
                         print(
-                            "But capt'n thats out of bounds, respectively I ask you again...")
+                            "But capt'n thats out of bounds, respectively I"
+                            " ask you again...")
                         break
                     elif previously_guessed:
                         print(
-                            "Sir? has the war driven you crazy? We've already fired there,"
-                            "so with all due respect I repeat....")
+                            "Sir? has the war driven you crazy? We've already"
+                            " fired there,so with all due respect I repeat...")
                         break
                 if not previously_guessed:
                     print(
-                        f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
+                        "Aye, Aye Capt'n! Fire in the hole boys aim"
+                        f" for sector {guess_coordinate}")
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
         opponent_guess_checker(self, guess_coordinate)
@@ -125,7 +127,8 @@ class Board:
 
     def user_display(self):
         """
-        Prints out the user view, their placement board and their guess tally board
+        Prints out the user view, their placement board
+        and their guess tally board
         """
         print("    Map of your Fleet:             Enemy hit tracker:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
@@ -194,8 +197,9 @@ class Board:
 
     def build_ship(self, auto_placement, ship, occupied_tiles):
         """
-        Builds the ship in the chosen direction and advises user if the intended location
-        is already occupied. if required asks for/generates randomly a new start coordinate.
+        Builds the ship in the chosen direction and advises user if
+        the intended location is already occupied.
+        if required asks for/generates randomly a new start coordinate.
         """
         placement_process = True
 
@@ -274,7 +278,8 @@ class Board:
     @staticmethod
     def duplicate_tile_check(ship, occupied_tiles, next_tile):
         """
-        Checks if a tile is occupied before allowing a ship to be placed across it.
+        Checks if a tile is occupied
+        before allowing a ship to be placed across it.
         """
         for list in occupied_tiles:
             for _ in list:
@@ -465,7 +470,8 @@ class Game:
 
     def opponent_turn(self):
         """"
-        Computer fires at the player and the players board is updated accordingly.
+        Computer fires at the player
+        and the players board is updated accordingly.
         """
 
 # Construction of the game
