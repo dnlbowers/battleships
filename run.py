@@ -32,7 +32,7 @@ class Player:
                 return False
             else:
                 print('Not valid input please only type'
-                    '"Quick" or "Manual: \n')
+                    '"Q" , M, "Quick", or "Manual (Casing does not matter): \n')
 
     def take_guess(self, opponent):
         """
@@ -53,7 +53,7 @@ class Player:
             else:
                 guess_coordinate = input('"Sir! To which coordinate should we unload the chamber?":'
                   ' eg 0,4 \n').split(",")
-                
+
                 guess_coordinate = (tuple(int(i) for i in guess_coordinate))
 
                 previously_guessed = guess_coordinate in self.guesses
@@ -70,14 +70,13 @@ class Player:
                 if not previously_guessed:
                     print(f"Aye, Aye Capt'n! Fire in the hole boys aim for sector {guess_coordinate}")
                     self.guesses.append(guess_coordinate)
-                    
                     valid_guess = True
-        
         opponent.guess_checker(self, guess_coordinate)
 
-
 class Board:
-    """"Build the boards"""
+    """"
+    Builds the boards where ships will be placed
+    """
     board_size = 10
     number_of_ships = 5
 
@@ -206,7 +205,7 @@ class Board:
                     else:
                         print("Out of bounds")
                         ship.start_coordinate = input("Pick a new start coordinate for your "
-                            f"{ship.name}?/nSeparate two numbers with a comma i.e 4,5: \n").split(",")
+                            f"{ship.name}? \n Separate two numbers with a comma i.e 4,5: \n").split(",")
                         ship.start_coordinate = tuple(int(i) for i in ship.start_coordinate)
                         ship.direction = input('From the bow in which direction is stern pointing,'
                             ' "(R)ight" or "(D)own": \n').lower()

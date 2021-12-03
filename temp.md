@@ -41,14 +41,16 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 * after set up struggled with how to then play the game, After speaking with my mentor I realised that if I ran the create object back through the classes I could then trigger everythin in  fewlines nly in the global
 
-* One this I would have loved to do for this project is incorporate some Javascript to animate a back ground where by the user would see a missle or torpedo head towards and ship and explod for a hit or splash in the water for a miss. This was well outside of the scop of the assesment criteria but definately something I will be coming back to try and implement later on.
+
 
 
 ## future development ideas:
 * multiplayer - The user would be asked for the name of the second player, they enter computer for 1 player mode and any other string for two player.
-  * This would would by asking the next player if they were ready after player ones turn, when they hit enter they would then see player 1 board blank (minus hits and misses). After player two trun the console would clear asking player 1 if they are ready and so on.
-  * Make the the AI more intelliegent so that when its last move was a hit it searching the adjasent tiles first before moving back to a randomised firing method.
-
+* This would would by asking the next player if they were ready after player ones turn, when they hit enter they would then see player 1 board blank (minus hits and misses). After player two trun the console would clear asking player 1 if they are ready and so on.
+* Make the the AI more intelligent so that when its last move was a hit it searching the adjasent tiles first before moving back to a randomised firing method.
+* add colors to differentiate ships from the water and hits from the miss.
+* One this I would have loved to do for this project is incorporate some Javascript to animate a back ground where by the user would see a missle or torpedo head towards and ship and explod for a hit or splash in the water for a miss. This was well outside of the scop of the assesment criteria but definately something I will be coming back to try and implement later on.
+  
 ## Credits:
 
 

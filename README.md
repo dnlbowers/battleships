@@ -61,7 +61,7 @@ To understand the steps required in order to program the game, I created the bel
 
 ![Game Logic Flowchart](docs/flowchart.jpeg) 
 
-
+<<<<<<<Grammarly done til here>>>>>>>
 ## **Features**
  
 **TO BE DONE WHEN COMPLETE**
@@ -101,5 +101,5 @@ Sean Murphy
 * The idea to decorate the board with numbers above and to the side came from Knowledge Mavens youtube channel - https://youtu.be/alJH_c9t4zw
 * Clear console function copied from https://www.delftstack.com/howto/python/python-clear-console/
 * https://www.lucidchart.com/ - used to create the game flow chart
-* Code Insitute for providing the template. The template gave me a mock terminal to display my game via a webpage.
+* Code Institute for providing the template. The template gave me a mock terminal to display my game via a webpage.
 
