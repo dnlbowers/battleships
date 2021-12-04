@@ -1,5 +1,6 @@
 import random
 import os
+from msvcrt import getch as wait
 
 
 class InputMixin():
@@ -63,7 +64,7 @@ class Player(InputMixin):
         invalid_input = True
         while invalid_input:
             setup_type = input(
-                'Type "(Q)uick" to place your ships randomly,'
+                'Type "(Q)uick" to place your ships randomly,\n'
                 ' or "(M)anual" to place your ships yourself\n').lower()
             if setup_type == "quick" or setup_type == "q":
                 invalid_input = False
@@ -96,10 +97,11 @@ class Player(InputMixin):
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
             else:
-                input("Press enter to take your turn")
+                print("Press any key to take your turn")
+                wait()
                 guess_coordinate = input(
-                    '"Sir! To which coordinate should we unload the chamber?":'
-                    ' eg 0,4 \n')
+                    '"Sir! To which coordinate should we unload the '
+                    'chamber?":\n Enter (row then column) eg 0,4 or 04: \n')
 
                 guess_coordinate = self.coord_input_validator(guess_coordinate)
                 print(guess_coordinate)
@@ -109,12 +111,12 @@ class Player(InputMixin):
                 while previously_guessed:
                     if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
                         print(
-                            "But capt'n thats out of bounds, respectively I"
+                            "But capt'n thats out of bounds,\n respectively I"
                             " ask you again...")
                         break
                     elif previously_guessed:
                         print(
-                            "Sir? has the war driven you crazy? We've already"
+                            "Sir? has the war driven you crazy?\nWe've already"
                             " fired there,so with all due respect I repeat...")
                         break
                 if not previously_guessed:
@@ -169,7 +171,9 @@ class Board(InputMixin):
         Prints out the user view, their placement board
         and their guess tally board
         """
-        print("    Map of your Fleet:                 Guess tracker:")
+        self.clear_boards()
+        print(f"     These sea charts belong to Captian {self.owner}")
+        print("    Map of your Fleet:               Guess tracker:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
         print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
         for index, row in enumerate(zip(self.board, self.guess_board)):
@@ -211,10 +215,10 @@ class Board(InputMixin):
                     random_start, random_direction, (random_start))
 
             else:
-                self.clear_boards()
+                self.user_display()
                 start_position = input(
                     f"From where would you like your {ship_obj_type[i].name} "
-                    "to start? Please enter two numbers (row then column)"
+                    "to start?\n Please enter two numbers (row then column)"
                     "i.e 4,5 or 45: \n")
 
                 start_position = self.coord_input_validator(start_position)
@@ -231,7 +235,7 @@ class Board(InputMixin):
         if self.auto:
             if self.owner != "Computer":
                 self.user_display()
-        print("Lets the battle commence!")
+                print("Let the battle commence!")
         return fleet
 
     def build_ship(self, auto_placement, ship, occupied_tiles):
@@ -277,8 +281,8 @@ class Board(InputMixin):
                         print("Out of bounds")
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
-                            f"{ship.name}? \n Separate two numbers with a "
-                            "comma i.e 4,5: \n")
+                            f"{ship.name}? \n Please enter two numbers "
+                            "(row then column) i.e 4,5 or 45: \n")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
                         ship.direction = self.direction_input()
@@ -303,8 +307,8 @@ class Board(InputMixin):
                         print("There is already another ship here...")
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
-                            f"{ship.name}?\nSeparate two numbers with a "
-                            "comma i.e 4,5: \n")
+                            f"{ship.name}? \n Please enter two numbers "
+                            "(row then column) i.e 4,5 or 45: \n")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
                         ship.direction = self.direction_input()
@@ -325,7 +329,7 @@ class Board(InputMixin):
                 return "down"
             else:
                 print(
-                    'Not valid input please only type "R" , D, "Right",'
+                    'Not a valid input please only type "R" , "D", "Right",'
                     'or "Down" (Casing does not matter): \n')
 
     @staticmethod
@@ -364,7 +368,7 @@ class Board(InputMixin):
                            ][ship.coordinates[i][1]] = ship.symbol_list[i]
             if not auto_placement:
                 if self.owner != "Computer":
-                    self.clear_boards()
+                    self.user_display()
 
     def guess_checker(self, opponent, guess):
         """
@@ -397,25 +401,25 @@ class Board(InputMixin):
         if self.owner == "Computer":
             if result is None:
                 opponent.board.guess_board[guess[0]][guess[1]] = "X"
-                opponent.board.clear_boards()
+                opponent.board.user_display()
                 print("Thats a miss capt'n.... nothing but water.\n")
 
             else:
                 opponent.board.guess_board[guess[0]][guess[1]] = "%"
-                opponent.board.clear_boards()
+                opponent.board.user_display()
                 print(f"Direct hit was made on {self.owner}'s {ship.name}\n")
                 self.update_ship_damage(ship)
 
         else:
             if result is None:
                 self.board[guess[0]][guess[1]] = "X"
-                self.clear_boards()
+                self.user_display()
                 print("Sir permission to breathe? they missed us!.\n")
             else:
                 self.board[guess[0]][guess[1]] = "%"
-                self.clear_boards()
+                self.user_display()
                 print(
-                    f"They hit our {ship} sir! We are are taking on water!\n")
+                    f"They hit our {ship.name} sir! We are are taking on water!\n")
                 self.update_ship_damage(ship)
 
             # if self.owner != "Computer":
@@ -443,7 +447,7 @@ class Board(InputMixin):
                 'nt', 'dos'):  # If Machine is running on Windows, use cls
             command = 'cls'
         os.system(command)
-        self.user_display()
+        # self.user_display()
 
 
 class Ship:
@@ -463,7 +467,7 @@ class AircraftCarrier(Ship):
     """
     Creates an instance of the Aircraft_carrier class.
     """
-    name = "Aircraft_carrier"
+    name = "Aircraft carrier"
     length = 5
     symbol_list = ["A"] * length
 
@@ -537,7 +541,7 @@ def is_fleet_sunk():
         return True
 
 
-user = Player(input("What is your name Captains name? \n"))
+user = Player(input("What is your Captains name? \n"))
 computer = Player("Computer")
 
 play_game = True
@@ -546,7 +550,8 @@ while play_game:
     user.take_guess(computer.board.guess_checker)
     play_game = is_fleet_sunk()
     if play_game:
-        input("press enter for computer turn")
+        print("press any key for computer turn")
+        wait()
         # Board.clear_boards()
         computer.take_guess(user.board.guess_checker)
         # The below is for testing only

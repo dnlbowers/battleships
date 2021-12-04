@@ -25,6 +25,7 @@
    "editor.defaultFormatter": "HookyQR.beautify",
    "cSpell.ignoreWords": [
       "anual",
+      "getch",
       "ight",
       "uick"
    ]
