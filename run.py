@@ -4,11 +4,15 @@ import os
 
 class InputMixin():
 
-    def input_validator(self, input):
+    def coord_input_validator(self, input):
         valid_input = False
         while not valid_input:
             try:
-                if len(input) < 2 or len(input) > 3:
+                # exit is temporary just to get out of game in console
+                if input.lower() == "exit":
+                    print("Exited")
+                    break
+                elif len(input) < 2 or len(input) > 3:
                     raise ValueError
                 elif len(input) == 2:
                     input = (tuple(int(i) for i in input))
@@ -20,16 +24,16 @@ class InputMixin():
                         input = (tuple(int(i) for i in input))
                         return input
                     else:
-                        input = self.input_error_msg()
+                        input = self.coord_error_msg()
                         continue
 
             except ValueError:
-                input = self.input_error_msg()
+                input = self.coord_error_msg()
 
     @staticmethod
-    def input_error_msg():
-        new_guess = input ("You input is invalid. "
-              "Please use two numbers seperated by a comma eg 0,4 \n")
+    def coord_error_msg():
+        new_guess = input("You input is invalid. Please use two  "
+                          "numbers seperated by a comma eg 0,4:\n")
         # ("I repeat sir! To which coordinate should we unload "
         #                   'the chamber?: ')
         return new_guess
@@ -69,7 +73,7 @@ class Player(InputMixin):
             else:
                 print(
                     'Not valid input please only type "Q" , M, "Quick",'
-                    'or "Manual (Casing does not matter): \n')
+                    'or "Manual" (Casing does not matter): \n')
 
     def take_guess(self, opponent_guess_checker):
         """
@@ -91,13 +95,12 @@ class Player(InputMixin):
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
             else:
-                print("Lets the games commence!")
                 input("Press enter to take your turn")
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the chamber?":'
                     ' eg 0,4 \n')
 
-                guess_coordinate = self.input_validator(guess_coordinate)
+                guess_coordinate = self.coord_input_validator(guess_coordinate)
                 print(guess_coordinate)
                 previously_guessed = guess_coordinate in self.guesses
 
@@ -212,10 +215,8 @@ class Board(InputMixin):
                     f"Start coordinate for your {ship_obj_type[i].name}?"
                     "Separate to numbers with a comma i.e 4,5 : \n")
 
-                start_position = self.input_validator(start_position)
-                direction = input(
-                    'From the bow in which direction is stern pointing,'
-                    '"(R)ight" or "(D)own": \n').lower()
+                start_position = self.coord_input_validator(start_position)
+                direction = self.direction_input_validator()
                 ship_instance = ship_obj_type[i](
                     (start_position), direction, (start_position))
 
@@ -228,6 +229,7 @@ class Board(InputMixin):
         if self.auto:
             if self.owner != "Computer":
                 self.user_display()
+                print("Lets the games commence!")
         return fleet
 
     def build_ship(self, auto_placement, ship, occupied_tiles):
@@ -273,12 +275,11 @@ class Board(InputMixin):
                         print("Out of bounds")
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
-                            f"{ship.name}? \n Separate two numbers with a comma i.e 4,5: \n").split(",")
-                        ship.start_coordinate = tuple(
-                            int(i) for i in ship.start_coordinate)
-                        ship.direction = input(
-                            'From the bow in which direction is stern pointing,'
-                            ' "(R)ight" or "(D)own": \n').lower()
+                            f"{ship.name}? \n Separate two numbers with a "
+                            "comma i.e 4,5: \n")
+                        ship.start_coordinate = self.coord_input_validator(
+                            ship.start_coordinate)
+                        ship.direction = self.direction_input_validator()
                         break
 
                 elif not duplicate_tile:
@@ -300,15 +301,30 @@ class Board(InputMixin):
                         print("There is already another ship here...")
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
-                            f"{ship.name}?\nSeparate two numbers with a comma i.e 4,5: \n").split(",")
-                        ship.start_coordinate = tuple(
-                            int(i) for i in ship.start_coordinate)
-                        ship.direction = input(
-                            "From the bow in which direction is stern pointing?"
-                            "(r)ight or (d)own: \n")
+                            f"{ship.name}?\nSeparate two numbers with a "
+                            "comma i.e 4,5: \n")
+                        ship.start_coordinate = self.coord_input_validator(
+                            ship.start_coordinate)
+                        ship.direction = self.direction_input_validator()
                         break
-
         return ship.coordinates
+
+    def direction_input_validator(self):
+        invalid_input = True
+        while invalid_input:
+            setup_type = input(
+                "From the bow in which direction is stern "
+                "pointing? (r)ight or (d)own: \n").lower()
+            if setup_type == "right" or setup_type == "r":
+                invalid_input = False
+                return "right"
+            elif setup_type == "down" or setup_type == "d":
+                invalid_input = False
+                return "down"
+            else:
+                print(
+                    'Not valid input please only type "R" , D, "Right",'
+                    'or "Down" (Casing does not matter): \n')
 
     @staticmethod
     def duplicate_tile_check(ship, occupied_tiles, next_tile):
