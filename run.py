@@ -1,6 +1,6 @@
 import random
 import os
-from msvcrt import getch as wait
+from getch import pause
 
 
 class InputMixin():
@@ -97,8 +97,7 @@ class Player(InputMixin):
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
             else:
-                print("Press any key to take your turn")
-                wait()
+                pause("Press any key to take your turn")
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the '
                     'chamber?":\n Enter (row then column) eg 0,4 or 04: \n')
@@ -550,8 +549,7 @@ while play_game:
     user.take_guess(computer.board.guess_checker)
     play_game = is_fleet_sunk()
     if play_game:
-        print("press any key for computer turn")
-        wait()
+        pause("press any key for computer turn")
         # Board.clear_boards()
         computer.take_guess(user.board.guess_checker)
         # The below is for testing only
