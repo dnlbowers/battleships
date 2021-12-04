@@ -2,7 +2,40 @@ import random
 import os
 
 
-class Player:
+class InputMixin():
+
+    def input_validator(self, input):
+        valid_input = False
+        while not valid_input:
+            try:
+                if len(input) < 2 or len(input) > 3:
+                    raise ValueError
+                elif len(input) == 2:
+                    input = (tuple(int(i) for i in input))
+                    return input
+
+                elif len(input) < 4:
+                    if "," in input:
+                        input = input.split(",")
+                        input = (tuple(int(i) for i in input))
+                        return input
+                    else:
+                        input = self.input_error_msg()
+                        continue
+
+            except ValueError:
+                input = self.input_error_msg()
+
+    @staticmethod
+    def input_error_msg():
+        new_guess = input ("You input is invalid. "
+              "Please use two numbers seperated by a comma eg 0,4 \n")
+        # ("I repeat sir! To which coordinate should we unload "
+        #                   'the chamber?: ')
+        return new_guess
+
+
+class Player(InputMixin):
     """
     Creates a player object
     """
@@ -58,11 +91,13 @@ class Player:
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
             else:
+                print("Lets the games commence!")
+                input("Press enter to take your turn")
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the chamber?":'
-                    ' eg 0,4 \n').split(",")
+                    ' eg 0,4 \n')
 
-                guess_coordinate = (tuple(int(i) for i in guess_coordinate))
+                guess_coordinate = self.input_validator(guess_coordinate)
                 print(guess_coordinate)
                 previously_guessed = guess_coordinate in self.guesses
 
@@ -87,7 +122,7 @@ class Player:
         opponent_guess_checker(self, guess_coordinate)
 
 
-class Board:
+class Board(InputMixin):
     """"
     Builds the boards where ships will be placed
     """
@@ -130,7 +165,7 @@ class Board:
         Prints out the user view, their placement board
         and their guess tally board
         """
-        print("    Map of your Fleet:             Enemy hit tracker:")
+        print("    Map of your Fleet:                 Guess tracker:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
         print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
         for index, row in enumerate(zip(self.board, self.guess_board)):
@@ -175,9 +210,9 @@ class Board:
                 self.clear_boards()
                 start_position = input(
                     f"Start coordinate for your {ship_obj_type[i].name}?"
-                    "Separate to numbers with a comma i.e 4,5 : \n").split(",")
+                    "Separate to numbers with a comma i.e 4,5 : \n")
 
-                start_position = tuple(int(i) for i in start_position)
+                start_position = self.input_validator(start_position)
                 direction = input(
                     'From the bow in which direction is stern pointing,'
                     '"(R)ight" or "(D)own": \n').lower()

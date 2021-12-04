@@ -77,6 +77,7 @@ OS - Why
 
 ## **Testing**
 **TO DO**
+since I used the command $ autopep8 --in-place --aggressive --aggressive run.py to format the document no errors were found on pep8
 
 ## **Bugs**
 **TO DO**
