@@ -32,8 +32,9 @@ class InputMixin():
 
     @staticmethod
     def coord_error_msg():
-        new_guess = input("You input is invalid. Please use two  "
-                          "numbers seperated by a comma eg 0,4:\n")
+        new_guess = input("You input is invalid. Please use two "
+                          "numbers (row then column)"
+                          "i.e 4,5 or 45: \n")
         # ("I repeat sir! To which coordinate should we unload "
         #                   'the chamber?: ')
         return new_guess
@@ -212,11 +213,12 @@ class Board(InputMixin):
             else:
                 self.clear_boards()
                 start_position = input(
-                    f"Start coordinate for your {ship_obj_type[i].name}?"
-                    "Separate to numbers with a comma i.e 4,5 : \n")
+                    f"From where would you like your {ship_obj_type[i].name} "
+                    "to start? Please enter two numbers (row then column)"
+                    "i.e 4,5 or 45: \n")
 
                 start_position = self.coord_input_validator(start_position)
-                direction = self.direction_input_validator()
+                direction = self.direction_input()
                 ship_instance = ship_obj_type[i](
                     (start_position), direction, (start_position))
 
@@ -229,7 +231,7 @@ class Board(InputMixin):
         if self.auto:
             if self.owner != "Computer":
                 self.user_display()
-                print("Lets the games commence!")
+        print("Lets the battle commence!")
         return fleet
 
     def build_ship(self, auto_placement, ship, occupied_tiles):
@@ -279,7 +281,7 @@ class Board(InputMixin):
                             "comma i.e 4,5: \n")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
-                        ship.direction = self.direction_input_validator()
+                        ship.direction = self.direction_input()
                         break
 
                 elif not duplicate_tile:
@@ -305,11 +307,11 @@ class Board(InputMixin):
                             "comma i.e 4,5: \n")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
-                        ship.direction = self.direction_input_validator()
+                        ship.direction = self.direction_input()
                         break
         return ship.coordinates
 
-    def direction_input_validator(self):
+    def direction_input(self):
         invalid_input = True
         while invalid_input:
             setup_type = input(
@@ -535,7 +537,7 @@ def is_fleet_sunk():
         return True
 
 
-user = Player(input("What is your name? \n"))
+user = Player(input("What is your name Captains name? \n"))
 computer = Player("Computer")
 
 play_game = True
