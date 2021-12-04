@@ -77,7 +77,7 @@ class Player(InputMixin):
                     'Not valid input please only type "Q" , M, "Quick",'
                     'or "Manual" (Casing does not matter): \n')
 
-    def take_guess(self, opponent_guess_checker):
+    def take_guess(self):
         """
         Sets the guess coordinates by input or random
         returns only original guesses
@@ -97,13 +97,11 @@ class Player(InputMixin):
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
             else:
-                pause("Press any key to take your turn")
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the '
                     'chamber?":\n Enter (row then column) eg 0,4 or 04: \n')
 
                 guess_coordinate = self.coord_input_validator(guess_coordinate)
-                print(guess_coordinate)
                 previously_guessed = guess_coordinate in self.guesses
 
                 # Somewhere in here I need to account for invalid input types
@@ -124,7 +122,8 @@ class Player(InputMixin):
                         f" for sector {guess_coordinate}")
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
-        opponent_guess_checker(self, guess_coordinate)
+
+        return guess_coordinate
 
 
 class Board(InputMixin):
@@ -353,7 +352,8 @@ class Board(InputMixin):
         ship_log = {}
         for i in range(self.number_of_ships):
             ship_log.update(
-                dict(zip(self.fleet[i].coordinates, self.fleet[i].symbol_list)))
+                dict(zip(self.fleet[i].coordinates,
+                     self.fleet[i].symbol_list)))
         return ship_log
 
     def initial_placement(self, ship, auto_placement=False):
@@ -369,7 +369,7 @@ class Board(InputMixin):
                 if self.owner != "Computer":
                     self.user_display()
 
-    def guess_checker(self, opponent, guess):
+    def guess_checker(self, guess):
         """
         Takes guess and check against fleet dictionary.
         """
@@ -380,8 +380,10 @@ class Board(InputMixin):
             for i in range(5):
                 ship = self.fleet[i]
                 if result is self.fleet[i].symbol_list[0]:
-                    break
-        self.update_board(guess, result, opponent, ship)
+                    self.update_ship_damage(ship)
+                    return True
+
+        return False
 
     def update_ship_damage(self, ship):
         """"
@@ -393,33 +395,32 @@ class Board(InputMixin):
             print(f" sunk {self.owner}'s {ship.name}")
             self.ships_remaining()
 
-    def update_board(self, guess, result, opponent, ship):
+    def update_board(self, guess, result, opponent):
         """"
         Updates Board with latest hit or miss.
         """
-        if self.owner == "Computer":
-            if result is None:
-                opponent.board.guess_board[guess[0]][guess[1]] = "X"
-                opponent.board.user_display()
-                print("Thats a miss capt'n.... nothing but water.\n")
-
-            else:
-                opponent.board.guess_board[guess[0]][guess[1]] = "%"
-                opponent.board.user_display()
-                print(f"Direct hit was made on {self.owner}'s {ship.name}\n")
-                self.update_ship_damage(ship)
+        if result is False:
+            self.guess_board[guess[0]][guess[1]] = "X"
+            opponent.board.board[guess[0]][guess[1]] = "X"
+            # opponent.board.user_display()
+            # print("Thats a miss capt'n.... nothing but water.\n")
 
         else:
-            if result is None:
-                self.board[guess[0]][guess[1]] = "X"
-                self.user_display()
-                print("Sir permission to breathe? they missed us!.\n")
-            else:
-                self.board[guess[0]][guess[1]] = "%"
-                self.user_display()
-                print(
-                    f"They hit our {ship.name} sir! We are are taking on water!\n")
-                self.update_ship_damage(ship)
+            self.guess_board[guess[0]][guess[1]] = "%"
+            opponent.board.board[guess[0]][guess[1]] = "%"
+            # print(f"Direct hit was made on {self.owner}'s \n")
+
+        # else:
+        #     if result is None:
+        #         self.board[guess[0]][guess[1]] = "X"
+        #         self.user_display()
+        #         print("Sir permission to breathe? they missed us!.\n")
+        #     else:
+        #         self.board[guess[0]][guess[1]] = "%"
+        #         self.user_display()
+        #         print(
+        #             f"They hit our {ship.name} sir! We are are taking on water!\n")
+        #         self.update_ship_damage(ship)
 
             # if self.owner != "Computer":
         #     self.user_display()
@@ -517,12 +518,25 @@ class Game:
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
         """
-
-    def user_turn(self):
+    @staticmethod
+    def player_round(guessing_player, opponent):
         """"
         Player fires at the computer and players visual for the opponents board
         updates with a result
         """
+        pause(f"Captain {guessing_player.name}'s "
+              "turn, press any key to continue")
+        guess = guessing_player.take_guess()
+        guess_hit = opponent.board.guess_checker(guess)
+        guessing_player.board.update_board(guess, guess_hit, opponent)
+        if guessing_player.name == "Computer":
+            opponent.board.user_display()
+            loop = input("break?")
+            if loop == "exit":
+                return False
+            return True
+        else:
+            guessing_player.board.user_display()
 
     def opponent_turn(self):
         """"
@@ -542,20 +556,22 @@ def is_fleet_sunk():
 
 user = Player(input("What is your Captains name? \n"))
 computer = Player("Computer")
-
+# print(user.take_guess(computer.board.guess_checker))
 play_game = True
 while play_game:
-    play_game = is_fleet_sunk()
-    user.take_guess(computer.board.guess_checker)
-    play_game = is_fleet_sunk()
-    if play_game:
-        pause("press any key for computer turn")
-        # Board.clear_boards()
-        computer.take_guess(user.board.guess_checker)
-        # The below is for testing only
-        # computer.board.user_display()
-    else:
-        break
+    play_game = Game.player_round(user, computer)
+    play_game = Game.player_round(computer, user)
+#     play_game = is_fleet_sunk()
+#     user.take_guess(computer.board.guess_checker)
+#     play_game = is_fleet_sunk()
+#     if play_game:
+#         pause("press any key for computer turn")
+#         # Board.clear_boards()
+#         computer.take_guess(user.board.guess_checker)
+#         # The below is for testing only
+#         # computer.board.user_display()
+#     else:
+#         print("game_over")
+#         play_game = False
 
 
-print("game_over")
