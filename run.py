@@ -117,9 +117,11 @@ class Player(InputMixin):
                             " fired there,so with all due respect I repeat...")
                         break
                 if not previously_guessed:
+                    self.board.user_display()
                     print(
                         "Aye, Aye Capt'n! Fire in the hole boys aim"
                         f" for sector {guess_coordinate}")
+                    pause()
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
 
@@ -382,8 +384,8 @@ class Board(InputMixin):
                 if result is self.fleet[i].symbol_list[0]:
                     self.update_ship_damage(ship)
                     return True
-
-        return False
+        else:
+            return False
 
     def update_ship_damage(self, ship):
         """"
@@ -392,7 +394,8 @@ class Board(InputMixin):
         ship.damaged_tiles.append(True)
         if len(ship.damaged_tiles) == ship.length:
             ship.is_sunk = True
-            print(f" sunk {self.owner}'s {ship.name}")
+            print(f"{self.owner}'s {ship.name} has gone to a saltier place")
+            pause()
             self.ships_remaining()
 
     def update_board(self, guess, result, opponent):
@@ -402,12 +405,24 @@ class Board(InputMixin):
         if result is False:
             self.guess_board[guess[0]][guess[1]] = "X"
             opponent.board.board[guess[0]][guess[1]] = "X"
+            if self.owner != "Computer":
+                self.user_display()
+            else:
+                opponent.board.user_display()
+            print("SPLASH!!! Thats a miss, at least the torpedo is clean now")
+            pause()
             # opponent.board.user_display()
             # print("Thats a miss capt'n.... nothing but water.\n")
 
         else:
             self.guess_board[guess[0]][guess[1]] = "%"
             opponent.board.board[guess[0]][guess[1]] = "%"
+            if self.owner != "Computer":
+                self.user_display()
+            else:
+                opponent.board.user_display()
+            print("Direct hit!")
+            pause()
             # print(f"Direct hit was made on {self.owner}'s \n")
 
         # else:
@@ -431,6 +446,7 @@ class Board(InputMixin):
         """
         game_over = False
         self.number_of_ships -= 1
+        # I am thinking this is no longer needed
         print(f"{self.owner} has {self.number_of_ships} remaining")
         if self.number_of_ships == 0:
             return True
@@ -526,12 +542,14 @@ class Game:
         """
         pause(f"Captain {guessing_player.name}'s "
               "turn, press any key to continue")
+        # guessing_player.board.
         guess = guessing_player.take_guess()
         guess_hit = opponent.board.guess_checker(guess)
         guessing_player.board.update_board(guess, guess_hit, opponent)
         if guessing_player.name == "Computer":
             opponent.board.user_display()
-            loop = input("break?")
+            loop = input("Wanna run away like scared lil sea sponge?\n"
+                         "Type exit and i'll let you scurry")
             if loop == "exit":
                 return False
             return True

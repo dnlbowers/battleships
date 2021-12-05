@@ -70,10 +70,11 @@ To understand the steps required in order to program the game, I created the bel
 ## **Data Model**
  **TO DO**
 
-## **Libaries**
+## **Libraries**
 **TO DO**
-Random - Why
-OS - Why
+Random - rand int and randchoice
+OS - Clear screen
+getch (pause) - allowed pause for key press
 
 ## **Testing**
 **TO DO**
@@ -101,6 +102,7 @@ Sean Murphy
 * To get a general idea of the game logic, I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I  
 * The idea to decorate the board with numbers above and to the side came from Knowledge Mavens youtube channel - https://youtu.be/alJH_c9t4zw
 * Clear console function copied from https://www.delftstack.com/howto/python/python-clear-console/
+* How to make a pause for a key to be pressed I referenced from here - https://pretagteam.com/question/python-press-any-key-to-exit
 * https://www.lucidchart.com/ - used to create the game flow chart
 * Code Institute for providing the template. The template gave me a mock terminal to display my game via a webpage.
 

@@ -39,7 +39,7 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 * after 3 sink were sunk any hit was showing with an x and the text for a miss. After printing several variables I found that the fleet location dictionary was updating every round. Due to the letter being changed to a % or x and I was using the function and not the innit variable every time the flow came to fetch the dictionary it was actually degenerating it from the board.
 
-* after set up struggled with how to then play the game, After speaking with my mentor I realised that if I ran the create object back through the classes I could then trigger everythin in  fewlines nly in the global
+* after set up struggled with how to then play the game, After speaking with my mentor I realised that if I ran the create object back through the classes I could then trigger everythin in  fewlines nly in the global, later developed into a game class.
 
 
 
