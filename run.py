@@ -40,8 +40,21 @@ class InputMixin():
         #                   'the chamber?: ')
         return new_guess
 
-
-class Player(InputMixin):
+class ClearDisplayMixin():
+    # Taken from https://www.delftstack.com/howto/python/python-clear-console/
+    @staticmethod
+    def clear_display():
+        """"
+        Clears the console
+        """
+        command = 'clear'
+        if os.name in (
+                'nt', 'dos'):  # If Machine is running on Windows, use cls
+            command = 'cls'
+        os.system(command)
+        # self.user_display()
+    
+class Player(InputMixin, ClearDisplayMixin):
     """
     Creates a player object
     """
@@ -171,7 +184,7 @@ class Board(InputMixin):
         Prints out the user view, their placement board
         and their guess tally board
         """
-        self.clear_boards()
+        self.clear_display()
         print(f"     These sea charts belong to Captian {self.owner}")
         print("    Map of your Fleet:               Guess tracker:")
         print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
@@ -411,8 +424,6 @@ class Board(InputMixin):
                 opponent.board.user_display()
             print("SPLASH!!! Thats a miss, at least the torpedo is clean now")
             pause()
-            # opponent.board.user_display()
-            # print("Thats a miss capt'n.... nothing but water.\n")
 
         else:
             self.guess_board[guess[0]][guess[1]] = "%"
@@ -423,22 +434,7 @@ class Board(InputMixin):
                 opponent.board.user_display()
             print("Direct hit!")
             pause()
-            # print(f"Direct hit was made on {self.owner}'s \n")
 
-        # else:
-        #     if result is None:
-        #         self.board[guess[0]][guess[1]] = "X"
-        #         self.user_display()
-        #         print("Sir permission to breathe? they missed us!.\n")
-        #     else:
-        #         self.board[guess[0]][guess[1]] = "%"
-        #         self.user_display()
-        #         print(
-        #             f"They hit our {ship.name} sir! We are are taking on water!\n")
-        #         self.update_ship_damage(ship)
-
-            # if self.owner != "Computer":
-        #     self.user_display()
 
     def ships_remaining(self):
         """
@@ -452,18 +448,6 @@ class Board(InputMixin):
             return True
         else:
             return game_over
-
-    # Taken from https://www.delftstack.com/howto/python/python-clear-console/
-    def clear_boards(self,):
-        """"
-        Clears the console
-        """
-        command = 'clear'
-        if os.name in (
-                'nt', 'dos'):  # If Machine is running on Windows, use cls
-            command = 'cls'
-        os.system(command)
-        # self.user_display()
 
 
 class Ship:
@@ -524,7 +508,7 @@ class Destroyer(Ship):
     symbol_list = ["D"] * length
 
 
-class Game:
+class Game(ClearDisplayMixin):
     """
     Creates objects and plays the game
     """
@@ -534,6 +518,39 @@ class Game:
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
         """
+
+    def how_to_play():
+        print(
+            'Setup Phase:\n'
+            '\n'
+            'Place your fate in the hands of the sea god Neptune. \n'
+            'Press "q" or type "quick" to let the currents randomly\n'
+            'position your ships before you anchor and fire.\n'
+            '\n'
+            'Or'
+            '\n'
+            'Before opening fire, choose to spite the sea god and\n'
+            'place your ships by pressing "m" or typing "manual".\n'
+            '\n'
+            'Neptune hand will always guide the computerized fleet\n'
+            'only to reveal their location with the flames as you hit one.'
+        )
+        pause()
+
+        print(
+            'Firing Round'
+            'Once in position, it\'s time to let a rip\n.'
+            'Since the radar equipment was broken "accidentally" in the\n'
+            'previous battle, you are firing blind and cannot see the other\n'
+            "side's ships. choose your coordinates on the map (row , column)\n"
+            'and remember to yell "FIRE IN THE HOLD" (safety first after all).'
+            '\n'
+            'The results of your guess are indicated as follows:\n'
+            'Hit = %'
+            'Miss = X'
+        )
+        pause()
+
     @staticmethod
     def player_round(guessing_player, opponent):
         """"
@@ -544,8 +561,8 @@ class Game:
               "turn, press any key to continue")
         # guessing_player.board.
         guess = guessing_player.take_guess()
-        guess_hit = opponent.board.guess_checker(guess)
-        guessing_player.board.update_board(guess, guess_hit, opponent)
+        guess_hit_check = opponent.board.guess_checker(guess)
+        guessing_player.board.update_board(guess, guess_hit_check, opponent)
         if guessing_player.name == "Computer":
             opponent.board.user_display()
             loop = input("Wanna run away like scared lil sea sponge?\n"
