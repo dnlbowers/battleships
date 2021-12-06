@@ -141,7 +141,7 @@ class Player(InputMixin, ClearDisplayMixin):
         return guess_coordinate
 
 
-class Board(InputMixin):
+class Board(InputMixin, ClearDisplayMixin):
     """"
     Builds the boards where ships will be placed
     """
@@ -537,9 +537,17 @@ class Game(ClearDisplayMixin):
                  /\____) || )   ( |___) (___| )      /\____) |
                  \_______)|/     \|\_______/|/       \_______)
             """)
-        print("Press the P key to play or the R see the game rules")
+        options = input('           Press the "P" key to play or '
+                        'the "R" key to see the rules\n').lower()
+        if options == "r":
+            Game.how_to_play()
+        elif options == "p":
+            Game.set_players()
+        else:
+            print('Your input was not valid. Please press "P" to play or "R" for the rules.')
 
     def how_to_play():
+        Game.clear_display()
         print(
             'Setup Phase:\n'
             '\n'
@@ -547,30 +555,44 @@ class Game(ClearDisplayMixin):
             'Press "q" or type "quick" to let the currents randomly\n'
             'position your ships before you anchor and fire.\n'
             '\n'
-            'Or'
+            'Or\n'
             '\n'
             'Before opening fire, choose to spite the sea god and\n'
             'place your ships by pressing "m" or typing "manual".\n'
             '\n'
             'Neptune hand will always guide the computerized fleet\n'
-            'only to reveal their location with the flames as you hit one.'
+            'only to reveal their location with the flames as you hit one.\n'
         )
         pause()
-
+        Game.clear_display()
         print(
-            'Firing Round'
-            'Once in position, it\'s time to let a rip\n.'
+            'Firing Round:\n'
+            '\n'
+            'Once in position, it\'s time to let a rip!\n'
             'Since the radar equipment was broken "accidentally" in the\n'
             'previous battle, you are firing blind and cannot see the other\n'
-            "side's ships. choose your coordinates on the map (row , column)\n"
+            "side's ships. Choose your coordinates on the map (row , column)\n"
             'and remember to yell "FIRE IN THE HOLD" (safety first after all).'
             '\n'
+            '\n'
             'The results of your guess are indicated as follows:\n'
-            'Hit = %'
-            'Miss = X'
+            '\n'
+            'Hit = %\n'
+            'Miss = X\n'
         )
         pause()
+        Game.clear_display()
         Game.welcome_screen()
+
+    def set_players():
+        """"
+        Takes player name and creates player objects
+        """
+        user = input("What seafaring name do you want to go down"
+                     "in history with?\n")
+        user = Player(user)
+        computer_player = Player("Computer")
+        Game.player_round(user, computer_player)
 
     @staticmethod
     def player_round(guessing_player, opponent):
