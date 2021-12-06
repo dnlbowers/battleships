@@ -513,11 +513,31 @@ class Game(ClearDisplayMixin):
     Creates objects and plays the game
     """
 
-    def welcome(self):
+    def welcome_screen():
         """"
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
         """
+        print("""
+              ______   _______ __________________ _        _______ 
+             (  ___ \ (  ___  )\__   __/\__   __/( \      (  ____ 
+             | (   ) )| (   ) |   ) (      ) (   | (      | (    \/
+             | (__/ / | (___) |   | |      | |   | |      | (__    
+             |  __ (  |  ___  |   | |      | |   | |      |  __)   
+             | (  \ \ | (   ) |   | |      | |   | |      | (      
+             | )___) )| )   ( |   | |      | |   | (____/\| (____/\ 
+             |/ \___/ |/     \|   )_(      )_(   (_______/(_______/
+                                                                   
+                  _______          _________ _______  _______
+                 (  ____ \|\     /|\__   __/(  ____ )(  ____ 
+                 | (    \/| )   ( |   ) (   | (    )|| (    \/
+                 | (_____ | (___) |   | |   | (____)|| (_____ 
+                 (_____  )|  ___  |   | |   |  _____)(_____  )
+                       ) || (   ) |   | |   | (            ) |
+                 /\____) || )   ( |___) (___| )      /\____) |
+                 \_______)|/     \|\_______/|/       \_______)
+            """)
+        print("Press the P key to play or the R see the game rules")
 
     def how_to_play():
         print(
@@ -550,6 +570,7 @@ class Game(ClearDisplayMixin):
             'Miss = X'
         )
         pause()
+        Game.welcome_screen()
 
     @staticmethod
     def player_round(guessing_player, opponent):
@@ -588,14 +609,14 @@ def is_fleet_sunk():
     else:
         return True
 
-
-user = Player(input("What is your Captains name? \n"))
-computer = Player("Computer")
-# print(user.take_guess(computer.board.guess_checker))
-play_game = True
-while play_game:
-    play_game = Game.player_round(user, computer)
-    play_game = Game.player_round(computer, user)
+Game.welcome_screen()
+# user = Player(input("What is your Captains name? \n"))
+# computer = Player("Computer")
+# # print(user.take_guess(computer.board.guess_checker))
+# play_game = True
+# while play_game:
+#     play_game = Game.player_round(user, computer)
+#     play_game = Game.player_round(computer, user)
 #     play_game = is_fleet_sunk()
 #     user.take_guess(computer.board.guess_checker)
 #     play_game = is_fleet_sunk()
