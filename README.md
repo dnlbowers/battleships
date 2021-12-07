@@ -27,8 +27,8 @@ Neptune hand will always guide the computerized fleet only to reveal their locat
 
 Once in position, it's time to let a rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other side's ships, choose your coordinates on the map (row , column) and remember to call "FIRE IN THE HOLD" (safety first after all). The results of your guess are indicated as follows:  
 
-Hit = %  
-Miss = X
+Hit = :boom: 
+Miss = :ocean:
 
 ### ***How to win: ***
 The last side with a ship still afloat wins. 
