@@ -189,10 +189,10 @@ class Board(InputMixin, ClearDisplayMixin):
         print(f"     These sea charts belong to Captian {self.owner}")
         print("         Map of your Fleet:                        "
               "Guess tracker:")
-        print("    0  1  2  3  4  5  6  7  8  9            "
-              "0  1  2  3  4  5  6  7  8  9")
-        print("  +--+--+--+--+--+--+--+--+--+--           "
-              "+--+--+--+--+--+--+--+--+--+--")
+        print("    0 1 2 3 4 5 6 7 8 9            "
+              "0 1 2 3 4 5 6 7 8 9")
+        print("  +-+-+-+-+-+-+-+-+-+-           "
+              "+-+-+-+-+-+-+-+-+-+-")
         for index, row in enumerate(zip(self.board, self.guess_board)):
             print(
                 # print row numbers for 1st board
