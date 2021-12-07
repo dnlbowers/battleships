@@ -166,7 +166,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.board.append([])
             for _ in range(self.board_size):
-                self.board[row].append("\U000025FB")
+                self.board[row].append("\U000025FD")
         return self.board
 
     def build_guess_board(self):
@@ -177,7 +177,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.guess_board.append([])
             for _ in range(self.board_size):
-                self.guess_board[row].append("\U000025FB")
+                self.guess_board[row].append("\U000025FD")
         return self.guess_board
 
     def user_display(self):
@@ -199,14 +199,14 @@ class Board(InputMixin, ClearDisplayMixin):
                 f'{str(index) + " |":2s}',
                 # print current row for 1st board, join as string and space out
                 # 3 spaces with :3s
-                ''.join(f'{str(x):3s}' for x in row[0]),
+                ''.join(f'{str(x):2s}' for x in row[0]),
                 # separate the two boards
                 ' ' * 5,
                 # print row numbers for 2nd board
                 f'{str(index)+" |" :2s}',
                 # print current row for 2nd board, join as string and space out
                 # 3 spaces with :3s
-                ''.join(f'{str(x):3s}' for x in row[1]),
+                ''.join(f'{str(x):2s}' for x in row[1]),
             )
         print("\n")
 
