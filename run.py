@@ -9,11 +9,8 @@ class InputMixin():
         valid_input = False
         while not valid_input:
             try:
-                # exit is temporary just to get out of game in console
-                if input.lower() == "exit":
-                    print("Exited")
-                    break
-                elif len(input) < 2 or len(input) > 3:
+
+                if len(input) < 2 or len(input) > 3:
                     raise ValueError
                 elif len(input) == 2:
                     input = (tuple(int(i) for i in input))
@@ -36,8 +33,7 @@ class InputMixin():
         new_guess = input("You input is invalid. Please use two "
                           "numbers (row then column)"
                           "i.e 4,5 or 45: \n")
-        # ("I repeat sir! To which coordinate should we unload "
-        #                   'the chamber?: ')
+
         return new_guess
 
 
@@ -132,10 +128,6 @@ class Player(InputMixin, ClearDisplayMixin):
                         break
                 if not previously_guessed:
                     self.board.user_display()
-                    print(
-                        "Aye, Aye Capt'n! Fire in the hole boys aim"
-                        f" for sector {guess_coordinate}")
-                    pause()
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
 
@@ -411,8 +403,8 @@ class Board(InputMixin, ClearDisplayMixin):
         ship.damaged_tiles.append(True)
         if len(ship.damaged_tiles) == ship.length:
             ship.is_sunk = True
-            print(f"{self.owner}'s {ship.name} has gone to a saltier place")
-            pause()
+            # print(f"{self.owner}'s {ship.name} has gone to a saltier place")
+            # pause()
             self.ships_remaining()
 
     def update_board(self, guess, result, opponent):
@@ -524,7 +516,7 @@ class Game(ClearDisplayMixin):
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
         """
-        #White space left after characters on some line to allow the use of a back slash
+        # White space left after characters on some line to allow the use of a backslash
         print("""
               ______   _______ __________________ _        _______
              (  ___ \ (  ___  )\__   __/\__   __/( \      (  ____ \ 
@@ -585,8 +577,8 @@ class Game(ClearDisplayMixin):
             '\n'
             'The results of your guess are indicated as follows:\n'
             '\n'
-            'Hit = %\n'
-            'Miss = X\n'
+            'Hit = \U0001F4A5 \n'
+            'Miss = \U0001F30A \n'
         )
         pause()
         self.clear_display()
@@ -606,12 +598,16 @@ class Game(ClearDisplayMixin):
             self.player_round(user, computer_player)
             play_round = self.is_fleet_sunk(user)
             if play_round is False:
+                print("GAMEOVER! Sorry captain, we're leaving, you have to go down with the ship!")
+                pause("Press any key to return to the main menu")
                 break
             self.player_round(computer_player, user)
             play_round = self.is_fleet_sunk(computer_player)
+            if play_round is False:
+                print("Hoorah! We win! captain neptune smiles upon us!")
+                pause("Press any key to return to the main menu")
 
-    @staticmethod
-    def player_round(guessing_player, opponent):
+    def player_round(self, guessing_player, opponent):
         """"
         Player fires at the computer and players visual for the opponents board
         updates with a result
@@ -620,17 +616,22 @@ class Game(ClearDisplayMixin):
               "turn, press any key to continue")
         # guessing_player.board.
         guess = guessing_player.take_guess()
+        if guessing_player != "computer":
+            print("Aye, Aye Capt'n... Fire in the hold!")
         guess_hit_check = opponent.board.guess_checker(guess)
         guessing_player.board.update_board(guess, guess_hit_check, opponent)
-        if guessing_player.name == "Computer":
-            opponent.board.user_display()
-            loop = input("Wanna run away like scared lil sea sponge?\n"
-                         "Type exit and i'll let you scurry")
-            if loop == "exit":
-                return False
-            return True
-        else:
+        if guessing_player.name != "Computer":
             guessing_player.board.user_display()
+            loop = input("Wanna run away like scared lil sea sponge?\n"
+                         "Type exit and I'll let you scurry,"
+                         "otherwise just press enter.")
+            if loop == "exit":
+                del(guessing_player)
+                del(opponent)
+                self.clear_display()
+                self.welcome_screen()
+        else:
+            opponent.board.user_display()
 
     def opponent_turn(self):
         """"
