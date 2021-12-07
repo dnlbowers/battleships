@@ -40,6 +40,7 @@ class InputMixin():
         #                   'the chamber?: ')
         return new_guess
 
+
 class ClearDisplayMixin():
     # Taken from https://www.delftstack.com/howto/python/python-clear-console/
     @staticmethod
@@ -52,8 +53,8 @@ class ClearDisplayMixin():
                 'nt', 'dos'):  # If Machine is running on Windows, use cls
             command = 'cls'
         os.system(command)
-        # self.user_display()
-    
+
+
 class Player(InputMixin, ClearDisplayMixin):
     """
     Creates a player object
@@ -165,7 +166,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.board.append([])
             for _ in range(self.board_size):
-                self.board[row].append("~")
+                self.board[row].append("\U000025FD")
         return self.board
 
     def build_guess_board(self):
@@ -176,7 +177,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.guess_board.append([])
             for _ in range(self.board_size):
-                self.guess_board[row].append("~")
+                self.guess_board[row].append("\U000025FD")
         return self.guess_board
 
     def user_display(self):
@@ -186,9 +187,12 @@ class Board(InputMixin, ClearDisplayMixin):
         """
         self.clear_display()
         print(f"     These sea charts belong to Captian {self.owner}")
-        print("    Map of your Fleet:               Guess tracker:")
-        print("    0 1 2 3 4 5 6 7 8 9            0 1 2 3 4 5 6 7 8 9")
-        print("   +-+-+-+-+-+-+-+-+-+-           +-+-+-+-+-+-+-+-+-+-")
+        print("         Map of your Fleet:                        "
+              "Guess tracker:")
+        print("    0  1  2  3  4  5  6  7  8  9            "
+              "0  1  2  3  4  5  6  7  8  9")
+        print("  +--+--+--+--+--+--+--+--+--+--           "
+              "+--+--+--+--+--+--+--+--+--+--")
         for index, row in enumerate(zip(self.board, self.guess_board)):
             print(
                 # print row numbers for 1st board
@@ -416,8 +420,8 @@ class Board(InputMixin, ClearDisplayMixin):
         Updates Board with latest hit or miss.
         """
         if result is False:
-            self.guess_board[guess[0]][guess[1]] = "X"
-            opponent.board.board[guess[0]][guess[1]] = "X"
+            self.guess_board[guess[0]][guess[1]] = "\U0001F30A"
+            opponent.board.board[guess[0]][guess[1]] = "\U0001F30A"
             if self.owner != "Computer":
                 self.user_display()
             else:
@@ -426,15 +430,14 @@ class Board(InputMixin, ClearDisplayMixin):
             pause()
 
         else:
-            self.guess_board[guess[0]][guess[1]] = "%"
-            opponent.board.board[guess[0]][guess[1]] = "%"
+            self.guess_board[guess[0]][guess[1]] = "\U0001F4A5"
+            opponent.board.board[guess[0]][guess[1]] = "\U0001F4A5"
             if self.owner != "Computer":
                 self.user_display()
             else:
                 opponent.board.user_display()
             print("Direct hit!")
             pause()
-
 
     def ships_remaining(self):
         """
@@ -469,7 +472,7 @@ class AircraftCarrier(Ship):
     """
     name = "Aircraft carrier"
     length = 5
-    symbol_list = ["A"] * length
+    symbol_list = ["A  "] * length
 
 
 class Battleship(Ship):
@@ -478,7 +481,7 @@ class Battleship(Ship):
     """
     name = "Battleship"
     length = 4
-    symbol_list = ["B"] * length
+    symbol_list = ["B  "] * length
 
 
 class Cruiser(Ship):
@@ -487,7 +490,7 @@ class Cruiser(Ship):
     """
     name = "Cruiser"
     length = 3
-    symbol_list = ["C"] * length
+    symbol_list = ["C  "] * length
 
 
 class Submarine(Ship):
@@ -496,7 +499,7 @@ class Submarine(Ship):
     """
     name = "Submarine"
     length = 3
-    symbol_list = ["S"] * length
+    symbol_list = ["S  "] * length
 
 
 class Destroyer(Ship):
@@ -505,33 +508,37 @@ class Destroyer(Ship):
     """
     name = "Destroyer"
     length = 2
-    symbol_list = ["D"] * length
+    symbol_list = ["D  "] * length
 
 
 class Game(ClearDisplayMixin):
     """
     Creates objects and plays the game
     """
+    def __innit__(self, start):
+        self.start = start
+        self.welcome = self.welcome_screen()
 
-    def welcome_screen():
+    def welcome_screen(self):
         """"
         Displays title art, offers user to view the game rules and asks if
         they wish to begin the game
         """
+        #White space left after characters on some line to allow the use of a back slash
         print("""
-              ______   _______ __________________ _        _______ 
-             (  ___ \ (  ___  )\__   __/\__   __/( \      (  ____ 
+              ______   _______ __________________ _        _______
+             (  ___ \ (  ___  )\__   __/\__   __/( \      (  ____ \ 
              | (   ) )| (   ) |   ) (      ) (   | (      | (    \/
-             | (__/ / | (___) |   | |      | |   | |      | (__    
-             |  __ (  |  ___  |   | |      | |   | |      |  __)   
-             | (  \ \ | (   ) |   | |      | |   | |      | (      
+             | (__/ / | (___) |   | |      | |   | |      | (__
+             |  __ (  |  ___  |   | |      | |   | |      |  __)
+             | (  \ \ | (   ) |   | |      | |   | |      | (
              | )___) )| )   ( |   | |      | |   | (____/\| (____/\ 
              |/ \___/ |/     \|   )_(      )_(   (_______/(_______/
-                                                                   
+
                   _______          _________ _______  _______
-                 (  ____ \|\     /|\__   __/(  ____ )(  ____ 
+                 (  ____ \|\     /|\__   __/(  ____ )(  ____ \ 
                  | (    \/| )   ( |   ) (   | (    )|| (    \/
-                 | (_____ | (___) |   | |   | (____)|| (_____ 
+                 | (_____ | (___) |   | |   | (____)|| (_____
                  (_____  )|  ___  |   | |   |  _____)(_____  )
                        ) || (   ) |   | |   | (            ) |
                  /\____) || )   ( |___) (___| )      /\____) |
@@ -540,14 +547,15 @@ class Game(ClearDisplayMixin):
         options = input('           Press the "P" key to play or '
                         'the "R" key to see the rules\n').lower()
         if options == "r":
-            Game.how_to_play()
+            self.how_to_play()
         elif options == "p":
-            Game.set_players()
+            self.set_players()
         else:
-            print('Your input was not valid. Please press "P" to play or "R" for the rules.')
+            print('Your input was not valid. Please press "P"'
+                  'to play or "R" for the rules.')
 
-    def how_to_play():
-        Game.clear_display()
+    def how_to_play(self):
+        self.clear_display()
         print(
             'Setup Phase:\n'
             '\n'
@@ -564,7 +572,7 @@ class Game(ClearDisplayMixin):
             'only to reveal their location with the flames as you hit one.\n'
         )
         pause()
-        Game.clear_display()
+        self.clear_display()
         print(
             'Firing Round:\n'
             '\n'
@@ -581,18 +589,26 @@ class Game(ClearDisplayMixin):
             'Miss = X\n'
         )
         pause()
-        Game.clear_display()
-        Game.welcome_screen()
+        self.clear_display()
+        self.welcome_screen()
 
-    def set_players():
+    def set_players(self):
         """"
         Takes player name and creates player objects
         """
+        # While loop for game as a whole - never breaks
         user = input("What seafaring name do you want to go down"
                      "in history with?\n")
         user = Player(user)
-        computer_player = Player("Computer")
-        Game.player_round(user, computer_player)
+        play_round = True
+        while play_round:
+            computer_player = Player("Computer")
+            self.player_round(user, computer_player)
+            play_round = self.is_fleet_sunk(user)
+            if play_round is False:
+                break
+            self.player_round(computer_player, user)
+            play_round = self.is_fleet_sunk(computer_player)
 
     @staticmethod
     def player_round(guessing_player, opponent):
@@ -622,16 +638,20 @@ class Game(ClearDisplayMixin):
         and the players board is updated accordingly.
         """
 
+    @staticmethod
+    def is_fleet_sunk(player):
+        if player.board.number_of_ships == 0:
+            return False
+        else:
+            return True
 # Construction of the game
 
 
-def is_fleet_sunk():
-    if user.board.number_of_ships == 0 or computer.board.number_of_ships == 0:
-        return False
-    else:
-        return True
 
-Game.welcome_screen()
+
+
+game = Game()
+game.welcome_screen()
 # user = Player(input("What is your Captains name? \n"))
 # computer = Player("Computer")
 # # print(user.take_guess(computer.board.guess_checker))

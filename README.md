@@ -105,4 +105,5 @@ Sean Murphy
 * How to make a pause for a key to be pressed I referenced from here - https://pretagteam.com/question/python-press-any-key-to-exit
 * https://www.lucidchart.com/ - used to create the game flow chart
 * Code Institute for providing the template. The template gave me a mock terminal to display my game via a webpage.
+* ASCII Art text generator used for into text http://www.network-science.de/ascii/
 

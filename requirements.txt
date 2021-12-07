@@ -1,3 +1,4 @@
+emoji==1.6.1
 flake8==4.0.1
 mccabe==0.6.1
 py-getch==1.0.1
