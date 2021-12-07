@@ -472,7 +472,7 @@ class AircraftCarrier(Ship):
     """
     name = "Aircraft carrier"
     length = 5
-    symbol_list = ["A  "] * length
+    symbol_list = ["A"] * length
 
 
 class Battleship(Ship):
@@ -481,7 +481,7 @@ class Battleship(Ship):
     """
     name = "Battleship"
     length = 4
-    symbol_list = ["B  "] * length
+    symbol_list = ["B"] * length
 
 
 class Cruiser(Ship):
@@ -490,7 +490,7 @@ class Cruiser(Ship):
     """
     name = "Cruiser"
     length = 3
-    symbol_list = ["C  "] * length
+    symbol_list = ["C"] * length
 
 
 class Submarine(Ship):
@@ -499,7 +499,7 @@ class Submarine(Ship):
     """
     name = "Submarine"
     length = 3
-    symbol_list = ["S  "] * length
+    symbol_list = ["S"] * length
 
 
 class Destroyer(Ship):
@@ -508,7 +508,7 @@ class Destroyer(Ship):
     """
     name = "Destroyer"
     length = 2
-    symbol_list = ["D  "] * length
+    symbol_list = ["D"] * length
 
 
 class Game(ClearDisplayMixin):
