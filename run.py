@@ -372,7 +372,7 @@ class Board(InputMixin, ClearDisplayMixin):
         If auto placement = False (Manually placed ships)
         Prints a board showing each ship in the chose location
         """
-        if self.owner != "computer":
+        if self.owner != "Computer":
             for i in range(ship.length):
                 self.board[ship.coordinates[i][0]
                            ][ship.coordinates[i][1]] = ship.symbol_list[i]
