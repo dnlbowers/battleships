@@ -584,30 +584,35 @@ class Game(ClearDisplayMixin):
         """"
         Takes player name and creates player objects
         """
-        game_cycle = True
-        while game_cycle:
-            user = self.name_input()
-            user = Player(user)
-            computer_player = Player("Computer")
-            play_round = True
-            while play_round:
+        user = self.name_input()
+        user = Player(user)
+        computer_player = Player("Computer")
+        play_round = True
+        while play_round:
 
-                self.player_round(user, computer_player)
-                play_round = self.is_fleet_sunk(computer_player)
-                if play_round is False:
-                    print("Hoorah! You won! Neptune god of the seas "
-                          "smiles upon you!")
-                    pause("Press any key to return to the main menu")
-                    self.del_player_obj(user, computer_player)
-                    break
+            self.player_round(user, computer_player)
+            play_round = self.is_fleet_sunk(computer_player)
+            if play_round is False:
+                print("Hoorah! You won! Neptune god of the seas "
+                      "smiles upon you!")
+                pause("Press any key to return to the main menu")
+                self.restart_game(user, computer_player)
+                break
+            loop = input("Wanna run away like scared little sea sponge?\n"
+                         "Type exit and I'll let you scurry under a rock, "
+                         "otherwise just press enter.")
+            if loop == "exit":
+                self.restart_game(user, computer_player)
+                break
 
-                self.player_round(computer_player, user)
-                play_round = self.is_fleet_sunk(user)
-                if play_round is False:
-                    print("GAMEOVER! Sorry captain, we're leaving, "
-                          "you have to go down with the ship!")
-                    pause("Press any key to return to the main menu")
-                    self.del_player_obj(user, computer_player)
+            self.player_round(computer_player, user)
+            play_round = self.is_fleet_sunk(user)
+            if play_round is False:
+                print("GAMEOVER! Sorry captain, we're leaving, "
+                      "you have to go down with the ship!")
+                pause("Press any key to return to the main menu")
+                self.restart_game(user, computer_player)
+                break
 
     def player_round(self, guessing_player, opponent):
         """"
@@ -622,13 +627,7 @@ class Game(ClearDisplayMixin):
         guessing_player.board.update_board(guess, guess_hit_check, opponent)
         if guessing_player.name != "Computer":
             guessing_player.board.user_display()
-            loop = input("Wanna run away like scared lil sea sponge?\n"
-                         "Type exit and I'll let you scurry,"
-                         "otherwise just press enter.")
-            if loop == "exit":
-                self.del_player_obj(guessing_player, opponent)
-                self.clear_display()
-                self.welcome_screen()
+
         else:
             opponent.board.user_display()
 
@@ -657,10 +656,11 @@ class Game(ClearDisplayMixin):
                 continue
             return name
 
-    @staticmethod
-    def del_player_obj(player1, player2):
+    def restart_game(self, player1, player2):
         del(player1)
         del(player2)
+        self.clear_display()
+        self.welcome_screen()
 
 
 game = Game()
