@@ -530,17 +530,20 @@ class Game(ClearDisplayMixin):
                  /\____) || )   ( |___) (___| )      /\____) |
                  \_______)|/     \|\_______/|/       \_______)
             """)
-
-        options = input('           Press the "P" key to play or '
-                        'the "R" key to see the rules\n').lower()
-        if options == "r":
-            self.how_to_play()
-        elif options == "p":
-            self.clear_display()
-            self.set_players()
-        else:
-            print('Your input was not valid. Please press "P"'
-                  'to play or "R" for the rules.')
+        options_menu = True
+        while options_menu:
+            options = input('           Press the "P" key to play or '
+                            'the "R" key to see the rules\n').lower()
+            if options == "r":
+                options_menu = False
+                self.how_to_play()
+            elif options == "p":
+                options_menu = False
+                self.clear_display()
+                self.set_players()
+            else:
+                print('Your input was not valid. Please press "P"'
+                    'to play or "R" for the rules.')
 
     def how_to_play(self):
         self.clear_display()
