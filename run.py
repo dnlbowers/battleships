@@ -302,7 +302,7 @@ class Board(InputMixin, ClearDisplayMixin):
                         ship.coordinates = temp_ship
                         placement_process = False
                         return ship.coordinates
-                # look to condense
+
                 else:
                     if auto_placement:
                         ship.start_coordinate = (
@@ -402,8 +402,6 @@ class Board(InputMixin, ClearDisplayMixin):
         ship.damaged_tiles.append(True)
         if len(ship.damaged_tiles) == ship.length:
             ship.is_sunk = True
-            # print(f"{self.owner}'s {ship.name} has gone to a saltier place")
-            # pause()
             self.ships_remaining()
 
     def update_board(self, guess, result, opponent):
@@ -506,9 +504,6 @@ class Game(ClearDisplayMixin):
     """
     Creates objects and plays the game
     """
-    # def __innit__(self, start):
-    #     self.start = start
-    #     self.welcome = self.welcome_screen()
 
     def welcome_screen(self):
         """"
@@ -535,6 +530,7 @@ class Game(ClearDisplayMixin):
                  /\____) || )   ( |___) (___| )      /\____) |
                  \_______)|/     \|\_______/|/       \_______)
             """)
+
         options = input('           Press the "P" key to play or '
                         'the "R" key to see the rules\n').lower()
         if options == "r":
@@ -588,24 +584,30 @@ class Game(ClearDisplayMixin):
         """"
         Takes player name and creates player objects
         """
-        # While loop for game as a whole - never breaks
-        user = self.name_input()
-        user = Player(user)
-        computer_player = Player("Computer")
-        play_round = True
-        while play_round:
-            self.player_round(user, computer_player)
-            play_round = self.is_fleet_sunk(user)
-            if play_round is False:
-                print("GAMEOVER! Sorry captain, we're leaving, "
-                      "you have to go down with the ship!")
-                pause("Press any key to return to the main menu")
-                break
-            self.player_round(computer_player, user)
-            play_round = self.is_fleet_sunk(computer_player)
-            if play_round is False:
-                print("Hoorah! We win! captain neptune smiles upon us!")
-                pause("Press any key to return to the main menu")
+        game_cycle = True
+        while game_cycle:
+            user = self.name_input()
+            user = Player(user)
+            computer_player = Player("Computer")
+            play_round = True
+            while play_round:
+
+                self.player_round(user, computer_player)
+                play_round = self.is_fleet_sunk(computer_player)
+                if play_round is False:
+                    print("Hoorah! You won! Neptune god of the seas "
+                          "smiles upon you!")
+                    pause("Press any key to return to the main menu")
+                    self.del_player_obj(user, computer_player)
+                    break
+
+                self.player_round(computer_player, user)
+                play_round = self.is_fleet_sunk(user)
+                if play_round is False:
+                    print("GAMEOVER! Sorry captain, we're leaving, "
+                          "you have to go down with the ship!")
+                    pause("Press any key to return to the main menu")
+                    self.del_player_obj(user, computer_player)
 
     def player_round(self, guessing_player, opponent):
         """"
@@ -613,7 +615,6 @@ class Game(ClearDisplayMixin):
         updates with a result
         """
         print(f"{guessing_player.name}'s turn")
-        # guessing_player.board.
         guess = guessing_player.take_guess()
         if guessing_player != "computer":
             print("Aye, Aye Capt'n... Fire in the hold!")
@@ -625,18 +626,11 @@ class Game(ClearDisplayMixin):
                          "Type exit and I'll let you scurry,"
                          "otherwise just press enter.")
             if loop == "exit":
-                del(guessing_player)
-                del(opponent)
+                self.del_player_obj(guessing_player, opponent)
                 self.clear_display()
                 self.welcome_screen()
         else:
             opponent.board.user_display()
-
-    def opponent_turn(self):
-        """"
-        Computer fires at the player
-        and the players board is updated accordingly.
-        """
 
     @staticmethod
     def is_fleet_sunk(player):
@@ -663,27 +657,11 @@ class Game(ClearDisplayMixin):
                 continue
             return name
 
+    @staticmethod
+    def del_player_obj(player1, player2):
+        del(player1)
+        del(player2)
+
 
 game = Game()
 game.welcome_screen()
-# user = Player(input("What is your Captains name? \n"))
-# computer = Player("Computer")
-# # print(user.take_guess(computer.board.guess_checker))
-# play_game = True
-# while play_game:
-#     play_game = Game.player_round(user, computer)
-#     play_game = Game.player_round(computer, user)
-#     play_game = is_fleet_sunk()
-#     user.take_guess(computer.board.guess_checker)
-#     play_game = is_fleet_sunk()
-#     if play_game:
-#         pause("press any key for computer turn")
-#         # Board.clear_boards()
-#         computer.take_guess(user.board.guess_checker)
-#         # The below is for testing only
-#         # computer.board.user_display()
-#     else:
-#         print("game_over")
-#         play_game = False
-
-
