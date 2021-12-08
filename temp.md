@@ -41,6 +41,7 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 * after set up struggled with how to then play the game, After speaking with my mentor I realised that if I ran the create object back through the classes I could then trigger everythin in  fewlines nly in the global, later developed into a game class.
 
+*When hitting ship on the guess board they seemed to scatter and not adhere to the ship length. This was due to the computer player object being created within the game while loop. removing it fixed it
 
 
 

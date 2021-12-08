@@ -158,7 +158,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.board.append([])
             for _ in range(self.board_size):
-                self.board[row].append("\U000025FD")
+                self.board[row].append("\U000025FB")
         return self.board
 
     def build_guess_board(self):
@@ -169,7 +169,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.guess_board.append([])
             for _ in range(self.board_size):
-                self.guess_board[row].append("\U000025FD")
+                self.guess_board[row].append("\U000025FB")
         return self.guess_board
 
     def user_display(self):
@@ -180,25 +180,25 @@ class Board(InputMixin, ClearDisplayMixin):
         self.clear_display()
         print(f"     These sea charts belong to Captian {self.owner}")
         print("    Map of your Fleet:              "
-              "Guess tracker:")
-        print("    0 1 2 3 4 5 6 7 8 9            "
-              "0 1 2 3 4 5 6 7 8 9")
-        print("  +-+-+-+-+-+-+-+-+-+-+          "
-              "+-+-+-+-+-+-+-+-+-+-+")
+              "         Guess tracker:")
+        print("    0  1  2  3  4  5  6  7  8  9             "
+              "0  1  2  3  4  5  6  7  8  9")
+        print("  +-+--+--+--+--+--+--+--+--+--+           "
+              "+-+--+--+--+--+--+--+--+--+--+")
         for index, row in enumerate(zip(self.board, self.guess_board)):
             print(
                 # print row numbers for 1st board
-                f'{str(index) + " |":2s}',
+                f'{str(index) + " |":3s}',
                 # print current row for 1st board, join as string and space out
                 # 3 spaces with :3s
-                ''.join(f'{str(x):2s}' for x in row[0]),
+                ''.join(f'{str(x):3s}' for x in row[0]),
                 # separate the two boards
                 ' ' * 5,
                 # print row numbers for 2nd board
-                f'{str(index)+" |" :2s}',
+                f'{str(index)+" |" :3s}',
                 # print current row for 2nd board, join as string and space out
                 # 3 spaces with :3s
-                ''.join(f'{str(x):2s}' for x in row[1]),
+                ''.join(f'{str(x):3s}' for x in row[1]),
             )
         print("\n")
 
@@ -276,8 +276,7 @@ class Board(InputMixin, ClearDisplayMixin):
                 duplicate_tile = self.duplicate_tile_check(
                     ship, occupied_tiles, next_tile)
 
-                if ship.start_coordinate[index_to_increment] + \
-                        (ship.length - 1) > 9:
+                if ship.start_coordinate[index_to_increment] + (ship.length - 1) > 9:
 
                     if auto_placement:
                         ship.start_coordinate = (
@@ -507,9 +506,9 @@ class Game(ClearDisplayMixin):
     """
     Creates objects and plays the game
     """
-    def __innit__(self, start):
-        self.start = start
-        self.welcome = self.welcome_screen()
+    # def __innit__(self, start):
+    #     self.start = start
+    #     self.welcome = self.welcome_screen()
 
     def welcome_screen(self):
         """"
@@ -577,8 +576,8 @@ class Game(ClearDisplayMixin):
             '\n'
             'The results of your guess are indicated as follows:\n'
             '\n'
-            'Hit = \U0001F4A5 \n'
-            'Miss = \U0001F30A \n'
+            'Hit = "\U0001F4A5"'
+            'Miss = "\U0001F30A'
         )
         pause()
         self.clear_display()
@@ -592,9 +591,9 @@ class Game(ClearDisplayMixin):
         user = input("What seafaring name do you want to go down"
                      "in history with?\n")
         user = Player(user)
+        computer_player = Player("Computer")
         play_round = True
         while play_round:
-            computer_player = Player("Computer")
             self.player_round(user, computer_player)
             play_round = self.is_fleet_sunk(user)
             if play_round is False:
@@ -630,8 +629,6 @@ class Game(ClearDisplayMixin):
                 del(opponent)
                 self.clear_display()
                 self.welcome_screen()
-        else:
-            opponent.board.user_display()
 
     def opponent_turn(self):
         """"
