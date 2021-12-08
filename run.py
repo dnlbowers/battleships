@@ -183,8 +183,8 @@ class Board(InputMixin, ClearDisplayMixin):
               "         Guess tracker:")
         print("    0  1  2  3  4  5  6  7  8  9             "
               "0  1  2  3  4  5  6  7  8  9")
-        print("  +-+--+--+--+--+--+--+--+--+--+           "
-              "+-+--+--+--+--+--+--+--+--+--+")
+        print("  +--+--+--+--+--+--+--+--+--+--           "
+              "+--+--+--+--+--+--+--+--+--+--")
         for index, row in enumerate(zip(self.board, self.guess_board)):
             print(
                 # print row numbers for 1st board
@@ -276,7 +276,7 @@ class Board(InputMixin, ClearDisplayMixin):
                 duplicate_tile = self.duplicate_tile_check(
                     ship, occupied_tiles, next_tile)
 
-                if ship.start_coordinate[index_to_increment] + (ship.length - 1) > 9:
+                if ship.start_coordinate[index_to_increment]+(ship.length - 1) > 9:
 
                     if auto_placement:
                         ship.start_coordinate = (
@@ -417,7 +417,7 @@ class Board(InputMixin, ClearDisplayMixin):
                 self.user_display()
             else:
                 opponent.board.user_display()
-            print("SPLASH!!! Thats a miss, at least the torpedo is clean now")
+            print(f"SPLASH!!! {self.owner} missed")
             pause()
 
         else:
@@ -540,6 +540,7 @@ class Game(ClearDisplayMixin):
         if options == "r":
             self.how_to_play()
         elif options == "p":
+            self.clear_display()
             self.set_players()
         else:
             print('Your input was not valid. Please press "P"'
@@ -588,8 +589,7 @@ class Game(ClearDisplayMixin):
         Takes player name and creates player objects
         """
         # While loop for game as a whole - never breaks
-        user = input("What seafaring name do you want to go down"
-                     "in history with?\n")
+        user = self.name_input()
         user = Player(user)
         computer_player = Player("Computer")
         play_round = True
@@ -597,7 +597,8 @@ class Game(ClearDisplayMixin):
             self.player_round(user, computer_player)
             play_round = self.is_fleet_sunk(user)
             if play_round is False:
-                print("GAMEOVER! Sorry captain, we're leaving, you have to go down with the ship!")
+                print("GAMEOVER! Sorry captain, we're leaving, "
+                      "you have to go down with the ship!")
                 pause("Press any key to return to the main menu")
                 break
             self.player_round(computer_player, user)
@@ -611,8 +612,7 @@ class Game(ClearDisplayMixin):
         Player fires at the computer and players visual for the opponents board
         updates with a result
         """
-        pause(f"Captain {guessing_player.name}'s "
-              "turn, press any key to continue")
+        print(f"{guessing_player.name}'s turn")
         # guessing_player.board.
         guess = guessing_player.take_guess()
         if guessing_player != "computer":
@@ -629,6 +629,8 @@ class Game(ClearDisplayMixin):
                 del(opponent)
                 self.clear_display()
                 self.welcome_screen()
+        else:
+            opponent.board.user_display()
 
     def opponent_turn(self):
         """"
@@ -642,10 +644,24 @@ class Game(ClearDisplayMixin):
             return False
         else:
             return True
-# Construction of the game
 
-
-
+    @staticmethod
+    def name_input():
+        valid_name = False
+        while not valid_name:
+            name = input("What is your sea faring name that want to go down "
+                         "in history with?\n")
+            if len(name) == 0:
+                print("Whilst I appreciate your modesty, I am going to need "
+                      "your name \n for the tombstone I made you on "
+                      "the sea bed. So once again....")
+                continue
+            elif name.lower() == "computer":
+                print("You may be robotic but you don't have my brain I will "
+                      "not let you \ninsult me by claiming to be me!"
+                      "Pick a again human...")
+                continue
+            return name
 
 
 game = Game()
