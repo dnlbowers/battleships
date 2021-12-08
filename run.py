@@ -158,7 +158,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.board.append([])
             for _ in range(self.board_size):
-                self.board[row].append("\U000025FB")
+                self.board[row].append("\U000025FD")
         return self.board
 
     def build_guess_board(self):
@@ -169,7 +169,7 @@ class Board(InputMixin, ClearDisplayMixin):
         for row in range(self.board_size):
             self.guess_board.append([])
             for _ in range(self.board_size):
-                self.guess_board[row].append("\U000025FB")
+                self.guess_board[row].append("\U000025FD")
         return self.guess_board
 
     def user_display(self):
