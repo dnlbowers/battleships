@@ -439,6 +439,12 @@ class Board(InputMixin, ClearDisplayMixin):
         self.number_of_ships -= 1
         return self.number_of_ships
 
+    def is_fleet_sunk(self):
+        if self.number_of_ships == 0:
+            return False
+        else:
+            return True
+
 
 class Ship:
     """
@@ -583,12 +589,12 @@ class Game(ClearDisplayMixin):
             '\n'
             'The results of your guess are indicated as follows:\n'
             '\n'
-            'Hit = "\U0001F4A5"'
+            'Hit = "\U0001F4A5"\n'
             'Miss = "\U0001F30A'
             '\n'
             'If a players ships are all sunk then the game is over, and the\n'
-            'player with even a piece of a ship still above the water wins!'
-
+            'player with even a piece of a ship still above the water wins!\n'
+            '\n'
         )
         pause()
         self.clear_display()
@@ -605,7 +611,7 @@ class Game(ClearDisplayMixin):
         while play_round:
 
             self.player_round(user, computer_player)
-            play_round = self.is_fleet_sunk(computer_player)
+            play_round = computer_player.board.is_fleet_sunk()
             if play_round is False:
                 print("Hoorah! You won! Neptune god of the seas "
                       "smiles upon you!")
@@ -620,7 +626,7 @@ class Game(ClearDisplayMixin):
                 break
 
             self.player_round(computer_player, user)
-            play_round = self.is_fleet_sunk(user)
+            play_round = user.board.is_fleet_sunk()
             if play_round is False:
                 print("GAMEOVER! Sorry captain, we're leaving, "
                       "you have to go down with the ship!")
@@ -644,13 +650,6 @@ class Game(ClearDisplayMixin):
 
         else:
             opponent.board.user_display()
-
-    @staticmethod
-    def is_fleet_sunk(player):
-        if player.board.number_of_ships == 0:
-            return False
-        else:
-            return True
 
     @staticmethod
     def name_input():

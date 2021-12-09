@@ -13,7 +13,7 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
 
 ## **How to play:**
 
-### ***Firstly select your strategy:***  
+### ***Firstly select your strategy (setup phase):***  
 
 Place your fate in the hands of the sea god Neptune. Press "q" or type "quick" to let the currents randomly position your ships before you anchor and fire.   
 
@@ -25,12 +25,14 @@ Neptune hand will always guide the computerized fleet only to reveal their locat
 
 ### ***Firing round:***  
 
-Once in position, it's time to let a rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other side's ships, choose your coordinates on the map (row , column) and remember to call "FIRE IN THE HOLD" (safety first after all). The results of your guess are indicated as follows:  
+Once in position, it's time to let a rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other side's ships, choose your coordinates on the map (row , column) and remember to call "FIRE IN THE HOLD" (safety first after all).  
 
-Hit = :boom: 
-Miss = :ocean:
+The results of your guess are indicated as follows:  
 
-### ***How to win: ***
+Hit = :boom:   
+Miss = :ocean:  
+
+### ***How to win:***
 The last side with a ship still afloat wins. 
 
 ## **Planning Phase:**
