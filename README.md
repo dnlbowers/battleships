@@ -3,11 +3,11 @@
 ## **Overview**
 This program is a computerized version of the original board game battleships, based inside a mock terminal deployed via Heroku.
 
-As a child of the 90's, I used the traditional ship naming conventions from the 1990 Milton Bradley game version over the more modern Hasbro rendition. One can find more info on the rules and the history of the game here on [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game)). My only deviation was that I reamed the "Carrier" to "Aircraft carrier" to differentiate it from the Cruiser within the app.  
+As a child of the 90's, I used the traditional ship naming conventions from the 1990 Milton Bradley game version over the more modern Hasbro rendition. One can find more info on the rules and the history of the game here on [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game)). My only deviation was that I reamed the "Carrier" to "Aircraft carrier" to differentiate it from the Cruiser on the board within the app.  
 
 The app replicates the game's enjoyment by allowing the user to play a single-player version against a computerized player.  
   
-[A link to the live site can be found here](https://dnlbowers-battleship.herokuapp.com/)
+[Click here to be taken to the final deployment of the project.](https://dnlbowers-battleship.herokuapp.com/)
 
 **AM I RESPONSIVE SCREENSHOT HERE**
 
@@ -68,9 +68,14 @@ To understand the steps required in order to program the game, I created the bel
  
 **TO BE DONE WHEN COMPLETE**
 
+## **Future-enhancements**
+**TO DO**
 
 ## **Data Model**
  **TO DO**
+
+## **Testing Phase**
+I have included details of testing both during development and post development in a separate document called [TESTING.md](TESTING.md).
 
 ## **Libraries**
 For this project to work, I required three imported libraries: -
@@ -81,53 +86,23 @@ For this project to work, I required three imported libraries: -
 ### ***getch***
   * pause imported from getch to pause the gameplay and give the user more control between turns. This function will also later allow two human players to use the same screen to play against each other. A blank screen could implement this between player turns and a pause until the new player is in play and the previous player has looked away.
 
-## **Testing**
-I performed manual testing throughout this project in the following ways:
-### ***PEP8 linter:***
-To begin with, I was using Pylint to lint my code. The reason for this was that I was developing on my local machine using Vscode and a virtual environment meaning flake8 was not working for me. After some research, I discovered the error with flake8 was in the Code institute settings Json where CI had set the file path for the linter according to the Gitpod virtual environment. After deleting the file path and installing flake8 with the pip install command, I continued developing the course-recommended linter.
-
-During the above investigation, I also noticed the below line in the settings Json of the code institute template. I began to wonder what it was: -   
- 
- "python.formatting.autopep8Path"
-
-A quick google search revealed the following console command "$ autopep8 --in-place --aggressive --aggressive run.py", and after executing this command, the function formatted my code perfectly in line with PEP8 coding conventions.
-
-### ***Inputs**
-I have tested all inputs with strings where expecting integers, integers where expecting strings and adding spaces to the input value.  
-
-Lastly, I challenged the slack community to break the app in any way possible which by the deployment of final product was not possible.   
-
-### ***Game play:***
-Through out development I was testing the game in the terminal of VScode as well as several rounds being played in the Code Institute terminal template for each deploy to Heroku
-
-The end result is a stays playing continuously without error  
-
-## **Bugs**
-**TO DO**
-
-## **Remaining Bugs**
-At the time of submission no bugs remained in the app.
-
-## **Validator Testing**
-### ***PEP8:***
-* Due to the use of linters and the autopep8 command line function referenced above, [PEP8online.com](http://pep8online.com/) returned no errors.
-
 ## **Deployment**
 **TO DO**
 
 ## **Honorable Mentions**
-**Still requires grammarly**
-Mark Cutajar - Truly if Data science was a super power Mark would be the equivalent of superman. He was with me at several points through out the development process and was always on call when I needed him to cross reference my ideas.  
-Richard Wells - Taught me what a mentor was for, Richard has always been a perfect for me as a mentor on this journey of learning however during this project I came to really understand how to use him to the full potential. Our relationship feels like it has blossomed in to that of junior and senior developer on the same team.
-Sean Murphy - Provided me the pseudo code I required to print two boards side by side. Not only did he give me exactly what I needed but he spent the required time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.
+* [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data science were a superpower, Mark would be the equivalent of superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
+* [Richard Wells](https://github.com/D0nni387) - Taught me what it means to have a mentor. Richard has always been perfect for me as a mentor on this learning journey; however, I understood how to use him to his full potential during this project. Our relationship feels like it has blossomed into junior and senior developers on the same team.
+[Sean Murphy](https://github.com/nazarja) - Provided me the pseudo-code I required to print two boards side by side. Not only did he give me exactly what I needed, but he spent the necessary time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.
+
+* And the biggest thanks goes to my wife and child, who have had to deal with me face to face through it all. Oliver has been my reason for the change and Analise my inspiration. 
 
 ## **Credits**
 * Python OOP Tutorial series by Corey Schafer for general reference on working with classes and OOP in general  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)  
-* To get a general idea of the game logic, I used this video on the Devpost Youtube channel - https://youtu.be/zSQIGzmcp2I  
-* The idea to decorate the board with numbers above and to the side came from Knowledge Mavens youtube channel - https://youtu.be/alJH_c9t4zw
-* Clear console function copied from https://www.delftstack.com/howto/python/python-clear-console/
-* How to make a pause for a key to be pressed I referenced from here - https://pretagteam.com/question/python-press-any-key-to-exit
-* https://www.lucidchart.com/ - used to create the game flow chart
-* Code Institute for providing the template. The template gave me a mock terminal to display my game via a webpage.
-* ASCII Art text generator used for into text http://www.network-science.de/ascii/
+* To get a general idea of the game logic, I used this video on the [Devpost Youtube channel](https://youtu.be/zSQIGzmcp2I)  
+* The idea to decorate the board with numbers above and to the side came from [Knowledge Mavens youtube channel](https://youtu.be/alJH_c9t4zw)
+* Clear console function copied from [delftstack.com](https://www.delftstack.com/howto/python/python-clear-console/)
+* How to make a pause for a key to be pressed I referenced from [pretagteam.com](https://pretagteam.com/question/python-press-any-key-to-exit)
+* [lucid chart.com](https://www.lucidchart.com/) was used to create the game flow chart
+* [Code Institute](https://codeinstitute.net/) for providing the template. The [template](https://github.com/Code-Institute-Org/python-essentials-template) gave me a mock terminal to display my game via a webpage.
+* [ASCII Art text generator](http://www.network-science.de/ascii/) used for the welcome screen text.
 
