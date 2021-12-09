@@ -71,10 +71,13 @@ To understand the steps required in order to program the game, I created the bel
  **TO DO**
 
 ## **Libraries**
-**TO DO**
-Random - rand int and randchoice
-OS - Clear screen
-getch (pause) - allowed pause for key press
+For this project to be function I used three imported libraries: -
+### ***random***
+  * randint used to generate random number between 0 and 9 for the auto mated placement and computer guessing
+### ***os***
+  * system used in conjunction with the clear/cls command to clear the console so the user would not get overwhelmed in reams of out dated data from previous rounds
+### ***getch***
+  * pause imported from getch to pause the game play and give the user more control between turns. This will also later allow for 2 human players using the same screen to play against each other. Thsi could be implemented but a blank screen between player turns and a pause until the new player is in play and the previous player has looked away
 
 ## **Testing**
 **TO DO**
