@@ -43,6 +43,8 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 *When hitting ship on the guess board they seemed to scatter and not adhere to the ship length. This was due to the computer player object being created within the game while loop. removing it fixed it
 
+* ascii art escape charaters \ needed to add a second \ to all \'s - intial fix was whitespace 
+
 
 
 ## future development ideas:

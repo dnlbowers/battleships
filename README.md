@@ -71,17 +71,22 @@ To understand the steps required in order to program the game, I created the bel
  **TO DO**
 
 ## **Libraries**
-For this project to be function I used three imported libraries: -
+For this project to work, I required three imported libraries: -
 ### ***random***
-  * randint used to generate random number between 0 and 9 for the auto mated placement and computer guessing
+  * randint used to generate a random number between 0 and 9 for the automated placement and computer guessing
 ### ***os***
-  * system used in conjunction with the clear/cls command to clear the console so the user would not get overwhelmed in reams of out dated data from previous rounds
+  * system used in conjunction with the clear/cls command to clear the console so the user would not get overwhelmed in reams of outdated data from previous rounds
 ### ***getch***
-  * pause imported from getch to pause the game play and give the user more control between turns. This will also later allow for 2 human players using the same screen to play against each other. Thsi could be implemented but a blank screen between player turns and a pause until the new player is in play and the previous player has looked away
+  * pause imported from getch to pause the gameplay and give the user more control between turns. This function will also later allow two human players to use the same screen to play against each other. A blank screen could implement this between player turns and a pause until the new player is in play and the previous player has looked away.
 
 ## **Testing**
-**TO DO**
-since I used the command $ autopep8 --in-place --aggressive --aggressive run.py to format the document no errors were found on pep8
+I performed manual testing throughout this project in the following ways:
+### ***PEP8 linter:***
+When I was first running my code through [PEP8 online](http://pep8online.com/), I found an overwhelming amount of errors. Most of these errors were just formatting errors, and after seeing the below line in the settings Json of the code institute template, I began to wonder what it was: -   
+ 
+ "python.formatting.autopep8Path"
+
+A quick google search revealed the following console command "$ autopep8 --in-place --aggressive --aggressive run.py", and after executing it, all errors vanished from PEP8
 
 ## **Bugs**
 **TO DO**

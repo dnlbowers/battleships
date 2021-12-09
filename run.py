@@ -125,8 +125,9 @@ class Player(InputMixin, ClearDisplayMixin):
                         break
                     elif previously_guessed:
                         print(
-                            "Sir? has the war driven you crazy?\nWe've already"
-                            " fired there, so with all due respect I repeat...")
+                            "Sir? has the war driven you crazy?\n"
+                            "We've already fired there, "
+                            "so with all due respect I repeat...")
                         break
                 if not previously_guessed:
                     self.board.user_display()
@@ -278,7 +279,8 @@ class Board(InputMixin, ClearDisplayMixin):
                 duplicate_tile = self.duplicate_tile_check(
                     ship, occupied_tiles, next_tile)
 
-                if ship.start_coordinate[index_to_increment]+(ship.length - 1) > 9:
+                if ship.start_coordinate[index_to_increment] + \
+                        (ship.length - 1) > 9:
 
                     if auto_placement:
                         ship.start_coordinate = (
@@ -435,6 +437,7 @@ class Board(InputMixin, ClearDisplayMixin):
         Reduces number of ships by one.
         """
         self.number_of_ships -= 1
+        return self.number_of_ships
 
 
 class Ship:
