@@ -84,28 +84,42 @@ For this project to work, I required three imported libraries: -
 ## **Testing**
 I performed manual testing throughout this project in the following ways:
 ### ***PEP8 linter:***
-When I was first running my code through [PEP8 online](http://pep8online.com/), I found an overwhelming amount of errors. Most of these errors were just formatting errors, and after seeing the below line in the settings Json of the code institute template, I began to wonder what it was: -   
+To begin with, I was using Pylint to lint my code. The reason for this was that I was developing on my local machine using Vscode and a virtual environment meaning flake8 was not working for me. After some research, I discovered the error with flake8 was in the Code institute settings Json where CI had set the file path for the linter according to the Gitpod virtual environment. After deleting the file path and installing flake8 with the pip install command, I continued developing the course-recommended linter.
+
+During the above investigation, I also noticed the below line in the settings Json of the code institute template. I began to wonder what it was: -   
  
  "python.formatting.autopep8Path"
 
-A quick google search revealed the following console command "$ autopep8 --in-place --aggressive --aggressive run.py", and after executing it, all errors vanished from PEP8
+A quick google search revealed the following console command "$ autopep8 --in-place --aggressive --aggressive run.py", and after executing this command, the function formatted my code perfectly in line with PEP8 coding conventions.
+
+### ***Inputs**
+I have tested all inputs with strings where expecting integers, integers where expecting strings and adding spaces to the input value.  
+
+Lastly, I challenged the slack community to break the app in any way possible which by the deployment of final product was not possible.   
+
+### ***Game play:***
+Through out development I was testing the game in the terminal of VScode as well as several rounds being played in the Code Institute terminal template for each deploy to Heroku
+
+The end result is a stays playing continuously without error  
 
 ## **Bugs**
 **TO DO**
 
 ## **Remaining Bugs**
-**TO DO**
+At the time of submission no bugs remained in the app.
 
 ## **Validator Testing**
-**TO DO**
+### ***PEP8:***
+* Due to the use of linters and the autopep8 command line function referenced above, [PEP8online.com](http://pep8online.com/) returned no errors.
 
 ## **Deployment**
 **TO DO**
 
 ## **Honorable Mentions**
-Mark Cutajar
-Richard Wells
-Sean Murphy
+**Still requires grammarly**
+Mark Cutajar - Truly if Data science was a super power Mark would be the equivalent of superman. He was with me at several points through out the development process and was always on call when I needed him to cross reference my ideas.  
+Richard Wells - Taught me what a mentor was for, Richard has always been a perfect for me as a mentor on this journey of learning however during this project I came to really understand how to use him to the full potential. Our relationship feels like it has blossomed in to that of junior and senior developer on the same team.
+Sean Murphy - Provided me the pseudo code I required to print two boards side by side. Not only did he give me exactly what I needed but he spent the required time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.
 
 ## **Credits**
 * Python OOP Tutorial series by Corey Schafer for general reference on working with classes and OOP in general  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)  
