@@ -32,7 +32,7 @@ class InputMixin():
     def coord_error_msg():
         new_guess = input("You input is invalid. Please use two "
                           "numbers (row then column)"
-                          "i.e 4,5 or 45: \n")
+                          "i.e 4,5 or 45: \n").strip(" ")
 
         return new_guess
 
@@ -75,7 +75,8 @@ class Player(InputMixin, ClearDisplayMixin):
         while invalid_input:
             setup_type = input(
                 'Type "(Q)uick" to place your ships randomly,\n'
-                ' or "(M)anual" to place your ships yourself\n').lower()
+                ' or "(M)anual" to place your ships '
+                'yourself\n').lower().strip(" ")
             if setup_type == "quick" or setup_type == "q":
                 invalid_input = False
                 return True
@@ -109,7 +110,8 @@ class Player(InputMixin, ClearDisplayMixin):
             else:
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the '
-                    'chamber?":\n Enter (row then column) eg 0,4 or 04: \n')
+                    'chamber?":\n Enter (row then column) eg 0,4 '
+                    'or 04: \n').strip(" ")
 
                 guess_coordinate = self.coord_input_validator(guess_coordinate)
                 previously_guessed = guess_coordinate in self.guesses
@@ -124,7 +126,7 @@ class Player(InputMixin, ClearDisplayMixin):
                     elif previously_guessed:
                         print(
                             "Sir? has the war driven you crazy?\nWe've already"
-                            " fired there,so with all due respect I repeat...")
+                            " fired there, so with all due respect I repeat...")
                         break
                 if not previously_guessed:
                     self.board.user_display()
@@ -228,7 +230,7 @@ class Board(InputMixin, ClearDisplayMixin):
                 start_position = input(
                     f"From where would you like your {ship_obj_type[i].name} "
                     "to start?\n Please enter two numbers (row then column)"
-                    "i.e 4,5 or 45: \n")
+                    "i.e 4,5 or 45: \n").strip(" ")
 
                 start_position = self.coord_input_validator(start_position)
                 direction = self.direction_input()
@@ -290,7 +292,7 @@ class Board(InputMixin, ClearDisplayMixin):
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
                             f"{ship.name}? \n Please enter two numbers "
-                            "(row then column) i.e 4,5 or 45: \n")
+                            "(row then column) i.e 4,5 or 45: \n").strip(" ")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
                         ship.direction = self.direction_input()
@@ -316,7 +318,7 @@ class Board(InputMixin, ClearDisplayMixin):
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
                             f"{ship.name}? \n Please enter two numbers "
-                            "(row then column) i.e 4,5 or 45: \n")
+                            "(row then column) i.e 4,5 or 45: \n").strip(" ")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
                         ship.direction = self.direction_input()
@@ -328,7 +330,7 @@ class Board(InputMixin, ClearDisplayMixin):
         while invalid_input:
             setup_type = input(
                 "From the bow in which direction is stern "
-                "pointing? (r)ight or (d)own: \n").lower()
+                "pointing? (r)ight or (d)own: \n").lower().strip(" ")
             if setup_type == "right" or setup_type == "r":
                 invalid_input = False
                 return "right"
@@ -425,21 +427,14 @@ class Board(InputMixin, ClearDisplayMixin):
                 self.user_display()
             else:
                 opponent.board.user_display()
-            print("Direct hit!")
+            print(f"{self.owner} made a Direct hit!")
             pause()
 
     def ships_remaining(self):
         """
-        Reduces number of ships by one and ends game if all ships sunk.
+        Reduces number of ships by one.
         """
-        game_over = False
         self.number_of_ships -= 1
-        # I am thinking this is no longer needed
-        print(f"{self.owner} has {self.number_of_ships} remaining")
-        if self.number_of_ships == 0:
-            return True
-        else:
-            return game_over
 
 
 class Ship:
@@ -533,7 +528,7 @@ class Game(ClearDisplayMixin):
         options_menu = True
         while options_menu:
             options = input('           Press the "P" key to play or '
-                            'the "R" key to see the rules\n').lower()
+                            'the "R" key to see the rules\n').lower().strip(" ")
             if options == "r":
                 options_menu = False
                 self.how_to_play()
@@ -543,7 +538,7 @@ class Game(ClearDisplayMixin):
                 self.set_players()
             else:
                 print('Your input was not valid. Please press "P"'
-                    'to play or "R" for the rules.')
+                      'to play or "R" for the rules.')
 
     def how_to_play(self):
         self.clear_display()
@@ -603,8 +598,8 @@ class Game(ClearDisplayMixin):
                 break
             loop = input("Wanna run away like scared little sea sponge?\n"
                          "Type exit and I'll let you scurry under a rock, "
-                         "otherwise just press enter.")
-            if loop == "exit":
+                         "otherwise just press enter.").strip(" ")
+            if loop.lower() == "exit":
                 self.restart_game(user, computer_player)
                 break
 
@@ -647,7 +642,7 @@ class Game(ClearDisplayMixin):
         while not valid_name:
             name = input("What is your sea faring name that want to go down "
                          "in history with?\n")
-            if len(name) == 0:
+            if len(name.strip(" ")) == 0:
                 print("Whilst I appreciate your modesty, I am going to need "
                       "your name \n for the tombstone I made you on "
                       "the sea bed. So once again....")
