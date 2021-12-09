@@ -15,15 +15,16 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 ## How to play
 
-
-##issues/testing (rough notes)
-
-* Classes and sub classes, I was trying to figure out how to link all objects together. At first I was making all classes a sub class of "Player" The after much research I realized that board and ship were not types of player but something the player possessed. Realising this I made the board class part of the innit method in player so it Belonged to the player but was not a sub class of.
-
 * I needed a way to check if a ship had already been place on a tile. I was trying to access the coordinates from the ship obj directly and bu simply using += to add to the list the was no definition between the set of coords (row, column). when I then realized the error saying that fleet[i].coordinates error saying it lack the append attribute I realized I could do  from with in the build fleet function using the predefined list and the coords used to innit the obj. after realising this I was able to use occupied_coordinates.append(tuple(random_start)) to place the row and column coordinate as a tuple set with in the predefined occupied_coordinates list.
   * This changed - go back to review
+##issues/testing (rough notes)
 
-* When creating an object for the computer it was asking how it wanted to place the ships, this was fix with an if statement in the innit method of the class.
+
+
+
+
+<!-- * When creating an object for the computer it was asking how it wanted to place the ships, this was fix with an if statement in the innit method of the class.
+* This lead to the user being able to fake the computer player = fixed with if else statements in error handling function -->
 
 * When trying to determine within the build ship function with auto placement it was then asking the player to place ships manually. I found that this partly because I have placed the auto placement parameter after the *arg and was being added to the list of occupied tiles and as such it was failing to recognize us it auto placement or manual being past, Moving the parameter from the last to the first fix this,
 
@@ -53,6 +54,8 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 * Make the the AI more intelligent so that when its last move was a hit it searching the adjasent tiles first before moving back to a randomised firing method.
 * add colors to differentiate ships from the water and hits from the miss.
 * One this I would have loved to do for this project is incorporate some Javascript to animate a back ground where by the user would see a missle or torpedo head towards and ship and explod for a hit or splash in the water for a miss. This was well outside of the scop of the assesment criteria but definately something I will be coming back to try and implement later on.
+
+* randomize the starting player
   
 ## Credits:
 

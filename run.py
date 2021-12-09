@@ -598,6 +598,7 @@ class Game(ClearDisplayMixin):
             'Firing Round:\n'
             '\n'
             'Once in position, it\'s time to let a rip!\n'
+            '\n'
             'Since the radar equipment was broken "accidentally" in the\n'
             'previous battle, you are firing blind and cannot see the other\n'
             "side's ships. Choose your coordinates on the map (row , column)\n"
@@ -606,8 +607,8 @@ class Game(ClearDisplayMixin):
             '\n'
             'The results of your guess are indicated as follows:\n'
             '\n'
-            'Hit = "\U0001F4A5"\n'
-            'Miss = "\U0001F30A'
+            'Hit = \U0001F4A5 \n'
+            'Miss = \U0001F30A \n'
             '\n'
             'If a players ships are all sunk then the game is over, and the\n'
             'player with even a piece of a ship still above the water wins!\n'
