@@ -116,13 +116,13 @@ class Player(InputMixin, ClearDisplayMixin):
                 guess_coordinate = self.coord_input_validator(guess_coordinate)
                 previously_guessed = guess_coordinate in self.guesses
 
-                # Somewhere in here I need to account for invalid input types
                 while previously_guessed:
                     if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
                         print(
                             "But capt'n thats out of bounds,\n respectively I"
                             " ask you again...")
                         break
+
                     elif previously_guessed:
                         print(
                             "Sir? has the war driven you crazy?\n"
@@ -135,6 +135,23 @@ class Player(InputMixin, ClearDisplayMixin):
                     valid_guess = True
 
         return guess_coordinate
+
+    def player_turn(self, opponent):
+        """"
+        Player fires at the computer and players visual for the opponents board
+        updates with a result
+        """
+        print(f"{self.name}'s turn")
+        guess = self.take_guess()
+        if self.name != "Computer":
+            print("Aye, Aye Capt'n... Fire in the hold!")
+        guess_hit_check = opponent.board.guess_checker(guess)
+        self.board.update_board(guess, guess_hit_check, opponent)
+        if self.name != "Computer":
+            self.board.user_display()
+
+        else:
+            opponent.board.user_display()
 
 
 class Board(InputMixin, ClearDisplayMixin):
@@ -610,7 +627,7 @@ class Game(ClearDisplayMixin):
         play_round = True
         while play_round:
 
-            self.player_round(user, computer_player)
+            user.player_turn(computer_player)
             play_round = computer_player.board.is_fleet_sunk()
             if play_round is False:
                 print("Hoorah! You won! Neptune god of the seas "
@@ -625,7 +642,7 @@ class Game(ClearDisplayMixin):
                 self.restart_game(user, computer_player)
                 break
 
-            self.player_round(computer_player, user)
+            computer_player.player_turn(user)
             play_round = user.board.is_fleet_sunk()
             if play_round is False:
                 print("GAMEOVER! Sorry captain, we're leaving, "
@@ -633,23 +650,6 @@ class Game(ClearDisplayMixin):
                 pause("Press any key to return to the main menu")
                 self.restart_game(user, computer_player)
                 break
-
-    def player_round(self, guessing_player, opponent):
-        """"
-        Player fires at the computer and players visual for the opponents board
-        updates with a result
-        """
-        print(f"{guessing_player.name}'s turn")
-        guess = guessing_player.take_guess()
-        if guessing_player != "computer":
-            print("Aye, Aye Capt'n... Fire in the hold!")
-        guess_hit_check = opponent.board.guess_checker(guess)
-        guessing_player.board.update_board(guess, guess_hit_check, opponent)
-        if guessing_player.name != "Computer":
-            guessing_player.board.user_display()
-
-        else:
-            opponent.board.user_display()
 
     @staticmethod
     def name_input():
