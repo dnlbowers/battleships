@@ -198,7 +198,7 @@ class Board(InputMixin, ClearDisplayMixin):
         and their guess tally board
         """
         self.clear_display()
-        print(f"     These sea charts belong to Captain {self.owner}")
+        print((" ")*20 + f"These sea charts belong to Captain {self.owner}")
         print("    Map of your Fleet:              "
               "         Guess tracker:")
         print("    0  1  2  3  4  5  6  7  8  9             "
