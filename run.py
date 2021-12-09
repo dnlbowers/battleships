@@ -181,7 +181,7 @@ class Board(InputMixin, ClearDisplayMixin):
         and their guess tally board
         """
         self.clear_display()
-        print(f"     These sea charts belong to Captian {self.owner}")
+        print(f"     These sea charts belong to Captain {self.owner}")
         print("    Map of your Fleet:              "
               "         Guess tracker:")
         print("    0  1  2  3  4  5  6  7  8  9             "
@@ -548,6 +548,15 @@ class Game(ClearDisplayMixin):
         print(
             'Setup Phase:\n'
             '\n'
+            'Each players fleet has the following 5 ships, represented with \n'
+            'the letter displayed below in square brackets: -\n'
+            '\n'
+            '1. Aircraft carrier [A] - 5 tiles in length\n'
+            '2. Battleship [B] - 4 tiles in length\n'
+            '3. Cruiser [C] - 3 tiles in length\n'
+            '4. Submarine [S] - 3 tiles in length\n'
+            '5. Destroyer [D} - 2 tiles in length\n'
+            '\n'
             'Place your fate in the hands of the sea god Neptune. \n'
             'Press "q" or type "quick" to let the currents randomly\n'
             'position your ships before you anchor and fire.\n'
@@ -576,6 +585,10 @@ class Game(ClearDisplayMixin):
             '\n'
             'Hit = "\U0001F4A5"'
             'Miss = "\U0001F30A'
+            '\n'
+            'If a players ships are all sunk then the game is over, and the\n'
+            'player with even a piece of a ship still above the water wins!'
+
         )
         pause()
         self.clear_display()
