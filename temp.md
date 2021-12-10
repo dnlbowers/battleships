@@ -23,37 +23,6 @@ Choose a quick start for the your ships to be randomly placed or select your bat
 
 
 
-<!-- * When creating an object for the computer it was asking how it wanted to place the ships, this was fix with an if statement in the innit method of the class.
-* This lead to the user being able to fake the computer player = fixed with if else statements in error handling function -->
-
-<!-- * When trying to determine within the build ship function with auto placement it was then asking the player to place ships manually. I found that this partly because I have placed the auto placement parameter after the *arg and was being added to the list of occupied tiles and as such it was failing to recognize us it auto placement or manual being past, Moving the parameter from the last to the first fix this, -->
-
-<!-- * After trying to understand why it was not able to read the list within a list I search for iterating through a list of lists. I was then able to create a static method in the board class that searched each list within the list of occupied tiles and return True if the coord was found in one of the nested lists. This would then be used within a conditional statement to be triggered it the entered coord was original and not in the occupied tiles. -->
-<!-- 
-* The while loop in the build fleet function wasn't working because I forgot to define the variable in the while loop prior to using it. THis was later abandoned and all the checking of the user input was done within the build ship function
-
-*In order to zip the symbol and cords together as a reference dictionary I needed to make the symbol *length -->
-
-<!-- *When trying to place the ships on the board the logic was showing no error but the board, did not update when printed - I was trying to append the symbol when all I needed to do was use the assignment operator. -->
-
-<!-- * When trying try to update the comp board or user board with the guess result I was unable to successfully get the two objects to interact by using the classes. By passing in the opposite player object into the guess parameter I was able to the then access the correct board and update it accordingly. -->
-
-* after 3 sink were sunk any hit was showing with an x and the text for a miss. After printing several variables I found that the fleet location dictionary was updating every round. Due to the letter being changed to a % or x and I was using the function and not the innit variable every time the flow came to fetch the dictionary it was actually degenerating it from the board.
-
-* after set up struggled with how to then play the game, After speaking with my mentor I realised that if I ran the create object back through the classes I could then trigger everythin in  fewlines nly in the global, later developed into a game class.
-
-*When hitting ship on the guess board they seemed to scatter and not adhere to the ship length. This was due to the computer player object being created within the game while loop. removing it fixed it
-
-* ascii art escape charaters \ needed to add a second \ to all \'s - intial fix was whitespace 
-
-
-
-## future development ideas:
-* multiplayer - The user would be asked for the name of the second player, they enter computer for 1 player mode and any other string for two player.
-* This would would by asking the next player if they were ready after player ones turn, when they hit enter they would then see player 1 board blank (minus hits and misses). After player two trun the console would clear asking player 1 if they are ready and so on.
-* Make the the AI more intelligent so that when its last move was a hit it searching the adjasent tiles first before moving back to a randomised firing method.
-* add colors to differentiate ships from the water and hits from the miss.
-* One this I would have loved to do for this project is incorporate some Javascript to animate a back ground where by the user would see a missle or torpedo head towards and ship and explod for a hit or splash in the water for a miss. This was well outside of the scop of the assesment criteria but definately something I will be coming back to try and implement later on.
 
 * randomize the starting player
   

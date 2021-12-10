@@ -86,10 +86,26 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
    * 80's type 8 bit midi file to make it into a retro-type arcade game.
   
 ### ***Randomize the starting player***  
-   * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll(highest number goes first) or a coin toss.
+   * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll (highest number goes first) or a coin toss.
 
 ## **Data Model**
- **TO DO**
+### ***Overview***
+For this project I have opted to use Object Orientated programming paradigm throughout. The game consists of 4 classes and 5 subclasses: -
+  1. Player.
+  1. Board.
+  1. Ship.
+     * AircraftCarrier.
+     * Battleship.
+     * Cruiser.
+     * Submarine.
+     * Destroyer 
+  1. Game.
+
+In addition to this there are the below two mixins for for functions which were required in more than one class.
+  1. InputMixin
+  1. ClearDisplayMixin
+
+   
 
 ## **Testing Phase**
 I have included details of testing both during development and post development in a separate document called [TESTING.md](TESTING.md).
