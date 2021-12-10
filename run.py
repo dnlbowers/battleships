@@ -264,7 +264,6 @@ class Board(InputMixin, ClearDisplayMixin):
         if self.auto:
             if self.owner != "Computer":
                 self.user_display()
-                print("Let the battle commence!")
         return fleet
 
     def build_ship(self, auto_placement, ship, occupied_tiles):
@@ -625,31 +624,40 @@ class Game(ClearDisplayMixin):
         user = self.name_input()
         user = Player(user)
         computer_player = Player("Computer")
+        print("Let the battle commence!")
+        self.firing_round(user, computer_player)
+
+    def firing_round(self, player, computer):
+        """"
+        Loops back and fore between players allowing them to take there guess
+        and marking the relevant boards.
+        """
+
         play_round = True
         while play_round:
 
-            user.player_turn(computer_player)
-            play_round = computer_player.board.is_fleet_sunk()
+            player.player_turn(computer)
+            play_round = computer.board.is_fleet_sunk()
             if play_round is False:
                 print("Hoorah! You won! Neptune god of the seas "
                       "smiles upon you!")
                 pause("Press any key to return to the main menu")
-                self.restart_game(user, computer_player)
+                self.restart_game(player, computer)
                 break
             loop = input("Wanna run away like scared little sea sponge?\n"
                          "Type exit and I'll let you scurry under a rock, "
                          "otherwise just press enter.").strip(" ")
             if loop.lower() == "exit":
-                self.restart_game(user, computer_player)
+                self.restart_game(player, computer)
                 break
 
-            computer_player.player_turn(user)
-            play_round = user.board.is_fleet_sunk()
+            computer.player_turn(player)
+            play_round = player.board.is_fleet_sunk()
             if play_round is False:
                 print("GAMEOVER! Sorry captain, we're leaving, "
                       "you have to go down with the ship!")
                 pause("Press any key to return to the main menu")
-                self.restart_game(user, computer_player)
+                self.restart_game(player, computer)
                 break
 
     @staticmethod

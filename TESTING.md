@@ -1,4 +1,6 @@
-## **Testing**
+# **Testing**
+
+## Manual testing:
 I performed manual testing throughout this project in the following ways:
 ### ***PEP8 linter:***
 To begin with, I was using Pylint to lint my code. The reason for this was that I was developing on my local machine using Vscode and a virtual environment meaning flake8 was not working for me. After some research, I discovered the error with flake8 was in the Code institute settings Json where CI had set the file path for the linter according to the Gitpod virtual environment. After deleting the file path and installing flake8 with the pip install command, I continued developing the course-recommended linter.
@@ -48,11 +50,97 @@ The end result is a robust game stays playing continuously without error.
         * The downside to this was that the app could be broken easily by the player entering their name as "computer."
             * This was then resolved within the Game class method "name_input." I added a conditional statement that printed a tongue-in-cheek reason why the human player could not also be called "computer". It did occur to me that I could have also added a variable into the innit called human_player as a boolean; however, I preferred my final solution to add an element of personality to a classical game.
 
+1. **Intended Outcome:** - recognizing the non-human player and skipping the manual ship placement.
+    * ***Issue Found:***
+        * When initializing the computer player, the app was still offering the choice to place the computer's ships manually. 
+    * ***Causes:*** 
+        * Originally, I used an *args parameter to past in the list of occupied coordinates. The auto-placement was passed in after the *args parameter and added to the list past with the *args parameter. 
+        * I later discovered this was an incorrect use of *args, and despite the first fix below working, the real issue was that the function was reading the first parameter as "self".
+    * ***Solution found***
+        * The first solution was to move the *args to the last passed parameter, which worked but was an improper use of *args.
+        * I later realized that the interrupter read the first parameter as "self". Removing the *args and adding "self " as the first parameter worked as the final resolution for the method function.
+        * 
+1. **intended outcome** - Search through a list of occupied tiles when placing ship and return a boolean value to indicate whether or not the passed value already exited. 
+   * ***Issue Found:***
+        * My statements to read the lists containing the already occupied tiles were failing to work correctly.
+    * ***Causes:*** 
+        * I only checked the outer list with my conditional statements and not the lists within the lists.
+    * ***Solution found:***
+        * By creating a nested for loop to check each item of each nested list and returning a boolean value when it found a match or not. I assigned the static method containing the for loop to a variable and successfully used it as a conditional. 
 
+1. **intended outcome** - Until the user gives a valid input, the code will loop around and provide feedback to the user.
+    * ***Issue Found:***
+        * Many infinite loops in the process of trying to set this up.
+    * ***Causes:***
+        * There was an instance where I neglected to define the escape variable before the loop.
+        * I ran the code with a conditional statement that couldn't trigger within the while loop.
+    *  ***Solution found:***
+        * A combination of return statements, break, and booleans assigned to variables.
 
-## **Remaining Bugs**
+1. **intended outcome** - A dictionary with occupied tiles as the key and ship symbol as the value. The app would then check the guess and find the correct ship to update the damaged tiles on.
+    * ***Issue Found:***
+        * Trying to zip() the list of coordinates together with the ship symbol returned an error.
+    * ***Causes:***
+        * Due to the list lengths being different sizes, the zip() method could not join all the ship's coordinates with a single defined symbol of the ship instance.
+    *  ***Solution found:***
+        * When defining the ship symbol in the subclasses of the ship class, I multiplied the symbol by the ship's length, creating two lists of equal size to be zipped together into a dictionary.
+
+1. **intended outcome** - All ships placed on the board after all tile coordinates in a ship instance were deemed original.
+    * ***Issue Found:***
+        * Although the console showed no error, the ship failed to show up on the board after the placement phase.
+    * ***Causes:***
+        * I used the append method to append the ship symbol to the board 2d array.
+    *  ***Solution found:***
+        * By changing append to the assignment operator (=) I resolved the issue.
+
+1. **intended outcome** - When a player made a guess, the opponent's board could be accessed and updated accordingly.
+    * ***Issue Found:***
+        * without using the global scope allowing instance of an object to manipulate the data of another object.
+    * ***Causes:***
+        * This was caused mostly by my inexperience in working with OOP and classes.
+    *  ***Solution found:***
+        * Originally, I passed the opponent board into a class method that existed before I created the object, so it was not necessarily a correct way to use OOP.
+        * In the end, I created a new Game class for the game loop and created the Player objects within it. From there, I was able to access the methods of both objects with constructors and parameters.
+
+1. **intended outcome** - A continuous loop of guess and guess results until someone sank all five of the other player's ships.
+    * ***Issue Found:***
+        * After a player had sunk three ships, every guess returned a symbol for a miss even though I could see it was hitting a ship.
+    * ***Causes:***
+        * I was using the function "self.fleet_coords_map()" and not the innit variable "self.map_of_fleet" in the code, causing the dictionary to rebuild every time a player took a turn. Since there were fewer ships in the object once a player sank one, The for loop creating the dictionary would loop fewer times, thus omitting some of the later created ships.. 
+    *  ***Solution found:***
+        * Began calling this dictionary with "self.map_of_fleet" thereby accessing the dictionary generated during the setup phase and not a new dictionary formed by looping less because fewer ships in the board object instance.
+
+1. **intended outcome** - The user's guess results accurately reflect hit or miss on their guess board.
+    * ***Issue Found:***
+        * When testing he deployed game hits were showing in random positions that didn't make sense when taking into account ship length.
+    * ***Causes:***
+        * I included the constructor for the computer player inside the firing round while loop, which generated a new computer player board/fleet every time the while loop repeated itself.
+    *  ***Solution found:***
+        * Placing the constructor for the computer player outside of the player turn while loop resolved the issue and all guesses were reference again one version of the computers board generated during the set up phase.
+
+1. **intended outcome** - Ascii art text for the intro screen displayed as legible words.
+    * ***Issue Found:***
+        * The text printed partially formed, and the console appeared to push several characters to the right-hand side of the text instead of being printed within it.
+    * ***Causes:***
+        * The backslashes in the Ascii art were being read as escape characters and not being printed in place. The lines containing the backslash had moved from their intended position in the text.
+    *  ***Solution found:***
+        * The first solution was to add a single space after each line which converted the backslash into a string. This solution, however, returned errors with the linter and pep8 online.
+        * I eventually realized that adding a second backslash next to every backslash would turn the escape character into a single backslash and print correctly in the terminal.
+
+1. **intended outcome** - Favicon displayed in the browser tab.
+    * ***Issue Found:***
+        * When adding the image to the directory and linking it in the template HTML, nothing showed up on the deployed site.
+    * ***Causes:***
+        * There are some limitations with the CI template that prevents adding favicons in the way used in my previous projects
+    *  ***Solution found:***
+        * By switching to using the URL of a web-hosted image, the favicon is displayed correctly.
+
+  
+### **Remaining Bugs**
 At the time of submission no bugs remained in the app.
 
 ## **Validator Testing**
 ### ***PEP8:***
 * Due to the use of linters and the autopep8 command line function referenced above, [PEP8online.com](http://pep8online.com/) returned no errors.
+
+[return to README.md](README.md)

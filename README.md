@@ -105,5 +105,6 @@ For this project to work, I required three imported libraries: -
 * [lucid chart.com](https://www.lucidchart.com/) was used to create the game flow chart
 * [Code Institute](https://codeinstitute.net/) for providing the template. The [template](https://github.com/Code-Institute-Org/python-essentials-template) gave me a mock terminal to display my game via a webpage.
 * [ASCII Art text generator](http://www.network-science.de/ascii/) used for the welcome screen text.
+* Favicon image taken from [pixabay](https://pixabay.com/photos/battleship-us-navy-broadside-firing-79519/) under Pixabay License, Free for commercial use, No attribution required however the user who posted the image was "12019 / 10259 images"
 
 
