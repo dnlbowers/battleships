@@ -105,5 +105,5 @@ For this project to work, I required three imported libraries: -
 * [lucid chart.com](https://www.lucidchart.com/) was used to create the game flow chart
 * [Code Institute](https://codeinstitute.net/) for providing the template. The [template](https://github.com/Code-Institute-Org/python-essentials-template) gave me a mock terminal to display my game via a webpage.
 * [ASCII Art text generator](http://www.network-science.de/ascii/) used for the welcome screen text.
-* Favicon image was a [Photo by Joseph Fuller from Pexels](https://www.pexels.com/photo/white-and-gray-metal-tank-5578206/)
+
 
