@@ -63,13 +63,30 @@ To understand the steps required in order to program the game, I created the bel
 
 ![Game Logic Flowchart](docs/flowchart.jpeg) 
 
-<<<<<<<Grammarly done til here>>>>>>>
 ## **Features**
  
 **TO BE DONE WHEN COMPLETE**
 
 ## **Future-enhancements**
-**TO DO**
+I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
+
+### ***Multiplayer:***
+  * The user would be asked How many were playing the game. If the user selected two players, the game would request a second username. If not, the game would generate the computer opponent automatically as it is in the current version of the game.
+  * Due to the requirement of not seeing the opponent board, this would implement an interval screen between turns with a pause function until the opposing player had confirmed they could see the screen alone.
+  
+### ***Improved AI intelligence:***
+   * Create an algorithm to see the last hit guess and search the surrounding tiles on the proceeding guesses. 
+   * Having separate algorithms to allow the user to select a difficulty level. i.e., easy would be as it is now, completely random, and hard would be it tracks hits on a ship until it is sunk much like a human player would.
+### ***Improved visuals:***
+   * Add colors within the console using the external Colorama library.
+   * One thing I would have loved to do for this project is incorporate some Javascript to animate a background where the user would see a missile or torpedo head towards and ship and explode for a hit or splash in the water for a miss. This feature was well outside of the scope of the assessment criteria but something I will be coming back to try and implement later on.
+  
+### ***Audio:***   
+   * Adding sound effects for missile fire, hit, and miss.
+   * 80's type 8 bit midi file to make it into a retro-type arcade game.
+  
+### ***Randomize the starting player***  
+   * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll(highest number goes first) or a coin toss.
 
 ## **Data Model**
  **TO DO**
