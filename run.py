@@ -4,8 +4,20 @@ from getch import pause
 
 
 class InputMixin():
+    """"
+    Takes the coordinate input from the user.
+    check its against several conditionals to ensure its valid
+    returns valid coordinate or asked for new input
+    """
 
     def coord_input_validator(self, input):
+        """"
+        Tests guess and placement input coordinates and 
+        checks against several conditions to ensure no errors
+        will arise when using the data through the flow of
+        the game.
+        """
+        
         valid_input = False
         while not valid_input:
             try:
@@ -30,6 +42,11 @@ class InputMixin():
 
     @staticmethod
     def coord_error_msg():
+        """"
+        Requests new input and offers guidance on 
+        what qualifies as a valid input
+        """
+        
         new_guess = input("You input is invalid. Please use two "
                           "numbers (row then column)"
                           "i.e 4,5 or 45: \n").strip(" ")
@@ -38,6 +55,10 @@ class InputMixin():
 
 
 class ClearDisplayMixin():
+    """
+    Contains a static function to be used across multiple classes
+    """
+    
     # Taken from https://www.delftstack.com/howto/python/python-clear-console/
     @staticmethod
     def clear_display():
@@ -224,7 +245,10 @@ class Board(InputMixin, ClearDisplayMixin):
 
     def build_fleet(self):
         """
-        Builds a fleet of ships.
+        Initializes one instance of each ship type.
+        request starting postion and and intended placement direction
+        called method to build the full ship
+        returns a list of objects called fleet
         """
         fleet = []
         occupied_coordinates = []
@@ -389,7 +413,7 @@ class Board(InputMixin, ClearDisplayMixin):
     def initial_placement(self, ship, auto_placement=False):
         """
         If auto placement = False (Manually placed ships)
-        Prints a board showing each ship in the chose location
+        Prints a board showing each ship in the chosen location
         """
         if self.owner != "Computer":
             for i in range(ship.length):
@@ -401,7 +425,8 @@ class Board(InputMixin, ClearDisplayMixin):
 
     def guess_checker(self, guess):
         """
-        Takes guess and check against fleet dictionary.
+        Checks guess against fleet dictionary.
+        Calls method to update ship damage
         """
         result = self.map_of_fleet
         result = result.get(guess)

@@ -89,8 +89,8 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
    * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll (highest number goes first) or a coin toss.
 
 ## **Data Model**
-### ***Overview***
-For this project I have opted to use Object Orientated programming paradigm throughout. The game consists of 4 classes and 5 subclasses: -
+### **Overview**
+For this project I have opted to use Object Orientated programming throughout. The game consists of 4 classes and 5 subclasses: -
   1. Player.
   1. Board.
   1. Ship.
@@ -101,9 +101,21 @@ For this project I have opted to use Object Orientated programming paradigm thro
      * Destroyer 
   1. Game.
 
-In addition to this there are the below two mixins for for functions which were required in more than one class.
+In addition to this there are the below two mixins for passing functions which were required in more than one class and avoiding repetition.
   1. InputMixin
   1. ClearDisplayMixin
+
+The game object is created in the global scope and the welcome screen method is then called. From here it then stays within the different classes..
+
+## **Breakdown of classes**
+### **Player Class:**
+#### ***Innit method***
+The player class is initiated with the user name as a parameter. From here it differentiates between a human player or a computer player,  requests a human player to select the setup type (auto or manual) and initiates the players board object. There is also an empty list then created to store the players guesses.
+
+
+
+
+
 
    
 
@@ -139,5 +151,6 @@ For this project to work, I required three imported libraries: -
 * [Code Institute](https://codeinstitute.net/) for providing the template. The [template](https://github.com/Code-Institute-Org/python-essentials-template) gave me a mock terminal to display my game via a webpage.
 * [ASCII Art text generator](http://www.network-science.de/ascii/) used for the welcome screen text.
 * Favicon image taken from [pixabay](https://pixabay.com/photos/battleship-us-navy-broadside-firing-79519/) under Pixabay License, Free for commercial use, No attribution required however the user who posted the image was "12019 / 10259 images"
+* Unicode for the emoji's was taken from the [unicode.org emoji library](https://unicode.org/emoji/charts/emoji-list.html#1f4a5) 
 
 
