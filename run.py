@@ -593,6 +593,7 @@ class Game(ClearDisplayMixin):
         """"
         prints a back story to set the scene
         """
+        self.clear_display()
         print(
             'The scene begins you are in deep waters. Mid-sea battle, the \n'
             'command comes in over the radio that the war is over;'
