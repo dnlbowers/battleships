@@ -573,7 +573,7 @@ class Game(ClearDisplayMixin):
             """)
         options_menu = True
         while options_menu:
-            options = input('               Press the "P" key to play,'
+            options = input('              Press the "P" key to play,'
                             ' "S" for the back story\n                      '
                             '        or the "R" rules\n').lower().strip(" ")
             if options == "r":
@@ -593,25 +593,25 @@ class Game(ClearDisplayMixin):
         """"
         prints a back story to set the scene
         """
-        print("""
-            The scene begins you are in deep waters. Mid-sea battle, the \n
-            command comes in over the radio that the war is over;
-            the trouble is \n
-            you still have some ammunition left. There are rounds left in the\n
-            chamber... it would be irresponsible to leave live rounds in the\n
-            chamber....  In fact, definitely dangerous to do so....\n
-            \n
-            To be a good captain and save your own men from accidental\n
-            onboard detonation, you agree to fire "randomly" into the sea. The
-            \n trouble is the other side's fleet captain had the same idea.....
-            \n
-            \n
-            With both sides racing to release all their rounds (and some extra
-            \n that "slipped" into the torpedo chamber) the obvious winner is
-            \n the last man standing.\n
-            \n
-            The war may be over, but this battle has just begun!
-        """)
+        print(
+            'The scene begins you are in deep waters. Mid-sea battle, the \n'
+            'command comes in over the radio that the war is over;'
+            'the trouble is \nyou '
+            'still have some ammunition left. There are rounds left in the\n'
+            'chamber... it would be irresponsible to leave live rounds in the'
+            '\nchamber....  In fact, definitely dangerous to do so....\n'
+            '\n'
+            'To be a good captain and save your own men from accidental\n'
+            'onboard detonation, you agree to fire randomly into the sea. The'
+            '\ntrouble is the other side\'s fleet captain had the same idea...'
+            '\n'
+            '\n'
+            'With both sides racing to clear all their rounds (and some extra'
+            '\n that "slipped" into the torpedo chamber) the obvious winner is'
+            '\n the last man standing.\n'
+            '\n'
+            'The war may be over, but this battle has just begun!'
+        )
         pause()
         self.clear_display()
         self.welcome_screen()
