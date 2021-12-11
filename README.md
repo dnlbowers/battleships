@@ -109,8 +109,30 @@ The game object is created in the global scope and the welcome screen method is 
 
 ## **Breakdown of classes**
 ### **Player Class:**
-#### ***Innit method***
-The player class is initiated with the user name as a parameter. From here it differentiates between a human player or a computer player,  requests a human player to select the setup type (auto or manual) and initiates the players board object. There is also an empty list then created to store the players guesses.
+#### ***Innit method:***
+The player object is initiated with the user name as a parameter. From here it differentiates between a human player or a computer player,  requests a human player to select the setup type (auto or manual) and initiates the players board object. There is also an empty list then created to store the players guesses.
+
+#### ***Instance Methods:***
+##### ***Take guess:***
+The Method is user to give the player object the ability to make its guess. It is encased in a while loop to allow the sequence to start again should the guess coordinate be a duplicate of a previous guess.  
+
+* For a player which is not human the method follows the below steps:
+  1. Identifies the computer player from the string "Computer" input as a parameter to the player object constructor.
+  1. Enters a second while loop.
+  1. Generates two random numbers using the randint function from the random library and stores them within a tuple assigned to a variable for later use.
+  1. The random guess is then checked against the list of guesses created upon initiation of the object to return a boolean value assigned to a variable:-
+    * If the guess value is found in the list of previous guesses then the inner while loop is broke and the process starts again
+    * If the value is not found in the list, then the new guess is appended to the list of the player objects guesses and a boolean value is then used to end both loops and then return the guess coordinate.
+
+* For the non computer player the method goes to the else statement and follows the below steps:
+  1. Asks user to input a guess coordinate with a brief instruction of the expected format. The users input is stripped of any spaces to minimize input errors.
+  1. The method then called the cord_input_validator function from InputMixin which is passed to the class through inheritance, and assigns the return value to a variable.
+  1. The above guess is then checked against the list of the player objects previous guesses and returned as a boolean value.
+
+The method runs in a while loop to allow it to repeat from the start when a board location is entered a second time
+
+It handles both and random guess for computerized players and manual guess for a human player to input there guess coordinates.  
+
 
 
 

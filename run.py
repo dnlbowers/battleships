@@ -46,7 +46,7 @@ class InputMixin():
         what qualifies as a valid input
         """
         new_guess = input("You input is invalid. Please use two "
-                          "numbers (row then column)"
+                          "numbers between 0 and 9 (row then column)\n"
                           "i.e 4,5 or 45: \n").strip(" ")
 
         return new_guess
@@ -134,20 +134,13 @@ class Player(InputMixin, ClearDisplayMixin):
                 guess_coordinate = self.coord_input_validator(guess_coordinate)
                 previously_guessed = guess_coordinate in self.guesses
 
-                while previously_guessed:
-                    if guess_coordinate[0] > 9 or guess_coordinate[1] > 9:
-                        print(
-                            "But capt'n thats out of bounds,\n respectively I"
-                            " ask you again...")
-                        break
-
-                    elif previously_guessed:
-                        print(
-                            "Sir? has the war driven you crazy?\n"
-                            "We've already fired there, "
-                            "so with all due respect I repeat...")
-                        break
-                if not previously_guessed:
+                if previously_guessed:
+                    print(
+                        "Sir? has the war driven you crazy?\n"
+                        "We've already fired there, "
+                        "so with all due respect I repeat...")
+                    continue
+                else:
                     self.board.user_display()
                     self.guesses.append(guess_coordinate)
                     valid_guess = True
