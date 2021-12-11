@@ -12,12 +12,11 @@ class InputMixin():
 
     def coord_input_validator(self, input):
         """"
-        Tests guess and placement input coordinates and 
+        Tests guess and placement input coordinates and
         checks against several conditions to ensure no errors
         will arise when using the data through the flow of
         the game.
         """
-        
         valid_input = False
         while not valid_input:
             try:
@@ -43,10 +42,9 @@ class InputMixin():
     @staticmethod
     def coord_error_msg():
         """"
-        Requests new input and offers guidance on 
+        Requests new input and offers guidance on
         what qualifies as a valid input
         """
-        
         new_guess = input("You input is invalid. Please use two "
                           "numbers (row then column)"
                           "i.e 4,5 or 45: \n").strip(" ")
@@ -58,7 +56,6 @@ class ClearDisplayMixin():
     """
     Contains a static function to be used across multiple classes
     """
-    
     # Taken from https://www.delftstack.com/howto/python/python-clear-console/
     @staticmethod
     def clear_display():
@@ -591,6 +588,9 @@ class Game(ClearDisplayMixin):
                       'to play or "R" for the rules.')
 
     def how_to_play(self):
+        """
+        prints game instructions
+        """
         self.clear_display()
         print(
             'Setup Phase:\n'
@@ -657,7 +657,6 @@ class Game(ClearDisplayMixin):
         Loops back and fore between players allowing them to take there guess
         and marking the relevant boards.
         """
-
         play_round = True
         while play_round:
 
@@ -687,6 +686,9 @@ class Game(ClearDisplayMixin):
 
     @staticmethod
     def name_input():
+        """
+        Take name in put for human player and check its valid
+        """
         valid_name = False
         while not valid_name:
             name = input("What is your sea faring name that want to go down "
@@ -704,6 +706,9 @@ class Game(ClearDisplayMixin):
             return name
 
     def restart_game(self, player1, player2):
+        """
+        Deletes player object and their possessed ship, and boards
+        """
         del(player1)
         del(player2)
         self.clear_display()
