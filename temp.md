@@ -1,3 +1,41 @@
+## **Breakdown of classes**
+### **Player Class:**
+#### ***Innit method:***
+The player object is initiated with the user name as a parameter. From here it differentiates between a human player or a computer player,  requests a human player to select the setup type (auto or manual) and initiates the players board object. There is also an empty list then created to store the players guesses.
+
+#### ***Static Method:***
+##### ***quick_Start_check()***
+
+#### ***Instance Methods:***
+##### ***Take guess():***
+The Method is user to give the player object the ability to make its guess. It is encased in a while loop to allow the sequence to start again should the guess coordinate be a duplicate of a previous guess.  
+
+* For a player which is not human the method follows the below steps:
+  1. Identifies the computer player from the string "Computer" input as a parameter to the player object constructor.
+  1. Generates two random numbers using the randint function from the random library and stores them within a tuple assigned to a variable for later use.
+  1. The random guess is then checked against the list of guesses created upon initiation of the object to return a boolean value assigned to a variable:-
+      * If the guess value is found in the list of previous guesses then there is a continue statement and the process starts again.
+      * If the value is not found in the list of previous guesses:   
+          1. The guess value is appended to the list of the player objects guesses.   
+          1. A boolean value is then used to end the while loop and finish by returning the guess coordinate.
+
+* For the non computer player the method goes to the else statement and follows the below steps:
+  1. Asks user to input a guess coordinate with a brief instruction of the expected format. The users input is stripped of any spaces to minimize input errors.
+  2. The method then called the cord_input_validator function from InputMixin which is passed to the class through inheritance, and assigns the return value to a variable.
+  3. The above guess is then checked against the list of the player objects previous guesses and returned as a boolean value.
+      * If previously guessed it prints a message saying this guess was made already and uses a continue statement to loop back to the start of the process.
+      * If the value is not found in the list of previous guesses then it: 
+          1. Prints the user display buy calling the board instance created in the Player innit method and using the instance later explained called user_display().
+          1. The guess value is appended to the list of the player objects guesses.
+          1. A boolean value is then used to end the while loop and finish by returning the guess coordinate.   
+
+The method runs in a while loop to allow it to repeat from the start when a board location is entered a second time
+
+It handles both and random guess for computerized players and manual guess for a human player to input there guess coordinates. 
+
+
+
+
 # Ocean battalion - 
 This game is a take on the original board game battle ship. Based inside of a mock terminal deployed via Heroku.
 

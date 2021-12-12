@@ -89,8 +89,8 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
    * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll (highest number goes first) or a coin toss.
 
 ## **Data Model**
-### **Overview**
-For this project I have opted to use Object Orientated programming throughout. The game consists of 4 classes and 5 subclasses: -
+### **Overview of Classes:**
+Throughout this project, I have opted to use Object Orientated programming. The game consists of four classes and five subclasses: -
   1. Player.
   1. Board.
   1. Ship.
@@ -101,45 +101,36 @@ For this project I have opted to use Object Orientated programming throughout. T
      * Destroyer 
   1. Game.
 
-In addition to this there are the below two mixins for passing functions which were required in more than one class and avoiding repetition.
+To avoid repetition, I created two mixins for methods required in more than one class and passed them to the required class as a parameter: -
   1. InputMixin
   1. ClearDisplayMixin
 
-The game object is created in the global scope and the welcome screen method is then called. From here it then stays within the different classes..
+### **logic flow:**
+The game object gets created in the global scope and calls the welcome screen using dot notation. The user can read the introductory story, the rules or initialize the game. Entering either rule or story will bring the user to the main menu once read.
 
-## **Breakdown of classes**
-### **Player Class:**
-#### ***Innit method:***
-The player object is initiated with the user name as a parameter. From here it differentiates between a human player or a computer player,  requests a human player to select the setup type (auto or manual) and initiates the players board object. There is also an empty list then created to store the players guesses.
+Once the player presses "p" to play, the set player's method is called from the game class and creates the player objects. The first object is created by asking the user for their name. The second gives a parameter the string  "Computer" by default. As part of the error handling for the name input, the user cannot enter their name as "Computer".
 
-#### ***Instance Methods:***
-##### ***Take guess:***
-The Method is user to give the player object the ability to make its guess. It is encased in a while loop to allow the sequence to start again should the guess coordinate be a duplicate of a previous guess.  
+#### ***Set up phase:***
+The generation of a player object then automatically begins the game's setup phase via the init methods of both the Player and Board class. 
 
-* For a player which is not human the method follows the below steps:
-  1. Identifies the computer player from the string "Computer" input as a parameter to the player object constructor.
-  1. Enters a second while loop.
-  1. Generates two random numbers using the randint function from the random library and stores them within a tuple assigned to a variable for later use.
-  1. The random guess is then checked against the list of guesses created upon initiation of the object to return a boolean value assigned to a variable:-
-    * If the guess value is found in the list of previous guesses then the inner while loop is broke and the process starts again
-    * If the value is not found in the list, then the new guess is appended to the list of the player objects guesses and a boolean value is then used to end both loops and then return the guess coordinate.
+Once we have a player object (in this case, two), they then require their board and fleet of ships to place upon it. The Player class initiates the Board class by passing in the parameters to tell the board class if the possessing player will be a computer or not and if they will be using auto set up. 
 
-* For the non computer player the method goes to the else statement and follows the below steps:
-  1. Asks user to input a guess coordinate with a brief instruction of the expected format. The users input is stripped of any spaces to minimize input errors.
-  1. The method then called the cord_input_validator function from InputMixin which is passed to the class through inheritance, and assigns the return value to a variable.
-  1. The above guess is then checked against the list of the player objects previous guesses and returned as a boolean value.
+By default, the board will be a 10 x 10 size grid as in the original version of the game and will always have five ships to be placed on it. The initialization of the board from the Player instance then builds two boards; one for tracking guesses and one for placing their fleet. Once it has somewhere to put the ships, it then proceeds to build the five ship objects from the five subclasses of Ship and places them in a list to keep track of its fleet belonging to the specific player objects board object.  Each ship is initiated with a start coordinate, direction, empty list for eventual damage tiles to be updated, and the entire ship coordinates. In the case of my program, the ship object is initiated with only the start coordinate twice, and the remaining coordinates are added as the ship is built fully to the correct length following the placement process. Each Ship subclass then has its own uniquely defined length, symbol, and name.
 
-The method runs in a while loop to allow it to repeat from the start when a board location is entered a second time
 
-It handles both and random guess for computerized players and manual guess for a human player to input there guess coordinates.  
+In this way, we have three separate object types which belong to one another but are also distinct in the same way two players, the boards they use, and the ships they place are all related but separate in a real-life game of battleships.
 
 
 
+#### ***Firing Rounds:***
+After creating all the objects, it's time to bring them to life and interact. The firing round method from the Game object is called using both player objects as parameters.
 
+The above method runs on repeat using a while loop until either player's objects board has no more ships afloat. It uses constructors to call the instance methods of the player and their board to take a guess, cross-reference their opponent's board to display the result (hit or miss). 
 
+After each player's turn, it checks the number of ships still afloat on the opponent's board.  If zero ships are left on the opponent's board, the game prints a win statement to announce who won and breaks the while loop; the game gets restarted by deleting the player objects, clearing the screen, and returning the user to the welcome screen. 
 
+The game object continues to exist at all times so that the user never needs to refresh the page. 
 
-   
 
 ## **Testing Phase**
 I have included details of testing both during development and post development in a separate document called [TESTING.md](TESTING.md).

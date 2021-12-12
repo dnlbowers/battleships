@@ -114,17 +114,17 @@ class Player(InputMixin, ClearDisplayMixin):
         valid_guess = False
         while not valid_guess:
             if self.name == "Computer":
-                while valid_guess is False:
-                    guess_coordinate = (
-                        random.randint(
-                            0, 9), random.randint(
-                            0, 9))
-                    previously_guessed = guess_coordinate in self.guesses
-                    if previously_guessed:
-                        break
+                # while valid_guess is False:
+                guess_coordinate = (
+                    random.randint(
+                        0, 9), random.randint(
+                        0, 9))
+                previously_guessed = guess_coordinate in self.guesses
+                if previously_guessed:
+                    continue
 
-                    self.guesses.append(guess_coordinate)
-                    valid_guess = True
+                self.guesses.append(guess_coordinate)
+                valid_guess = True
             else:
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the '
