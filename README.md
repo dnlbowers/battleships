@@ -117,10 +117,7 @@ Once we have a player object (in this case, two), they then require their board 
 
 By default, the board will be a 10 x 10 size grid as in the original version of the game and will always have five ships to be placed on it. The initialization of the board from the Player instance then builds two boards; one for tracking guesses and one for placing their fleet. Once it has somewhere to put the ships, it then proceeds to build the five ship objects from the five subclasses of Ship and places them in a list to keep track of its fleet belonging to the specific player objects board object.  Each ship is initiated with a start coordinate, direction, empty list for eventual damage tiles to be updated, and the entire ship coordinates. In the case of my program, the ship object is initiated with only the start coordinate twice, and the remaining coordinates are added as the ship is built fully to the correct length following the placement process. Each Ship subclass then has its own uniquely defined length, symbol, and name.
 
-
 In this way, we have three separate object types which belong to one another but are also distinct in the same way two players, the boards they use, and the ships they place are all related but separate in a real-life game of battleships.
-
-
 
 #### ***Firing Rounds:***
 After creating all the objects, it's time to bring them to life and interact. The firing round method from the Game object is called using both player objects as parameters.
@@ -145,8 +142,13 @@ For this project to work, I required three imported libraries: -
   * pause imported from getch to pause the gameplay and give the user more control between turns. This function will also later allow two human players to use the same screen to play against each other. A blank screen could implement this between player turns and a pause until the new player is in play and the previous player has looked away.
 
 ## **Deployment**
-**TO DO**
-
+The project was deployed to [Heroku](https://www.heroku.com) using the below procedure:- 
+1. Log into Heroku or create an account if required.
+1. From the dashboard click the button labelled "New" in the top right corner, just below the header.
+1. From the drop down menu select "Create new app".
+1. Enter a unique app name. For this project I chose to combine my github user name and name of the game with a dash between them (dnlbowers-battleship).
+1. Once the web portal shows the green tick to confirm the name is original select the relevant region. In my case I chose Europe as I am based in Malta.
+1. When happy with your choice of app name, and that the correct region is selected click on the "Create app" button. 
 ## **Honorable Mentions**
 * [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data science were a superpower, Mark would be the equivalent of superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
 * [Richard Wells](https://github.com/D0nni387) - Taught me what it means to have a mentor. Richard has always been perfect for me as a mentor on this learning journey; however, I understood how to use him to his full potential during this project. Our relationship feels like it has blossomed into junior and senior developers on the same team.

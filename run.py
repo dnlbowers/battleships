@@ -601,8 +601,8 @@ class Game(ClearDisplayMixin):
             '\n'
             '\n'
             'With both sides racing to clear all their rounds (and some extra'
-            '\n that "slipped" into the torpedo chamber) the obvious winner is'
-            '\n the last man standing.\n'
+            '\nthat "slipped" into the torpedo chamber) the obvious winner is'
+            '\nthe last man standing.\n'
             '\n'
             'The war may be over, but this battle has just begun!'
         )
