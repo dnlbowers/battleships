@@ -142,27 +142,28 @@ For this project to work, I required three imported libraries: -
   * pause imported from getch to pause the gameplay and give the user more control between turns. This function will also later allow two human players to use the same screen to play against each other. A blank screen could implement this between player turns and a pause until the new player is in play and the previous player has looked away.
 
 ## **Deployment**
-**Still needs Grammarly check**
 The project was deployed to [Heroku](https://www.heroku.com) using the below procedure:- 
 
 1. From the [GitHub repository](https://github.com/dnlbowers/battleships), clone the project into Vscode or launch Gitpod to open it as a project workspace.
-1. Generate the projects requirements.txt file with the console command "pip3 freeze > requirements.txt"
-   * **IMPORTANT** If developing on a local machine with Vscode ensure the virtual environment is set up/activated before generating the requirements txt otherwise all the dependencies installed on the device will be listed and not just the dependencies required for this project..
-1. Log into Heroku or create an account if required.
-1. From the dashboard click the button labelled "New" in the top right corner, just below the header.
-1. From the drop down menu select "Create new app".
-1. Enter a unique app name. For this project I chose to combine my github user name and name of the game with a dash between them (dnlbowers-battleship).
-1. Once the web portal shows the green tick to confirm the name is original select the relevant region. In my case I chose Europe as I am based in Malta.
-1. When happy with your choice of app name, and that the correct region is selected click on the "Create app" button.
-1. This will bring you to the projects "Deploy" tab. From here navigate to the settings tab and scroll down to the "Config Vars" section of the settings page. 
-1. Click the button labelled "Reveal Config Vars" and enter the "key" as port, the "value" as 8000 and click the "add" button.
-1. Scroll down to the buildpacks section of the settings page and click the button labelled "add buildpack" select "Python" and click "Save Changes".
-1. Repeat step 11 but this time add "node.js" instead of python. It is important that the buildpacks are listed in the correct order. If node.js is listed first under this section you can click on python and drag it upwards to changes it to the first buildpack in the list.
-1. Scroll back to the top of the settings page and navigate to the "Deploy" tab.
-1. From the deploy tab select Github as the deployment method.
-1. Confirm you want to connect to GitHub.
-1. Search for the repository name and click the connect button next to the intended repository.
-1. From the bottom of the deploy page select your preferred deployment type by clicking either "Enable Automatic Deploys" for automatic deployment when you push updates to Github or for manual deployment select the correct branch for deployment from the drop down menu and click the "Deploy Branch" button. 
+1. Generate the projects **requirements.txt** file with the console command "pip3 freeze > requirements.txt"
+   * ***IMPORTANT*** If developing on a local machine with Vscode, ensure you set up/activate the virtual environment before generating the requirements.txt file; otherwise, all the dependencies installed on the device will be listed and not just the dependencies required for this project.
+1. **Log in to Heroku** or create an account if required.
+1. **click** the button labeled **New** from the dashboard in the top right corner, just below the header.
+1. From the drop-down menu **select "Create new app"**.
+1. **Enter a unique app name**. I combined my GitHub user name and the game's name with a dash between them (dnlbowers-battleship) for this project.
+1. Once the web portal shows the green tick to confirm the name is original **select the relevant region.** In my case, I chose Europe as I am in Malta.
+1. When happy with your choice of name and that the correct region is selected, **click** on the **"Create app" button**.
+1. This will bring you to the project "Deploy" tab. From here, navigate to the **settings tab** and scroll down to the **"Config Vars" section**. 
+1. **Click** the button labelled **"Reveal Config Vars"** and **enter** the **"key" as port**, the **"value" as 8000** and **click** the **"add"** button.
+1. Scroll down to the **buildpacks section of the settings page** and click the button labeled **" add buildpack," select "Python," and click "Save Changes"**.
+1. **Repeat step 11 but** this time **add "node.js" instead of python**. The buildpacks must be in the correct order. If node.js is listed first under this section, you can click on python and drag it upwards to change it to the first buildpack in the list.
+1. Scroll back to the top of the settings page, and **navigate to the "Deploy" tab.**
+1. From the deploy tab **select Github as the deployment method**.
+1. **Confirm** you want to **connect to GitHub**.
+1. **Search** for the **repository name** and **click** the **connect** button next to the intended repository.
+1. From the bottom of the deploy page **select your preferred deployment type** by:  
+   * Clicking either "Enable Automatic Deploys" for automatic deployment when you push updates to Github. or .... 
+   * Select the correct branch for deployment from the drop-down menu and click the "Deploy Branch" button for manual deployment. 
 
 
 ## **Honorable Mentions**
