@@ -589,7 +589,7 @@ class Game(ClearDisplayMixin):
         self.clear_display()
         print(
             'The scene begins you are in deep waters. Mid-sea battle, the \n'
-            'command comes in over the radio that the war is over;'
+            'command comes in over the radio that the war is over; '
             'the trouble is \nyou '
             'still have some ammunition left. There are rounds left in the\n'
             'chamber... it would be irresponsible to leave live rounds in the'
@@ -636,7 +636,7 @@ class Game(ClearDisplayMixin):
             'Before opening fire, choose to spite the sea god and\n'
             'place your ships by pressing "m" or typing "manual".\n'
             '\n'
-            'Neptune hand will always guide the computerized fleet\n'
+            'Neptune\'s hand will always guide the computerized fleet\n'
             'only to reveal their location with the flames as you hit one.\n'
         )
         pause()
@@ -714,8 +714,8 @@ class Game(ClearDisplayMixin):
         """
         valid_name = False
         while not valid_name:
-            name = input("What is your sea faring name that want to go down "
-                         "in history with?\n")
+            name = input("What is your sea faring name that you want to go "
+                         "down in history with?\n")
             if len(name.strip(" ")) == 0:
                 print("Whilst I appreciate your modesty, I am going to need "
                       "your name \n for the tombstone I made you on "
