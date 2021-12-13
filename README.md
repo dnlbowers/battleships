@@ -19,9 +19,9 @@ Place your fate in the hands of the sea god Neptune. Press "q" or type "quick" t
 
 Or  
 
-Before opening fire, choose to spite the sea god and place your ships by pressing "m" or typing "manual.".
+Before opening fire, choose to spite the sea god and place your ships strategically yourself by pressing "m" or typing "manual.".
 
-Neptune hand will always guide the computerized fleet only to reveal their location with the flames as you hit one.
+Neptune's hand will always guide the computerized fleet only to reveal their location with the flames as you hit one.
 
 ### ***Firing round:***  
 
@@ -65,7 +65,8 @@ To understand the steps required in order to program the game, I created the bel
 
 ## **Features**
  
-**TO BE DONE WHEN COMPLETE**
+### ***Welcome Screen:***
+
 
 ## **Future-enhancements**
 I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
@@ -83,7 +84,7 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
   
 ### ***Audio:***   
    * Adding sound effects for missile fire, hit, and miss.
-   * 80's type 8 bit midi file to make it into a retro-type arcade game.
+   * 80's type midi music file to make it into a retro-type arcade game.
   
 ### ***Randomize the starting player***  
    * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll (highest number goes first) or a coin toss.
@@ -115,7 +116,7 @@ The generation of a player object then automatically begins the game's setup pha
 
 Once we have a player object (in this case, two), they then require their board and fleet of ships to place upon it. The Player class initiates the Board class by passing in the parameters to tell the board class if the possessing player will be a computer or not and if they will be using auto set up. 
 
-By default, the board will be a 10 x 10 size grid as in the original version of the game and will always have five ships to be placed on it. The initialization of the board from the Player instance then builds two boards; one for tracking guesses and one for placing their fleet. Once it has somewhere to put the ships, it then proceeds to build the five ship objects from the five subclasses of Ship and places them in a list to keep track of its fleet belonging to the specific player objects board object.  Each ship is initiated with a start coordinate, direction, empty list for eventual damage tiles to be updated, and the entire ship coordinates. In the case of my program, the ship object is initiated with only the start coordinate twice, and the remaining coordinates are added as the ship is built fully to the correct length following the placement process. Each Ship subclass then has its own uniquely defined length, symbol, and name.
+By default, the board will be a 10 x 10 size grid as in the original version of the game and will always have five ships to be placed on it. The initialization of the board from the Player instance then builds two boards; one for tracking guesses and one for placing their fleet. Once it has somewhere to put the ships, it then proceeds to build the five ship objects from the five subclasses of Ship and places them in a list to keep track of its fleet belonging to the specific player objects board object.  Each ship is initiated with a start coordinate, direction, empty list for eventual damage tiles to be updated, and the entire ship coordinates. In the case of my program, the ship object is initiated using the start coordinate twice, and the remaining coordinates are added after the ship has been built fully to the correct length during the placement process. Each Ship subclass has its own uniquely defined length, symbol, and name.
 
 In this way, we have four separate object types which belong to one another but are also distinct in the same two players, the boards they use, and the ships they place are all related but separate in a real-life game of battleships.
 ![Object creation diagram](docs/objects.drawio.png)
@@ -157,13 +158,14 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 1. This will bring you to the project "Deploy" tab. From here, navigate to the **settings tab** and scroll down to the **"Config Vars" section**. 
 1. **Click** the button labelled **"Reveal Config Vars"** and **enter** the **"key" as port**, the **"value" as 8000** and **click** the **"add"** button.
 1. Scroll down to the **buildpacks section of the settings page** and click the button labeled **" add buildpack," select "Python," and click "Save Changes"**.
-1. **Repeat step 11 but** this time **add "node.js" instead of python**. The buildpacks must be in the correct order. If node.js is listed first under this section, you can click on python and drag it upwards to change it to the first buildpack in the list.
+1. **Repeat step 11 but** this time **add "node.js" instead of python**. 
+   * ***IMPORTANT*** The buildpacks must be in the correct order. If node.js is listed first under this section, you can click on python and drag it upwards to change it to the first buildpack in the list.
 1. Scroll back to the top of the settings page, and **navigate to the "Deploy" tab.**
 1. From the deploy tab **select Github as the deployment method**.
 1. **Confirm** you want to **connect to GitHub**.
 1. **Search** for the **repository name** and **click** the **connect** button next to the intended repository.
-1. From the bottom of the deploy page **select your preferred deployment type** by:  
-   * Clicking either "Enable Automatic Deploys" for automatic deployment when you push updates to Github. or .... 
+1. From the bottom of the deploy page **select your preferred deployment type** by follow one of the below steps:  
+   * Clicking either "Enable Automatic Deploys" for automatic deployment when you push updates to Github.  
    * Select the correct branch for deployment from the drop-down menu and click the "Deploy Branch" button for manual deployment. 
 
 
@@ -171,8 +173,8 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data science were a superpower, Mark would be the equivalent of superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
 * [Richard Wells](https://github.com/D0nni387) - Taught me what it means to have a mentor. Richard has always been perfect for me as a mentor on this learning journey; however, I understood how to use him to his full potential during this project. Our relationship feels like it has blossomed into junior and senior developers on the same team.  
 [Sean Murphy](https://github.com/nazarja) - Provided me a runnable example I required to print two boards side by side. Not only did he give me exactly what I needed, but he spent the necessary time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.  
-* [Matt Bodden](https://github.com/MattBCoding) - Matt helped me understand how to document the data model in the readme and generally just always a top man in a time of need.
-[Steven Weir](https://github.com/StevenWeir038) -  Steven did not directly help with the code. However, since we began the course together, he has gone out on his way to check in with me intermittently, and I cannot express how much this sense of camaraderie has brought me through some challenging moments and especially for this project. I am not sure how he does it, but he always pops up at the exact moment I need a nice collection of alphanumeric characters to connect with and relate too
+* [Matt Bodden](https://github.com/MattBCoding) - Matt helped me understand how to document the data model in the readme and generally just always a top man in a time of need.  
+* [Steven Weir](https://github.com/StevenWeir038) -  Steven did not directly help with the code. However, since we began the course together, he has gone out on his way to check in with me intermittently, and I cannot express how much this sense of camaraderie has brought me through some challenging moments and especially for this project. I am not sure how he does it, but he always pops up at the exact moment I need a nice collection of alphanumeric characters to connect with and relate too
 * The code institute Slack community as a whole who tested and supported throughout.
 * And the **biggest thanks goes to** my wife and child, who have had to deal with me face to face through it all. **Oliver** has been my reason for the change and **Analise** my inspiration. 
 
