@@ -16,10 +16,14 @@
         /*center the terminal and button*/
         body {
             font-family: Arial;
+        }
+
+        #main-container {
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            align-content: center;
             align-items: center;
+            justify-content: center;
         }
         
         /*style background image*/
@@ -192,7 +196,7 @@
         }
     </style>
 </head>
-<div>
+<div id="main-container">
     @{body}
 </div>
 <div id="background">
