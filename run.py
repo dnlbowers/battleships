@@ -432,7 +432,6 @@ class Board(InputMixin, ClearDisplayMixin):
         """
         ship.damaged_tiles.append(True)
         if len(ship.damaged_tiles) == ship.length:
-            ship.is_sunk = True
             self.ships_remaining()
 
     def update_board(self, guess, result, opponent):
@@ -483,7 +482,6 @@ class Ship:
         self.direction = direction
         self.damaged_tiles = []
         self.coordinates = coordinates
-        self.is_sunk = False
 
 
 class AircraftCarrier(Ship):
