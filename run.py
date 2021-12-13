@@ -257,7 +257,7 @@ class Board(InputMixin, ClearDisplayMixin):
                 self.user_display()
                 start_position = input(
                     f"From where would you like your {ship_obj_type[i].name} "
-                    "to start?\n Please enter two numbers (row then column)"
+                    "to start?\nPlease enter two numbers (row then column)"
                     "i.e 4,5 or 45: \n").strip(" ")
 
                 start_position = self.coord_input_validator(start_position)
@@ -368,7 +368,7 @@ class Board(InputMixin, ClearDisplayMixin):
             else:
                 print(
                     'Not a valid input please only type "R" , "D", "Right",'
-                    'or "Down" (Casing does not matter): \n')
+                    'or "Down"\n(Letter casing does not matter):')
 
     @staticmethod
     def duplicate_tile_check(ship, occupied_tiles, next_tile):
