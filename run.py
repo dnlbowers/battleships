@@ -154,8 +154,6 @@ class Player(InputMixin, ClearDisplayMixin):
         """
         print(f"{self.name}'s turn")
         guess = self.take_guess()
-        if self.name != "Computer":
-            print("Aye, Aye Capt'n... Fire in the hold!")
         guess_hit_check = opponent.board.guess_checker(guess)
         self.board.update_board(guess, guess_hit_check, opponent)
         if self.name != "Computer":
@@ -206,7 +204,7 @@ class Board(InputMixin, ClearDisplayMixin):
     def user_display(self):
         """
         Prints out the user view, their placement board
-        and their guess tally board
+        and their guess board
         """
         self.clear_display()
         print((" ")*20 + f"These sea charts belong to Captain {self.owner}")
@@ -218,17 +216,15 @@ class Board(InputMixin, ClearDisplayMixin):
               "+--+--+--+--+--+--+--+--+--+--")
         for index, row in enumerate(zip(self.board, self.guess_board)):
             print(
-                # print row numbers for 1st board
+                # Number rows on placement board
                 f'{str(index) + " |":3s}',
-                # print current row for 1st board, join as string and space out
-                # 3 spaces with :3s
+                # print row by row with 3 spaces between
                 ''.join(f'{str(x):3s}' for x in row[0]),
-                # separate the two boards
+                # separate the two boards by 5 spaces
                 ' ' * 5,
-                # print row numbers for 2nd board
+                # Number rows on guess board
                 f'{str(index)+" |" :3s}',
-                # print current row for 2nd board, join as string and space out
-                # 3 spaces with :3s
+                # print row by row with 3 spaces between
                 ''.join(f'{str(x):3s}' for x in row[1]),
             )
         print("\n")
