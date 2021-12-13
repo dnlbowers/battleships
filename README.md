@@ -9,7 +9,7 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
   
 [Click here to be taken to the final deployment of the project.](https://dnlbowers-battleship.herokuapp.com/)
 
-![Screenshot of the games welcome screen](docs/title-screen-screenshot.jpg)
+![Screenshot of the games welcome screen](docs/screenshots/title-screen-screenshot.jpg)
 
 ## **How to play:**
 
@@ -61,11 +61,25 @@ To achieve the above, the site will:
 ### ***Game Flow Chart:***
 To understand the steps required in order to program the game, I created the below flowchart using[lucid charts](https://www.lucidchart.com/).  
 
-![Game Logic Flowchart](docs/flowchart.jpeg) 
+![Game Logic Flowchart](docs/flowcharts/flowchart.jpeg) 
 
 ## **Features**
  
 ### ***Welcome Screen:***
+![Welcome screen screenshot](docs/screenshots/welcome-screen.jpg)
+
+### ***Back Story:***
+![Back story screenshot](docs/screenshots/story.jpg)
+
+### ***Rules:***
+#### *page 1 (setup phase):*
+![Setup phase rules](docs/screenshots/setup-phase-rules.jpg)
+
+#### *page 2 (firing round):*
+![Firing round rules](docs/screenshots/firing-round-rules.jpg)
+
+### ***Player name input:***
+![Player name input with error handling](docs/screenshots/name-input.jpg)
 
 
 ## **Future-enhancements**
@@ -119,7 +133,7 @@ Once we have a player object (in this case, two), they then require their board 
 By default, the board will be a 10 x 10 size grid as in the original version of the game and will always have five ships to be placed on it. The initialization of the board from the Player instance then builds two boards; one for tracking guesses and one for placing their fleet. Once it has somewhere to put the ships, it then proceeds to build the five ship objects from the five subclasses of Ship and places them in a list to keep track of its fleet belonging to the specific player objects board object.  Each ship is initiated with a start coordinate, direction, empty list for eventual damage tiles to be updated, and the entire ship coordinates. In the case of my program, the ship object is initiated using the start coordinate twice, and the remaining coordinates are added after the ship has been built fully to the correct length during the placement process. Each Ship subclass has its own uniquely defined length, symbol, and name.
 
 In this way, we have four separate object types which belong to one another but are also distinct in the same two players, the boards they use, and the ships they place are all related but separate in a real-life game of battleships.
-![Object creation diagram](docs/objects.drawio.png)
+![Object creation diagram](docs/flowcharts/objects.drawio.png)
 
 #### ***Firing Rounds:***
 After creating all the objects, it's time to bring them to life and interact. The firing round method from the Game object is called using both player objects as parameters.
@@ -173,7 +187,7 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data science were a superpower, Mark would be the equivalent of superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
 * [Richard Wells](https://github.com/D0nni387) - Taught me what it means to have a mentor. Richard has always been perfect for me as a mentor on this learning journey; however, I understood how to use him to his full potential during this project. Our relationship feels like it has blossomed into junior and senior developers on the same team.  
 [Sean Murphy](https://github.com/nazarja) - Provided me a runnable example I required to print two boards side by side. Not only did he give me exactly what I needed, but he spent the necessary time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.  
-* [Matt Bodden](https://github.com/MattBCoding) - Matt helped me understand how to document the data model in the readme and generally just always a top man in a time of need.  
+* [Matt Bodden](https://github.com/MattBCoding) - Matt helped me understand how to document the data model in the readme and converted my background image from a .ai file format to a .svg format using adobe illustrator. Generally Matt is always just always a top man in a time of need.  
 * [Steven Weir](https://github.com/StevenWeir038) -  Steven did not directly help with the code. However, since we began the course together, he has gone out on his way to check in with me intermittently, and I cannot express how much this sense of camaraderie has brought me through some challenging moments and especially for this project. I am not sure how he does it, but he always pops up at the exact moment I need a nice collection of alphanumeric characters to connect with and relate too
 * The code institute Slack community as a whole who tested and supported throughout.
 * And the **biggest thanks goes to** my wife and child, who have had to deal with me face to face through it all. **Oliver** has been my reason for the change and **Analise** my inspiration. 
@@ -190,5 +204,6 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * [ASCII Art text generator](http://www.network-science.de/ascii/) used for the welcome screen text.
 * Favicon image taken from [pixabay](https://pixabay.com/photos/battleship-us-navy-broadside-firing-79519/) under Pixabay License, Free for commercial use, No attribution required however the user who posted the image was "12019 / 10259 images"
 * Unicode for the emoji's was taken from the [unicode.org emoji library](https://unicode.org/emoji/charts/emoji-list.html#1f4a5) 
+* Background image was downloaded from [stock.adobe.com](https://stock.adobe.com/mt/Library/urn:aaid:sc:EU:7b501d7b-97a5-4e2a-8638-7d43341ae21b?asset_id=176108523) under the [standard license](https://stock.adobe.com/mt/license-terms)
 
 
