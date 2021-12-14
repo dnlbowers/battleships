@@ -257,7 +257,8 @@ class Board(InputMixin, ClearDisplayMixin):
                 self.user_display()
                 start_position = input(
                     f"From where would you like your {ship_obj_type[i].name} "
-                    "to start?\nPlease enter two numbers (row then column)"
+                    f"(which is {ship_obj_type[i].length} tiles long) to "
+                    "start?\nPlease enter two numbers (row then column) "
                     "i.e 4,5 or 45: \n").strip(" ")
 
                 start_position = self.coord_input_validator(start_position)
