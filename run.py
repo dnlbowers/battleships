@@ -208,8 +208,7 @@ class Board(InputMixin, ClearDisplayMixin):
         and their guess board
         """
         self.clear_display()
-        print(f"These sea charts belong to Captain {self.owner}")
-        print("\n")
+        print((" ") * 16 + f"These sea charts belong to Captain {self.owner}")
         print("    Map of your Fleet:              "
               "         Guess tracker:")
         print("    0  1  2  3  4  5  6  7  8  9             "
@@ -229,6 +228,7 @@ class Board(InputMixin, ClearDisplayMixin):
                 # print row by row with 3 spaces between
                 ''.join(f'{str(x):3s}' for x in row[1]),
             )
+        print("\n")
 
     def build_fleet(self):
         """
