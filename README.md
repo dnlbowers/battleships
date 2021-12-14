@@ -25,11 +25,10 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
     * [***How Will This Be Achieved:***](#how-will-this-be-achieved)
     * [***Game Flow Chart:***](#game-flow-chart)
   * [**Features**](#features)
-    * [***Welcome Screen:***](#welcome-screen)
+  * [***Welcome Screen:***](#welcome-screen)
     * [***Back Story:***](#back-story)
     * [***Rules:***](#rules)
-      * [*Page 1 (Setup Phase):*](#page-1-setup-phase)
-      * [*Page 2 (Firing Round):*](#page-2-firing-round)
+  * [**Once Play Game is Selected:**](#once-play-game-is-selected)
     * [***Player Name Input(With Error Handling):***](#player-name-inputwith-error-handling)
     * [***Select Setup type (with error handling):***](#select-setup-type-with-error-handling)
       * [***Manual placement:***](#manual-placement)
@@ -40,7 +39,7 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
         * [***Fifth Ship:***](#fifth-ship)
         * [***Coordinate Input Error Handling:***](#coordinate-input-error-handling)
         * [***Directional Input Error Handling:***](#directional-input-error-handling)
-    * [***Battle commencement screen for both quick Start and manual setup options:***](#battle-commencement-screen-for-both-quick-start-and-manual-setup-options)
+    * [***Battle Commencement screen:***](#battle-commencement-screen)
     * [***Notification of Hit Result:***](#notification-of-hit-result)
     * [***Notification of Miss Result:***](#notification-of-miss-result)
     * [***Player Win Screen:***](#player-win-screen)
@@ -58,9 +57,10 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
       * [***Firing Rounds:***](#firing-rounds)
   * [**Testing Phase**](#testing-phase)
   * [**Libraries**](#libraries)
-    * [***random***](#random)
-    * [***os***](#os)
-    * [***getch***](#getch)
+    * [***random:***](#random)
+    * [***os:***](#os)
+    * [***getch:***](#getch)
+    * [***string:***](#string)
   * [**Deployment**](#deployment)
   * [**Honorable Mentions**](#honorable-mentions)
   * [**Credits**](#credits)
@@ -119,26 +119,50 @@ To understand the steps required in order to program the game, I created the bel
 
 ## **Features**
  
-### ***Welcome Screen:***
+## ***Welcome Screen:***
+From the welcome screen, the user has access to three things: -
+* Game rules/How to play.
+* Back Story.
+* Start the game.  
 ![Welcome screen screenshot](docs/screenshots/welcome-screen.jpg)
 
 ### ***Back Story:***
+I created a brief back story to add an element of fun to the game.  
 ![Back story screenshot](docs/screenshots/story.jpg)
 
 ### ***Rules:***
-#### *Page 1 (Setup Phase):*
+The rules consist of the following two stages with a pause("press any key") in between to give the user enough time to read them: - 
+* #### *Page 1 (Setup Phase):*  
 ![Setup phase rules](docs/screenshots/setup-phase-rules.jpg)
 
-#### *Page 2 (Firing Round):*
+* #### *Page 2 (Firing Round):*  
 ![Firing round rules](docs/screenshots/firing-round-rules.jpg)
 
+## **Once Play Game is Selected:**
 ### ***Player Name Input(With Error Handling):***
+The user is required to input their name. The error handling covers two scenarios: 
+1. They cannot leave the name blank.
+   * To avoid cheating with blank spaces, this check is made by checking if the string length is zero when stripped of all space characters. This way, it still allows a user to enter first and last names with a space between them.
+1.  By using the inbuilt function, lower(), the user will not be allowed to enter the name "computer" in any casing.     
 ![Player name input with error handling](docs/screenshots/name-input.jpg)
 
 ### ***Select Setup type (with error handling):***
-![Quick start or manual selection](docs/screenshots/select-setup-type.jpg)
+The user is offered two methods for placing their ships:
+1. Quickstart:
+   *Places the user ship automatically and at random to allow the user to jump straight into the action.
+1. Manual placement:
+   * Places each ship in their chosen location as pictured in the below screenshots.
+
+The user will only be able to enter "Q", "Quick", "q", "quick", "M", "Manual", "m" or "manual". Failure to input one of these words/characters will result in the error message pictured below.
+![Quickstart or manual selection](docs/screenshots/select-setup-type.jpg)
 
 #### ***Manual placement:***
+When choosing to place their ships manually the user will be shown two blank aboard. The board on the left will be where they place their ships.
+
+The user will be informed of the following before being asked for the start coordinate and the direction the ship should face:
+* Which ship they are about to place.
+* How many tiles the ship requires to be placed.
+* What to enter and how it is expected to be entered.
 ##### ***First Ship:***
 ![request for placement of first ship](docs/screenshots/first-ship.jpg)
 
@@ -160,8 +184,8 @@ To understand the steps required in order to program the game, I created the bel
 ##### ***Directional Input Error Handling:***
 ![directional input error handling](docs/screenshots/dir-error-handling.jpg)
 
-### ***Battle commencement screen for both quick Start and manual setup options:***
-![Quick start after set up](docs/screenshots/quick-start.jpg)
+### ***Battle Commencement screen:***
+![Quickstart after set up](docs/screenshots/quick-start.jpg)
 
 ### ***Notification of Hit Result:***
 ![hit result displayed](docs/screenshots/hit.jpg)
@@ -199,14 +223,14 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
 ### **Overview of Classes:**
 Throughout this project, I have opted to use Object Orientated programming. The game consists of four classes and five subclasses: -
   1. Player.
-  1. Board.
-  1. Ship.
+  2. Board.
+  3. Ship.
      * AircraftCarrier.
      * Battleship.
      * Cruiser.
      * Submarine.
      * Destroyer 
-  1. Game.
+  4. Game.
 
 To avoid repetition, I created two mixins for methods required in more than one class and passed them to the required class as a parameter: -
   1. InputMixin
@@ -241,13 +265,15 @@ The game object continues to exist at all times so that the user never needs to 
 I have included details of testing both during development and post development in a separate document called [TESTING.md](TESTING.md).
 
 ## **Libraries**
-For this project to work, I required three imported libraries: -
-### ***random***
+For this project to work, I required four imported libraries: -
+### ***random:***
   * randint used to generate a random number between 0 and 9 for the automated placement and computer guessing
-### ***os***
+### ***os:***
   * system used in conjunction with the clear/cls command to clear the console so the user would not get overwhelmed in reams of outdated data from previous rounds
-### ***getch***
+### ***getch:***
   * pause imported from getch to pause the gameplay and give the user more control between turns. This function will also later allow two human players to use the same screen to play against each other. A blank screen could implement this between player turns and a pause until the new player is in play and the previous player has looked away.
+### ***string:***
+   * This was imported to use the string.capwords() method on the name input. This method means that the user's name will always display with the proper casing.
 
 ## **Deployment**
 The project was deployed to [Heroku](https://www.heroku.com) using the below procedure:- 
@@ -297,6 +323,6 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * Favicon image taken from [pixabay](https://pixabay.com/photos/battleship-us-navy-broadside-firing-79519/) under Pixabay License, Free for commercial use, No attribution required however the user who posted the image was "12019 / 10259 images"
 * Unicode for the emoji's was taken from the [unicode.org emoji library](https://unicode.org/emoji/charts/emoji-list.html#1f4a5) 
 * Background image was downloaded from [stock.adobe.com](https://stock.adobe.com/mt/Library/urn:aaid:sc:EU:7b501d7b-97a5-4e2a-8638-7d43341ae21b?asset_id=176108523) under the [standard license](https://stock.adobe.com/mt/license-terms)
-* [stack overflow](https://stackoverflow.com/questions/12150369/define-multiple-languages-in-html-root-elements-lang-attribute) was used to resolve the HTML error found by the validator (as referencing in the TESTING.md doc)
+* [stack overflow]() was used to resolve the [HTML error found by the validator](https://stackoverflow.com/questions/12150369/define-multiple-languages-in-html-root-elements-lang-attribute) and to find the [string library](https://stackoverflow.com/questions/1549641/how-can-i-capitalize-the-first-letter-of-each-word-in-a-string) to ensure the player name always showed with a capital at the start of each name entered.
 
 

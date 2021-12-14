@@ -1,6 +1,7 @@
 import random
 import os
 from getch import pause
+import string
 
 
 class InputMixin():
@@ -207,7 +208,8 @@ class Board(InputMixin, ClearDisplayMixin):
         and their guess board
         """
         self.clear_display()
-        print((" ")*20 + f"These sea charts belong to Captain {self.owner}")
+        print(f"These sea charts belong to Captain {self.owner}")
+        print("\n")
         print("    Map of your Fleet:              "
               "         Guess tracker:")
         print("    0  1  2  3  4  5  6  7  8  9             "
@@ -227,7 +229,6 @@ class Board(InputMixin, ClearDisplayMixin):
                 # print row by row with 3 spaces between
                 ''.join(f'{str(x):3s}' for x in row[1]),
             )
-        print("\n")
 
     def build_fleet(self):
         """
@@ -258,8 +259,8 @@ class Board(InputMixin, ClearDisplayMixin):
                 start_position = input(
                     f"From where would you like your {ship_obj_type[i].name} "
                     "to start?\n"
-                    f"This ship requires  {ship_obj_type[i].length} tiles.\n"
-                    "Please enter two numbers (row then column)\n"
+                    f"This ship requires {ship_obj_type[i].length} free tiles."
+                    "\nPlease enter two numbers (row then column)\n"
                     "i.e 4,5 or 45: \n").strip(" ")
 
                 start_position = self.coord_input_validator(start_position)
@@ -711,7 +712,7 @@ class Game(ClearDisplayMixin):
         """
         valid_name = False
         while not valid_name:
-            name = input("What is your sea faring name that you want to go "
+            name = input("What is your seafaring name that you want to go "
                          "down in history with?\n")
             if len(name.strip(" ")) == 0:
                 print("Whilst I appreciate your modesty, I am going to need "
@@ -723,7 +724,7 @@ class Game(ClearDisplayMixin):
                       "not let you \ninsult me by claiming to be me!"
                       "Pick a again human...")
                 continue
-            return name
+            return string.capwords(name)
 
     def restart_game(self, player1, player2):
         """
