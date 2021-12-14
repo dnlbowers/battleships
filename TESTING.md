@@ -1,4 +1,18 @@
 # **Testing**
+## **Table of Contents:**
+* [**Testing**](#testing)
+  * [**Table of Contents:**](#table-of-contents)
+  * [Manual testing:](#manual-testing)
+    * [***PEP8 linter:***](#pep8-linter)
+    * [***Inputs**](#inputs)
+    * [***Game play:***](#game-play)
+  * [**Bugs and Fixes**](#bugs-and-fixes)
+    * [**Remaining Bugs**](#remaining-bugs)
+  * [**Post Development Testing**](#post-development-testing)
+    * [**Validators**](#validators)
+      * [***HTML***](#html---httpsvalidatorw3orgnu)
+      * [***CSS***](#css---httpsjigsaww3orgcss-validator)
+      * [***Python:***](#python---httppep8onlinecom)
 
 ## Manual testing:
 I performed manual testing throughout this project in the following ways:
@@ -155,7 +169,7 @@ At the time of submission no bugs remained in the app.
 * The page was tested by passing the URL to the validator, with no issues found.  
 ![CSS validator badge](https://jigsaw.w3.org/css-validator/images/vcss)  
 
-### ***Python:*** - http://pep8online.com/
+#### ***Python:*** - http://pep8online.com/
 * Due to the use of linters and the autopep8 terminal command referenced above, [PEP8online.com](http://pep8online.com/) returned no errors.
 
 [return to README.md](README.md)

@@ -11,9 +11,63 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
 
 ![Screenshot of the games welcome screen](docs/screenshots/title-screen-screenshot.jpg)
 
-## **How to play:**
+## **Table of Contents**
+* [**Batleships**](#batleships)
+  * [**Overview**](#overview)
+  * [**Table of Contents**](#table-of-contents)
+  * [**How to Play:**](#how-to-play)
+    * [***Firstly Select your Strategy (Setup Phase):***](#firstly-select-your-strategy-setup-phase)
+    * [***Firing Round:***](#firing-round)
+    * [***How to Win:***](#how-to-win)
+  * [**Planning Phase:**](#planning-phase)
+    * [***User Stories:***](#user-stories)
+    * [***Site Aims:***](#site-aims)
+    * [***How Will This Be Achieved:***](#how-will-this-be-achieved)
+    * [***Game Flow Chart:***](#game-flow-chart)
+  * [**Features**](#features)
+    * [***Welcome Screen:***](#welcome-screen)
+    * [***Back Story:***](#back-story)
+    * [***Rules:***](#rules)
+      * [*Page 1 (Setup Phase):*](#page-1-setup-phase)
+      * [*Page 2 (Firing Round):*](#page-2-firing-round)
+    * [***Player Name Input(With Error Handling):***](#player-name-inputwith-error-handling)
+    * [***Select Setup type (with error handling):***](#select-setup-type-with-error-handling)
+      * [***Manual placement:***](#manual-placement)
+        * [***First Ship:***](#first-ship)
+        * [***Second Ship:***](#second-ship)
+        * [***Third Ship:***](#third-ship)
+        * [***Fourth Ship:***](#fourth-ship)
+        * [***Fifth Ship:***](#fifth-ship)
+        * [***Coordinate Input Error Handling:***](#coordinate-input-error-handling)
+        * [***Directional Input Error Handling:***](#directional-input-error-handling)
+    * [***Battle commencement screen for both quick Start and manual setup options:***](#battle-commencement-screen-for-both-quick-start-and-manual-setup-options)
+    * [***Notification of Hit Result:***](#notification-of-hit-result)
+    * [***Notification of Miss Result:***](#notification-of-miss-result)
+    * [***Player Win Screen:***](#player-win-screen)
+    * [***Computer Win Screen:***](#computer-win-screen)
+  * [**Future-Enhancements**](#future-enhancements)
+    * [***Multiplayer:***](#multiplayer)
+    * [***Improved AI Intelligence:***](#improved-ai-intelligence)
+    * [***Improved Visuals:***](#improved-visuals)
+    * [***Audio:***](#audio)
+    * [***Randomize the Starting Player***](#randomize-the-starting-player)
+  * [**Data Model**](#data-model)
+    * [**Overview of Classes:**](#overview-of-classes)
+    * [**Logic Flow:**](#logic-flow)
+      * [***Set up Phase:***](#set-up-phase)
+      * [***Firing Rounds:***](#firing-rounds)
+  * [**Testing Phase**](#testing-phase)
+  * [**Libraries**](#libraries)
+    * [***random***](#random)
+    * [***os***](#os)
+    * [***getch***](#getch)
+  * [**Deployment**](#deployment)
+  * [**Honorable Mentions**](#honorable-mentions)
+  * [**Credits**](#credits)
 
-### ***Firstly select your strategy (setup phase):***  
+## **How to Play:**
+
+### ***Firstly Select your Strategy (Setup Phase):***  
 
 Place your fate in the hands of the sea god Neptune. Press "q" or type "quick" to let the currents randomly position your ships before you anchor and fire.   
 
@@ -23,7 +77,7 @@ Before opening fire, choose to spite the sea god and place your ships strategica
 
 Neptune's hand will always guide the computerized fleet only to reveal their location with the flames as you hit one.
 
-### ***Firing round:***  
+### ***Firing Round:***  
 
 Once in position, it's time to let a rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other side's ships, choose your coordinates on the map (row , column) and remember to call "FIRE IN THE HOLD" (safety first after all).  
 
@@ -32,25 +86,25 @@ The results of your guess are indicated as follows:
 Hit = :boom:   
 Miss = :ocean:  
 
-### ***How to win:***
+### ***How to Win:***
 The last side with a ship still afloat wins. 
 
 ## **Planning Phase:**
-### ***User stories:***
+### ***User Stories:***
 As a user, I want to be able to:
 * See clearly from the offset what the game is.
 * Have a straightforward way to read the game instructions from within.
 * To access a fun story setting the scene of the game.
 * Play an enjoyable game of the classic game battleships by myself.
 
-### ***Site aims:***
+### ***Site Aims:***
 The site aim to:
 1. Make it clear what the game is without the need for further explanation from external sources.
 1. Communicate a clear and appropriate response to all user inputs.
 1. Continue in a loop without ever crashing due to an error caused by the user's input.
 1. Allow the user to have an enjoyable experience playing battleships by themselves.
   
-### ***How will this be achieved:***
+### ***How Will This Be Achieved:***
 To achieve the above, the site will:
 1. Provide a welcome screen with the game name in ascii art.
     * Offer the user a chance to read the rules and back story before starting the game.
@@ -72,51 +126,65 @@ To understand the steps required in order to program the game, I created the bel
 ![Back story screenshot](docs/screenshots/story.jpg)
 
 ### ***Rules:***
-#### *page 1 (setup phase):*
+#### *Page 1 (Setup Phase):*
 ![Setup phase rules](docs/screenshots/setup-phase-rules.jpg)
 
-#### *page 2 (firing round):*
+#### *Page 2 (Firing Round):*
 ![Firing round rules](docs/screenshots/firing-round-rules.jpg)
 
-### ***Player name input(with error handling):***
+### ***Player Name Input(With Error Handling):***
 ![Player name input with error handling](docs/screenshots/name-input.jpg)
 
 ### ***Select Setup type (with error handling):***
 ![Quick start or manual selection](docs/screenshots/select-setup-type.jpg)
 
 #### ***Manual placement:***
-##### ***First ship:***
+##### ***First Ship:***
 ![request for placement of first ship](docs/screenshots/first-ship.jpg)
 
-##### ***Second ship:***
+##### ***Second Ship:***
 ![request for placement of second ship](docs/screenshots/second-ship.jpg)
 
-##### ***Third ship:***
+##### ***Third Ship:***
 ![request for placement of third ship](docs/screenshots/third-ship.jpg)
 
-##### ***Fourth ship:***
+##### ***Fourth Ship:***
 ![request for placement of fourth ship](docs/screenshots/fourth-ship.jpg)
 
-##### ***Fifth ship:***
+##### ***Fifth Ship:***
 ![request for placement of fifth ship](docs/screenshots/fifth-ship.jpg)
 
-#### ***Battle commencement screen for both quick Start and manual setup options:***
+##### ***Coordinate Input Error Handling:***
+![coordinate input error handling](docs/screenshots/coord-error-handling.jpg)
+
+##### ***Directional Input Error Handling:***
+![directional input error handling](docs/screenshots/dir-error-handling.jpg)
+
+### ***Battle commencement screen for both quick Start and manual setup options:***
 ![Quick start after set up](docs/screenshots/quick-start.jpg)
 
+### ***Notification of Hit Result:***
+![hit result displayed](docs/screenshots/hit.jpg)
+
+### ***Notification of Miss Result:***
+![miss result displayed](docs/screenshots/miss.jpg)
+
+### ***Player Win Screen:***
+
+### ***Computer Win Screen:***
 
 
-
-## **Future-enhancements**
+## **Future-Enhancements**
 I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
 
 ### ***Multiplayer:***
   * The user would be asked How many were playing the game. If the user selected two players, the game would request a second username. If not, the game would generate the computer opponent automatically as it is in the current version of the game.
   * Due to the requirement of not seeing the opponent board, this would implement an interval screen between turns with a pause function until the opposing player had confirmed they could see the screen alone.
   
-### ***Improved AI intelligence:***
+### ***Improved AI Intelligence:***
    * Create an algorithm to see the last hit guess and search the surrounding tiles on the proceeding guesses. 
    * Having separate algorithms to allow the user to select a difficulty level. i.e., easy would be as it is now, completely random, and hard would be it tracks hits on a ship until it is sunk much like a human player would.
-### ***Improved visuals:***
+### ***Improved Visuals:***
    * Add colors within the console using the external Colorama library.
    * One thing I would have loved to do for this project is incorporate some Javascript to animate a background where the user would see a missile or torpedo head towards and ship and explode for a hit or splash in the water for a miss. This feature was well outside of the scope of the assessment criteria but something I will be coming back to try and implement later on.
   
@@ -124,7 +192,7 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
    * Adding sound effects for missile fire, hit, and miss.
    * 80's type midi music file to make it into a retro-type arcade game.
   
-### ***Randomize the starting player***  
+### ***Randomize the Starting Player***  
    * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll (highest number goes first) or a coin toss.
 
 ## **Data Model**
@@ -144,12 +212,12 @@ To avoid repetition, I created two mixins for methods required in more than one 
   1. InputMixin
   1. ClearDisplayMixin
 
-### **logic flow:**
+### **Logic Flow:**
 The game object gets created in the global scope and calls the welcome screen using dot notation. The user can read the introductory story, the rules or initialize the game. Entering either rule or story will bring the user to the main menu once read.
 
 Once the player presses "p" to play, the set player's method is called from the game class and creates the player objects. The first object is created by asking the user for their name. The second gives a parameter the string  "Computer" by default. As part of the error handling for the name input, the user cannot enter their name as "Computer".
 
-#### ***Set up phase:***
+#### ***Set up Phase:***
 The generation of a player object then automatically begins the game's setup phase via the init methods of both the Player and Board class. 
 
 Once we have a player object (in this case, two), they then require their board and fleet of ships to place upon it. The Player class initiates the Board class by passing in the parameters to tell the board class if the possessing player will be a computer or not and if they will be using auto set up. 
