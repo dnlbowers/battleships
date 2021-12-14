@@ -8,15 +8,13 @@ class InputMixin():
     """"
     Takes the coordinate input from the user.
     check its against several conditionals to ensure its valid
-    returns valid coordinate or asked for new input
+    returns valid coordinate or asks for new input
     """
 
     def coord_input_validator(self, input):
         """"
-        Tests guess and placement input coordinates and
-        checks against several conditions to ensure no errors
-        will arise when using the data through the flow of
-        the game.
+        Tests coordinates input by the user and
+        checks against several conditions to ensure its valid
         """
         valid_input = False
         while not valid_input:
@@ -43,13 +41,13 @@ class InputMixin():
     @staticmethod
     def coord_error_msg():
         """"
+        Advices input is invalid,
         Requests new input and offers guidance on
         what qualifies as a valid input
         """
         new_guess = input("You input is invalid. Please use two "
                           "numbers between 0 and 9 (row then column)\n"
                           "i.e 4,5 or 45: \n").strip(" ")
-
         return new_guess
 
 
@@ -72,7 +70,10 @@ class ClearDisplayMixin():
 
 class Player(InputMixin, ClearDisplayMixin):
     """
-    Creates a player object
+    Creates a player object and gives it
+    the ability to makes guesses, take a turn,
+    choose setup type, and Initializes a board
+    object belonging to the player
     """
 
     def __init__(self, name):
@@ -87,7 +88,7 @@ class Player(InputMixin, ClearDisplayMixin):
     @staticmethod
     def quick_start_check():
         """"
-        Asks human player if they wish to set the ships up themselves
+        Asks human player if they wish to set the ships up manually
         or use the quick start feature.
         """
         invalid_input = True
@@ -139,7 +140,8 @@ class Player(InputMixin, ClearDisplayMixin):
                     print(
                         "Sir? has the war driven you crazy?\n"
                         "We've already fired there, "
-                        "so with all due respect I repeat...")
+                        "so with all due respect I repeat..."
+                        )
                     continue
                 else:
                     self.board.user_display()
@@ -150,8 +152,8 @@ class Player(InputMixin, ClearDisplayMixin):
 
     def player_turn(self, opponent):
         """"
-        Player fires at the computer and players visual for the opponents board
-        updates with a result
+        Player take a guess and the relevant
+        board gets updated with the result
         """
         print(f"{self.name}'s turn")
         guess = self.take_guess()
@@ -205,11 +207,11 @@ class Board(InputMixin, ClearDisplayMixin):
     def user_display(self):
         """
         Prints out the user view, their placement board
-        and their guess board
+        and their guess board with headers and indexing
         """
         self.clear_display()
         print((" ") * 16 + f"These sea charts belong to Captain {self.owner}")
-        print("    Map of your Fleet:              "
+        print((" ") * 4 + "Map of your Fleet:              "
               "         Guess tracker:")
         print("    0  1  2  3  4  5  6  7  8  9             "
               "0  1  2  3  4  5  6  7  8  9")
