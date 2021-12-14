@@ -83,6 +83,29 @@ To understand the steps required in order to program the game, I created the bel
 
 ### ***Select Setup type (with error handling):***
 ![Quick start or manual selection](docs/screenshots/select-setup-type.jpg)
+
+#### ***Manual placement:***
+##### ***First ship:***
+![request for placement of first ship](docs/screenshots/first-ship.jpg)
+
+##### ***Second ship:***
+![request for placement of second ship](docs/screenshots/second-ship.jpg)
+
+##### ***Third ship:***
+![request for placement of third ship](docs/screenshots/third-ship.jpg)
+
+##### ***Fourth ship:***
+![request for placement of fourth ship](docs/screenshots/fourth-ship.jpg)
+
+##### ***Fifth ship:***
+![request for placement of fifth ship](docs/screenshots/fifth-ship.jpg)
+
+#### ***Battle commencement screen for both quick Start and manual setup options:***
+![Quick start after set up](docs/screenshots/quick-start.jpg)
+
+
+
+
 ## **Future-enhancements**
 I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
 

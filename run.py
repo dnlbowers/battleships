@@ -128,7 +128,7 @@ class Player(InputMixin, ClearDisplayMixin):
             else:
                 guess_coordinate = input(
                     '"Sir! To which coordinate should we unload the '
-                    'chamber?":\n Enter (row then column) eg 0,4 '
+                    'chamber?":\nEnter (row then column) eg 0,4 '
                     'or 04: \n').strip(" ")
 
                 guess_coordinate = self.coord_input_validator(guess_coordinate)
