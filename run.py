@@ -93,7 +93,7 @@ class Player(InputMixin, ClearDisplayMixin):
         while invalid_input:
             setup_type = input(
                 'Type "(Q)uick" to place your ships randomly,\n'
-                ' or "(M)anual" to place your ships '
+                'or "(M)anual" to place your ships '
                 'yourself\n').lower().strip(" ")
             if setup_type == "quick" or setup_type == "q":
                 invalid_input = False
@@ -104,7 +104,7 @@ class Player(InputMixin, ClearDisplayMixin):
             else:
                 print(
                     'Not valid input please only type "Q" , M, "Quick",'
-                    'or "Manual"\n (Letter casing does not matter): \n')
+                    'or "Manual"\n(Letter casing does not matter): \n')
 
     def take_guess(self):
         """

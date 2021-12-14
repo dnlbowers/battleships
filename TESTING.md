@@ -135,12 +135,27 @@ The end result is a robust game stays playing continuously without error.
     *  ***Solution found:***
         * By switching to using the URL of a web-hosted image, the favicon is displayed correctly.
 
-  
 ### **Remaining Bugs**
 At the time of submission no bugs remained in the app.
 
-## **Validator Testing**
-### ***PEP8:***
-* Due to the use of linters and the autopep8 command line function referenced above, [PEP8online.com](http://pep8online.com/) returned no errors.
+## **Post Development Testing**
+### **Validators**
+
+#### ***HTML*** - https://validator.w3.org/nu/
+
+* ***Issue Found:***
+    * The SVG file contained attributes written in non English language and hence the validator returned the below error: 
+![HTML Validator error](docs/screenshots/html-validator-error.jpg)
+
+* ***Solution Used:***
+    * Placing the attribute, 'lang="ca"' in the div containing the background image fixed this.
+
+#### ***CSS*** - https://jigsaw.w3.org/css-validator/
+
+* The page was tested by passing the URL to the validator, with no issues found.  
+![CSS validator badge](https://jigsaw.w3.org/css-validator/images/vcss)  
+
+### ***Python:*** - http://pep8online.com/
+* Due to the use of linters and the autopep8 terminal command referenced above, [PEP8online.com](http://pep8online.com/) returned no errors.
 
 [return to README.md](README.md)

@@ -78,10 +78,11 @@ To understand the steps required in order to program the game, I created the bel
 #### *page 2 (firing round):*
 ![Firing round rules](docs/screenshots/firing-round-rules.jpg)
 
-### ***Player name input:***
+### ***Player name input(with error handling):***
 ![Player name input with error handling](docs/screenshots/name-input.jpg)
 
-
+### ***Select Setup type (with error handling):***
+![Quick start or manual selection](docs/screenshots/select-setup-type.jpg)
 ## **Future-enhancements**
 I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
 
@@ -205,5 +206,6 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * Favicon image taken from [pixabay](https://pixabay.com/photos/battleship-us-navy-broadside-firing-79519/) under Pixabay License, Free for commercial use, No attribution required however the user who posted the image was "12019 / 10259 images"
 * Unicode for the emoji's was taken from the [unicode.org emoji library](https://unicode.org/emoji/charts/emoji-list.html#1f4a5) 
 * Background image was downloaded from [stock.adobe.com](https://stock.adobe.com/mt/Library/urn:aaid:sc:EU:7b501d7b-97a5-4e2a-8638-7d43341ae21b?asset_id=176108523) under the [standard license](https://stock.adobe.com/mt/license-terms)
+* [stack overflow](https://stackoverflow.com/questions/12150369/define-multiple-languages-in-html-root-elements-lang-attribute) was used to resolve the HTML error found by the validator (as referencing in the TESTING.md doc)
 
 
