@@ -119,34 +119,39 @@ To understand the steps required in order to program the game, I created the bel
 
 ## **Features**
  
-## ***Welcome Screen:***
+## **Welcome Screen:**
 From the welcome screen, the user has access to three things: -
 * Game rules/How to play.
 * Back Story.
 * Start the game.  
+  
 ![Welcome screen screenshot](docs/screenshots/welcome-screen.jpg)
 
-### ***Back Story:***
+### **Back Story:**
 I created a brief back story to add an element of fun to the game.  
+
 ![Back story screenshot](docs/screenshots/story.jpg)
 
-### ***Rules:***
+### **Rules:**
 The rules consist of the following two stages with a pause("press any key") in between to give the user enough time to read them: - 
 * #### *Page 1 (Setup Phase):*  
+* 
 ![Setup phase rules](docs/screenshots/setup-phase-rules.jpg)
 
-* #### *Page 2 (Firing Round):*  
+* #### *Page 2 (Firing Round):*
+*   
 ![Firing round rules](docs/screenshots/firing-round-rules.jpg)
 
 ## **Once Play Game is Selected:**
-### ***Player Name Input(With Error Handling):***
+### **Player Name Input(With Error Handling):**
 The user is required to input their name. The error handling covers two scenarios: 
 1. They cannot leave the name blank.
    * To avoid cheating with blank spaces, this check is made by checking if the string length is zero when stripped of all space characters. This way, it still allows a user to enter first and last names with a space between them.
 1.  By using the inbuilt function, lower(), the user will not be allowed to enter the name "computer" in any casing.     
+   
 ![Player name input with error handling](docs/screenshots/name-input.jpg)
 
-### ***Select Setup type (with error handling):***
+### **Select Setup type (with error handling):**
 The user is offered two methods for placing their ships:
 1. Quickstart:
    *Places the user ship automatically and at random to allow the user to jump straight into the action.
@@ -154,48 +159,91 @@ The user is offered two methods for placing their ships:
    * Places each ship in their chosen location as pictured in the below screenshots.
 
 The user will only be able to enter "Q", "Quick", "q", "quick", "M", "Manual", "m" or "manual". Failure to input one of these words/characters will result in the error message pictured below.
+
 ![Quickstart or manual selection](docs/screenshots/select-setup-type.jpg)
 
-#### ***Manual placement:***
-When choosing to place their ships manually the user will be shown two blank aboard. The board on the left will be where they place their ships.
+* The computer's fleet will always be positioned using the above randomized placement method.
 
-The user will be informed of the following before being asked for the start coordinate and the direction the ship should face:
+#### **Manual placement:**
+When choosing to place their ships manually the user will be shown two blank boards. The board on the left will be where they place their ships the right board will be used later to track their guesses.
+
+The user will be informed of:
 * Which ship they are about to place.
 * How many tiles the ship requires to be placed.
 * What to enter and how it is expected to be entered.
-##### ***First Ship:***
+
+The user will be requested for a start coordinate and the direction the ship should face. This step is repeated five times one for each ship types and shown below.
+
+##### ***Aircraft Carrier:***
+
 ![request for placement of first ship](docs/screenshots/first-ship.jpg)
 
-##### ***Second Ship:***
+##### ***Battleship:***
+
 ![request for placement of second ship](docs/screenshots/second-ship.jpg)
 
-##### ***Third Ship:***
+##### ***Cruiser:***
+
 ![request for placement of third ship](docs/screenshots/third-ship.jpg)
 
-##### ***Fourth Ship:***
+##### ***Submarine:***
+
 ![request for placement of fourth ship](docs/screenshots/fourth-ship.jpg)
 
-##### ***Fifth Ship:***
+##### ***Destroyer:***
+
 ![request for placement of fifth ship](docs/screenshots/fifth-ship.jpg)
 
-##### ***Coordinate Input Error Handling:***
-![coordinate input error handling](docs/screenshots/coord-error-handling.jpg)
+#### **Error handling phase during manual set up:**
 
 ##### ***Directional Input Error Handling:***
+If the user enters invalid input, the app will show the below message, and a new start coordinate will be requested.
+
 ![directional input error handling](docs/screenshots/dir-error-handling.jpg)
 
-### ***Battle Commencement screen:***
-![Quickstart after set up](docs/screenshots/quick-start.jpg)
+##### ***Ship already in intended space:***
+The algorithm will continue to place the ship symbol the correct number of tiles from the start tile in the requested direction. Should a ship already be placed in the path attempted, then the user will see the below message:   
 
-### ***Notification of Hit Result:***
+![Space already occupied error](docs/screenshots/occupied-coordinate.jpg)
+
+##### ***Start tiles selected to close to the board edge:***
+Should either the row or column number exceed nine during the placement process, the app will show the user the below error:  
+
+![Ship over the board edge error](docs/screenshots/out-of-bounds.jpg)
+
+#### **Error handling common to both setup and gameplay:**
+
+##### ***Coordinate Input Error Handling:***
+This check is used throughout the game to ensure the input coordinates from the player match the expected input without error. When the player does input something that does not fit the required input, the app will present them the following error: 
+
+![coordinate input error handling](docs/screenshots/coord-error-handling.jpg)
+
+#### **Quickstart (auto placement):**
+The quick start follows the same process as above except all inputs are randomized and only the end result is shown to the user (see Battle Commencement Screen below)
+
+### **Battle Commencement screen:**
+Once the setup is complete a message is shown to the user. The player whose turn it is is always indicated.
+
+![Display after set up](docs/screenshots/commence.jpg)
+
+### **Duplicate Guess Check:**
+Should a player try to guess a tile that they have already guessed in a previous turn, they will be presented with the following error:   
+
+![Duplicate guess error](docs/screenshots/guessed-before.jpg)
+
+### **Notification of Hit Result:**
+Hits will be indicated with a message and a :boom: emoji.
+
 ![hit result displayed](docs/screenshots/hit.jpg)
 
-### ***Notification of Miss Result:***
+
+### **Notification of Miss Result:**
+Misses will be indicated with a message and a :ocean: emoji.
 ![miss result displayed](docs/screenshots/miss.jpg)
 
-### ***Player Win Screen:***
+### **Player Win Screen:**
 
-### ***Computer Win Screen:***
+### **Computer Win Screen:**
 
 
 ## **Future-Enhancements**

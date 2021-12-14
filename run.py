@@ -322,7 +322,7 @@ class Board(InputMixin, ClearDisplayMixin):
                         print("Out of bounds")
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
-                            f"{ship.name}? \n Please enter two numbers "
+                            f"{ship.name}? \nPlease enter two numbers "
                             "(row then column) i.e 4,5 or 45: \n").strip(" ")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
@@ -348,7 +348,7 @@ class Board(InputMixin, ClearDisplayMixin):
                         print("There is already another ship here...")
                         ship.start_coordinate = input(
                             "Pick a new start coordinate for your "
-                            f"{ship.name}? \n Please enter two numbers "
+                            f"{ship.name}? \nPlease enter two numbers "
                             "(row then column) i.e 4,5 or 45: \n").strip(" ")
                         ship.start_coordinate = self.coord_input_validator(
                             ship.start_coordinate)
