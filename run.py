@@ -700,7 +700,8 @@ class Game(ClearDisplayMixin):
             play_round = player.board.is_fleet_sunk()
             if play_round is False:
                 print("GAMEOVER! Sorry captain, we're leaving, "
-                      "you have to go down with the ship!")
+                      "you have to go down with the ship!\n"
+                      "Water is swirling around you, you've lost.")
                 pause("Press any key to return to the main menu")
                 self.restart_game(player, computer)
                 break

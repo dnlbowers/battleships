@@ -19,51 +19,59 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
     * [***Firstly Select your Strategy (Setup Phase):***](#firstly-select-your-strategy-setup-phase)
     * [***Firing Round:***](#firing-round)
     * [***How to Win:***](#how-to-win)
-  * [**Planning Phase:**](#planning-phase)
-    * [***User Stories:***](#user-stories)
-    * [***Site Aims:***](#site-aims)
-    * [***How Will This Be Achieved:***](#how-will-this-be-achieved)
-    * [***Game Flow Chart:***](#game-flow-chart)
-  * [**Features**](#features)
-  * [***Welcome Screen:***](#welcome-screen)
-    * [***Back Story:***](#back-story)
-    * [***Rules:***](#rules)
-  * [**Once Play Game is Selected:**](#once-play-game-is-selected)
-    * [***Player Name Input(With Error Handling):***](#player-name-inputwith-error-handling)
-    * [***Select Setup type (with error handling):***](#select-setup-type-with-error-handling)
-      * [***Manual placement:***](#manual-placement)
-        * [***First Ship:***](#first-ship)
-        * [***Second Ship:***](#second-ship)
-        * [***Third Ship:***](#third-ship)
-        * [***Fourth Ship:***](#fourth-ship)
-        * [***Fifth Ship:***](#fifth-ship)
-        * [***Coordinate Input Error Handling:***](#coordinate-input-error-handling)
-        * [***Directional Input Error Handling:***](#directional-input-error-handling)
+* [**Planning Phase:**](#planning-phase)
+  * [***User Stories:***](#user-stories)
+  * [***Site Aims:***](#site-aims)
+  * [***How Will This Be Achieved:***](#how-will-this-be-achieved)
+  * [***Game Flow Chart:***](#game-flow-chart)
+* [**Features**](#features)
+  * [**Welcome Screen:**](#welcome-screen)
+    * [**Back Story:**](#back-story)
+    * [**Rules:**](#rules)
+  * [**Once Play Game is Selected (Game set up):**](#once-play-game-is-selected-game-set-up)
+    * [**Player Name Input(With Error Handling):**](#player-name-inputwith-error-handling)
+    * [**Select Setup type (with error handling):**](#select-setup-type-with-error-handling)
+    * [**Manual placement:**](#manual-placement)
+      * [***Aircraft Carrier:***](#aircraft-carrier)
+      * [***Battleship:***](#battleship)
+      * [***Cruiser:***](#cruiser)
+      * [***Submarine:***](#submarine)
+      * [***Destroyer:***](#destroyer)
+    * [**Error handling phase during manual set up:**](#error-handling-phase-during-manual-set-up)
+      * [***Directional Input Error Handling:***](#directional-input-error-handling)
+      * [***Ship already in intended space:***](#ship-already-in-intended-space)
+      * [***Start tiles selected to close to the board edge:***](#start-tiles-selected-to-close-to-the-board-edge)
+    * [***Quickstart (auto placement):***](#quickstart-auto-placement)
+  * [**Error handling common to both setup and gameplay:**](#error-handling-common-to-both-setup-and-gameplay)
+    * [***Coordinate Input Error Handling:***](#coordinate-input-error-handling)
+  * [**Once all ships are placed (Firing Round):**](#once-all-ships-are-placed-firing-round)
     * [***Battle Commencement screen:***](#battle-commencement-screen)
-    * [***Notification of Hit Result:***](#notification-of-hit-result)
-    * [***Notification of Miss Result:***](#notification-of-miss-result)
-    * [***Player Win Screen:***](#player-win-screen)
-    * [***Computer Win Screen:***](#computer-win-screen)
-  * [**Future-Enhancements**](#future-enhancements)
-    * [***Multiplayer:***](#multiplayer)
-    * [***Improved AI Intelligence:***](#improved-ai-intelligence)
-    * [***Improved Visuals:***](#improved-visuals)
+    * [**Duplicate Guess Check:**](#duplicate-guess-check)
+    * [**Notification of Hit Result:**](#notification-of-hit-result)
+    * [**Notification of Miss Result:**](#notification-of-miss-result)
+    * [**End game prematurely:**](#end-game-prematurely)
+    * [**Player Win Screen:**](#player-win-screen)
+    * [**Computer Win Screen:**](#computer-win-screen)
+* [**Future-Enhancements**](#future-enhancements)
+  * [***Multiplayer:***](#multiplayer)
+  * [***Improved AI Intelligence:***](#improved-ai-intelligence)
+  * [***Improved Visuals:***](#improved-visuals)
     * [***Audio:***](#audio)
     * [***Randomize the Starting Player***](#randomize-the-starting-player)
-  * [**Data Model**](#data-model)
-    * [**Overview of Classes:**](#overview-of-classes)
-    * [**Logic Flow:**](#logic-flow)
-      * [***Set up Phase:***](#set-up-phase)
-      * [***Firing Rounds:***](#firing-rounds)
-  * [**Testing Phase**](#testing-phase)
-  * [**Libraries**](#libraries)
+* [**Data Model**](#data-model)
+  * [**Overview of Classes:**](#overview-of-classes)
+  * [**Logic Flow:**](#logic-flow)
+    * [***Set up Phase:***](#set-up-phase)
+    * [***Firing Rounds:***](#firing-rounds)
+* [**Testing Phase**](#testing-phase)
+* [**Libraries**](#libraries)
     * [***random:***](#random)
     * [***os:***](#os)
     * [***getch:***](#getch)
     * [***string:***](#string)
-  * [**Deployment**](#deployment)
-  * [**Honorable Mentions**](#honorable-mentions)
-  * [**Credits**](#credits)
+* [**Deployment**](#deployment)
+* [**Honorable Mentions**](#honorable-mentions)
+* [**Credits**](#credits)
 
 ## **How to Play:**
 
@@ -89,22 +97,22 @@ Miss = :ocean:
 ### ***How to Win:***
 The last side with a ship still afloat wins. 
 
-## **Planning Phase:**
-### ***User Stories:***
+# **Planning Phase:**
+## ***User Stories:***
 As a user, I want to be able to:
 * See clearly from the offset what the game is.
 * Have a straightforward way to read the game instructions from within.
 * To access a fun story setting the scene of the game.
 * Play an enjoyable game of the classic game battleships by myself.
 
-### ***Site Aims:***
+## ***Site Aims:***
 The site aim to:
 1. Make it clear what the game is without the need for further explanation from external sources.
 1. Communicate a clear and appropriate response to all user inputs.
 1. Continue in a loop without ever crashing due to an error caused by the user's input.
 1. Allow the user to have an enjoyable experience playing battleships by themselves.
   
-### ***How Will This Be Achieved:***
+## ***How Will This Be Achieved:***
 To achieve the above, the site will:
 1. Provide a welcome screen with the game name in ascii art.
     * Offer the user a chance to read the rules and back story before starting the game.
@@ -112,12 +120,12 @@ To achieve the above, the site will:
 1. Any time the user input is not as expected by the game, the app will show a message to inform the user that their entry was invalid and guide them on how to input as expected.
 1. Executing all of the above in a way that successfully replicates the original board game of battleships.
 
-### ***Game Flow Chart:***
+## ***Game Flow Chart:***
 To understand the steps required in order to program the game, I created the below flowchart using[lucid charts](https://www.lucidchart.com/).  
 
 ![Game Logic Flowchart](docs/flowcharts/flowchart.jpeg) 
 
-## **Features**
+# **Features**
  
 ## **Welcome Screen:**
 From the welcome screen, the user has access to three things: -
@@ -135,14 +143,14 @@ I created a brief back story to add an element of fun to the game.
 ### **Rules:**
 The rules consist of the following two stages with a pause("press any key") in between to give the user enough time to read them: - 
 * #### *Page 1 (Setup Phase):*  
-* 
+  
 ![Setup phase rules](docs/screenshots/setup-phase-rules.jpg)
 
 * #### *Page 2 (Firing Round):*
-*   
+   
 ![Firing round rules](docs/screenshots/firing-round-rules.jpg)
 
-## **Once Play Game is Selected:**
+## **Once Play Game is Selected (Game set up):**
 ### **Player Name Input(With Error Handling):**
 The user is required to input their name. The error handling covers two scenarios: 
 1. They cannot leave the name blank.
@@ -164,7 +172,7 @@ The user will only be able to enter "Q", "Quick", "q", "quick", "M", "Manual", "
 
 * The computer's fleet will always be positioned using the above randomized placement method.
 
-#### **Manual placement:**
+### **Manual placement:**
 When choosing to place their ships manually the user will be shown two blank boards. The board on the left will be where they place their ships the right board will be used later to track their guesses.
 
 The user will be informed of:
@@ -174,54 +182,56 @@ The user will be informed of:
 
 The user will be requested for a start coordinate and the direction the ship should face. This step is repeated five times one for each ship types and shown below.
 
-##### ***Aircraft Carrier:***
+#### ***Aircraft Carrier:***
 
 ![request for placement of first ship](docs/screenshots/first-ship.jpg)
 
-##### ***Battleship:***
+#### ***Battleship:***
 
 ![request for placement of second ship](docs/screenshots/second-ship.jpg)
 
-##### ***Cruiser:***
+#### ***Cruiser:***
 
 ![request for placement of third ship](docs/screenshots/third-ship.jpg)
 
-##### ***Submarine:***
+#### ***Submarine:***
 
 ![request for placement of fourth ship](docs/screenshots/fourth-ship.jpg)
 
-##### ***Destroyer:***
+#### ***Destroyer:***
 
 ![request for placement of fifth ship](docs/screenshots/fifth-ship.jpg)
 
-#### **Error handling phase during manual set up:**
+### **Error handling phase during manual set up:**
 
-##### ***Directional Input Error Handling:***
+#### ***Directional Input Error Handling:***
 If the user enters invalid input, the app will show the below message, and a new start coordinate will be requested.
 
 ![directional input error handling](docs/screenshots/dir-error-handling.jpg)
 
-##### ***Ship already in intended space:***
+#### ***Ship already in intended space:***
 The algorithm will continue to place the ship symbol the correct number of tiles from the start tile in the requested direction. Should a ship already be placed in the path attempted, then the user will see the below message:   
 
 ![Space already occupied error](docs/screenshots/occupied-coordinate.jpg)
 
-##### ***Start tiles selected to close to the board edge:***
+#### ***Start tiles selected to close to the board edge:***
 Should either the row or column number exceed nine during the placement process, the app will show the user the below error:  
 
 ![Ship over the board edge error](docs/screenshots/out-of-bounds.jpg)
 
-#### **Error handling common to both setup and gameplay:**
+### ***Quickstart (auto placement):***
+The quick start follows the same process as above except all inputs are randomized and only the end result is shown to the user (see Battle Commencement Screen below)
 
-##### ***Coordinate Input Error Handling:***
+## **Error handling common to both setup and gameplay:**
+
+### ***Coordinate Input Error Handling:***
 This check is used throughout the game to ensure the input coordinates from the player match the expected input without error. When the player does input something that does not fit the required input, the app will present them the following error: 
 
 ![coordinate input error handling](docs/screenshots/coord-error-handling.jpg)
 
-#### **Quickstart (auto placement):**
-The quick start follows the same process as above except all inputs are randomized and only the end result is shown to the user (see Battle Commencement Screen below)
+## **Once all ships are placed (Firing Round):**
 
-### **Battle Commencement screen:**
+### ***Battle Commencement screen:***
 Once the setup is complete a message is shown to the user. The player whose turn it is is always indicated.
 
 ![Display after set up](docs/screenshots/commence.jpg)
@@ -239,24 +249,36 @@ Hits will be indicated with a message and a :boom: emoji.
 
 ### **Notification of Miss Result:**
 Misses will be indicated with a message and a :ocean: emoji.
+  
 ![miss result displayed](docs/screenshots/miss.jpg)
 
+### **End game prematurely:**
+After every turn, the player offered to leave the game. The player may use this option if they felt the odds were not in their favor and didn't want to face defeat.  
+
+![exit game option](docs/screenshots/exit.jpg)
+
 ### **Player Win Screen:**
+When the player has successfully guessed the location of all of the computer's ships the following message is displayed:   
 
+![Computer win screen](docs/screenshots/player-win.jpg)
+  
 ### **Computer Win Screen:**
+When the computer has successfully guessed the location of all of the player's ships the following message is displayed: 
+
+![Computer win screen](docs/screenshots/computer-win.jpg)
 
 
-## **Future-Enhancements**
+# **Future-Enhancements**
 I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
 
-### ***Multiplayer:***
+## ***Multiplayer:***
   * The user would be asked How many were playing the game. If the user selected two players, the game would request a second username. If not, the game would generate the computer opponent automatically as it is in the current version of the game.
   * Due to the requirement of not seeing the opponent board, this would implement an interval screen between turns with a pause function until the opposing player had confirmed they could see the screen alone.
   
-### ***Improved AI Intelligence:***
+## ***Improved AI Intelligence:***
    * Create an algorithm to see the last hit guess and search the surrounding tiles on the proceeding guesses. 
    * Having separate algorithms to allow the user to select a difficulty level. i.e., easy would be as it is now, completely random, and hard would be it tracks hits on a ship until it is sunk much like a human player would.
-### ***Improved Visuals:***
+## ***Improved Visuals:***
    * Add colors within the console using the external Colorama library.
    * One thing I would have loved to do for this project is incorporate some Javascript to animate a background where the user would see a missile or torpedo head towards and ship and explode for a hit or splash in the water for a miss. This feature was well outside of the scope of the assessment criteria but something I will be coming back to try and implement later on.
   
@@ -267,8 +289,8 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
 ### ***Randomize the Starting Player***  
    * Currently, the starting player is always the first initiated. I want to come back and add a randomized method that allows this to change from game to game. i.e., dice roll (highest number goes first) or a coin toss.
 
-## **Data Model**
-### **Overview of Classes:**
+# **Data Model**
+## **Overview of Classes:**
 Throughout this project, I have opted to use Object Orientated programming. The game consists of four classes and five subclasses: -
   1. Player.
   2. Board.
@@ -284,12 +306,12 @@ To avoid repetition, I created two mixins for methods required in more than one 
   1. InputMixin
   1. ClearDisplayMixin
 
-### **Logic Flow:**
+## **Logic Flow:**
 The game object gets created in the global scope and calls the welcome screen using dot notation. The user can read the introductory story, the rules or initialize the game. Entering either rule or story will bring the user to the main menu once read.
 
 Once the player presses "p" to play, the set player's method is called from the game class and creates the player objects. The first object is created by asking the user for their name. The second gives a parameter the string  "Computer" by default. As part of the error handling for the name input, the user cannot enter their name as "Computer".
 
-#### ***Set up Phase:***
+### ***Set up Phase:***
 The generation of a player object then automatically begins the game's setup phase via the init methods of both the Player and Board class. 
 
 Once we have a player object (in this case, two), they then require their board and fleet of ships to place upon it. The Player class initiates the Board class by passing in the parameters to tell the board class if the possessing player will be a computer or not and if they will be using auto set up. 
@@ -299,7 +321,7 @@ By default, the board will be a 10 x 10 size grid as in the original version of 
 In this way, we have four separate object types which belong to one another but are also distinct in the same two players, the boards they use, and the ships they place are all related but separate in a real-life game of battleships.
 ![Object creation diagram](docs/flowcharts/objects.drawio.png)
 
-#### ***Firing Rounds:***
+### ***Firing Rounds:***
 After creating all the objects, it's time to bring them to life and interact. The firing round method from the Game object is called using both player objects as parameters.
 
 The above method runs on repeat using a while loop until either player's objects board has no more ships afloat. It uses constructors to call the instance methods of the player and their board to take a guess, cross-reference their opponent's board to display the result (hit or miss). 
@@ -309,10 +331,10 @@ After each player's turn, it checks the number of ships still afloat on the oppo
 The game object continues to exist at all times so that the user never needs to refresh the page. 
 
 
-## **Testing Phase**
+# **Testing Phase**
 I have included details of testing both during development and post development in a separate document called [TESTING.md](TESTING.md).
 
-## **Libraries**
+# **Libraries**
 For this project to work, I required four imported libraries: -
 ### ***random:***
   * randint used to generate a random number between 0 and 9 for the automated placement and computer guessing
@@ -323,7 +345,7 @@ For this project to work, I required four imported libraries: -
 ### ***string:***
    * This was imported to use the string.capwords() method on the name input. This method means that the user's name will always display with the proper casing.
 
-## **Deployment**
+# **Deployment**
 The project was deployed to [Heroku](https://www.heroku.com) using the below procedure:- 
 
 1. From the [GitHub repository](https://github.com/dnlbowers/battleships), clone the project into Vscode or launch Gitpod to open it as a project workspace.
@@ -349,7 +371,7 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
    * Select the correct branch for deployment from the drop-down menu and click the "Deploy Branch" button for manual deployment. 
 
 
-## **Honorable Mentions**
+# **Honorable Mentions**
 * [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data science were a superpower, Mark would be the equivalent of superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
 * [Richard Wells](https://github.com/D0nni387) - Taught me what it means to have a mentor. Richard has always been perfect for me as a mentor on this learning journey; however, I understood how to use him to his full potential during this project. Our relationship feels like it has blossomed into junior and senior developers on the same team.  
 [Sean Murphy](https://github.com/nazarja) - Provided me a runnable example I required to print two boards side by side. Not only did he give me exactly what I needed, but he spent the necessary time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.  
@@ -358,7 +380,7 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * The code institute Slack community as a whole who tested and supported throughout.
 * And the **biggest thanks goes to** my wife and child, who have had to deal with me face to face through it all. **Oliver** has been my reason for the change and **Analise** my inspiration. 
 
-## **Credits**
+# **Credits**
 * Python OOP Tutorial series by Corey Schafer for general reference on working with classes and OOP in general  - [First of six videos in the series](https://youtu.be/ZDa-Z5JzLYM)  
 * To get a general idea of the game logic, I used this video on the [Devpost Youtube channel](https://youtu.be/zSQIGzmcp2I)  
 * The idea to decorate the board with numbers above and to the side came from [Knowledge Mavens youtube channel](https://youtu.be/alJH_c9t4zw)
