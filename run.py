@@ -359,8 +359,8 @@ class Board(InputMixin, ClearDisplayMixin):
         invalid_input = True
         while invalid_input:
             setup_type = input(
-                "From the back of the boat in which direction is it "
-                "pointing? (r)ight or (d)own: \n").lower().strip(" ")
+                "From the back of the boat, to which direction is the front "
+                "end pointing? (r)ight or (d)own: \n").lower().strip(" ")
             if setup_type == "right" or setup_type == "r":
                 invalid_input = False
                 return "right"
