@@ -642,7 +642,7 @@ class Game(ClearDisplayMixin):
         print(
             'Firing Round:\n'
             '\n'
-            'Once in position, it\'s time to let a rip!\n'
+            'Once in position, it\'s time to let rip!\n'
             '\n'
             'Since the radar equipment was broken "accidentally" in the\n'
             'previous battle, you are firing blind and cannot see the other\n'

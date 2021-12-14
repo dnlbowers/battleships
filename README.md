@@ -3,7 +3,7 @@
 ## **Overview**
 This program is a computerized version of the original board game battleships, based inside a mock terminal deployed via Heroku.
 
-As a child of the 90's, I used the traditional ship naming conventions from the 1990 Milton Bradley game version over the more modern Hasbro rendition. One can find more info on the rules and the history of the game here on [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game)). My only deviation was that I reamed the "Carrier" to "Aircraft carrier" to differentiate it from the Cruiser on the board within the app.  
+As a child of the 90's, I used the traditional ship naming conventions from the 1990 Milton Bradley game version over the more modern Hasbro rendition. One can find more info on the rules and the history of the game here on [Wikipedia](https://en.wikipedia.org/wiki/Battleship_(game)). My only deviation was that I renamed the "Carrier" to "Aircraft carrier" to differentiate it from the Cruiser on the board within the app.  
 
 The app replicates the game's enjoyment by allowing the user to play a single-player version against a computerized player.  
   
@@ -81,13 +81,13 @@ Place your fate in the hands of the sea god Neptune. Press "q" or type "quick" t
 
 Or  
 
-Before opening fire, choose to spite the sea god and place your ships strategically yourself by pressing "m" or typing "manual.".
+Before opening fire, choose to spite the sea god and place your ships strategically yourself by pressing "m" or typing "manual".
 
 Neptune's hand will always guide the computerized fleet only to reveal their location with the flames as you hit one.
 
 ### ***Firing Round:***  
 
-Once in position, it's time to let a rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other side's ships, choose your coordinates on the map (row , column) and remember to call "FIRE IN THE HOLD" (safety first after all).  
+Once in position, it's time to let rip. Since the radar equipment was broken "accidentally" in the previous battle, you are firing blind and cannot see the other side's ships, choose your coordinates on the map (row , column) and remember to call "FIRE IN THE HOLD" (safety first after all).  
 
 The results of your guess are indicated as follows:  
 
@@ -106,7 +106,7 @@ As a user, I want to be able to:
 * Play an enjoyable game of the classic game battleships by myself.
 
 ## ***Site Aims:***
-The site aim to:
+The site aims to:
 1. Make it clear what the game is without the need for further explanation from external sources.
 1. Communicate a clear and appropriate response to all user inputs.
 1. Continue in a loop without ever crashing due to an error caused by the user's input.
@@ -121,7 +121,7 @@ To achieve the above, the site will:
 1. Executing all of the above in a way that successfully replicates the original board game of battleships.
 
 ## ***Game Flow Chart:***
-To understand the steps required in order to program the game, I created the below flowchart using[lucid charts](https://www.lucidchart.com/).  
+To understand the steps required in order to program the game, I created the below flowchart using [lucid charts](https://www.lucidchart.com/).  
 
 ![Game Logic Flowchart](docs/flowcharts/flowchart.jpeg) 
 
@@ -151,18 +151,20 @@ The rules consist of the following two stages with a pause("press any key") in b
 ![Firing round rules](docs/screenshots/firing-round-rules.jpg)
 
 ## **Once Play Game is Selected (Game set up):**
-### **Player Name Input(With Error Handling):**
-The user is required to input their name. The error handling covers two scenarios: 
+### **Player Name Input (With Error Handling):**
+The user is required to input their name. As with standard conventions in the English language, the app will capitalize the first letter of each name(even if more than one).
+
+The error handling covers two scenarios: 
 1. They cannot leave the name blank.
    * To avoid cheating with blank spaces, this check is made by checking if the string length is zero when stripped of all space characters. This way, it still allows a user to enter first and last names with a space between them.
 1.  By using the inbuilt function, lower(), the user will not be allowed to enter the name "computer" in any casing.     
    
 ![Player name input with error handling](docs/screenshots/name-input.jpg)
 
-### **Select Setup type (with error handling):**
+### **Select Setup Type (With Error Handling):**
 The user is offered two methods for placing their ships:
-1. Quickstart:
-   *Places the user ship automatically and at random to allow the user to jump straight into the action.
+1. Quickstart:  
+   * Places the user ships automatically and at random to allow the user to jump straight into the action.
 1. Manual placement:
    * Places each ship in their chosen location as pictured in the below screenshots.
 
@@ -172,7 +174,7 @@ The user will only be able to enter "Q", "Quick", "q", "quick", "M", "Manual", "
 
 * The computer's fleet will always be positioned using the above randomized placement method.
 
-### **Manual placement:**
+### **Manual Placement:**
 When choosing to place their ships manually the user will be shown two blank boards. The board on the left will be where they place their ships the right board will be used later to track their guesses.
 
 The user will be informed of:
@@ -202,37 +204,37 @@ The user will be requested for a start coordinate and the direction the ship sho
 
 ![request for placement of fifth ship](docs/screenshots/fifth-ship.jpg)
 
-### **Error handling phase during manual set up:**
+### **Error Handling During manual Setup Phase:**
 
 #### ***Directional Input Error Handling:***
 If the user enters invalid input, the app will show the below message, and a new start coordinate will be requested.
 
 ![directional input error handling](docs/screenshots/dir-error-handling.jpg)
 
-#### ***Ship already in intended space:***
-The algorithm will continue to place the ship symbol the correct number of tiles from the start tile in the requested direction. Should a ship already be placed in the path attempted, then the user will see the below message:   
+#### ***Ship Already in Intended Space:***
+The algorithm will continue to place the ship symbol in the requested direction until the number of tiles equals the ship length. Should a ship already be placed in the path attempted, then the user will see the below message: 
 
 ![Space already occupied error](docs/screenshots/occupied-coordinate.jpg)
 
-#### ***Start tiles selected to close to the board edge:***
+#### ***Start Tiles Selected to Close to the Board's Edge:***
 Should either the row or column number exceed nine during the placement process, the app will show the user the below error:  
 
 ![Ship over the board edge error](docs/screenshots/out-of-bounds.jpg)
 
-### ***Quickstart (auto placement):***
+### ***Quickstart (Auto Placement):***
 The quick start follows the same process as above except all inputs are randomized and only the end result is shown to the user (see Battle Commencement Screen below)
 
-## **Error handling common to both setup and gameplay:**
+## **Error Handling Common to Both Setup and Gameplay:**
 
 ### ***Coordinate Input Error Handling:***
 This check is used throughout the game to ensure the input coordinates from the player match the expected input without error. When the player does input something that does not fit the required input, the app will present them the following error: 
 
 ![coordinate input error handling](docs/screenshots/coord-error-handling.jpg)
 
-## **Once all ships are placed (Firing Round):**
+## **Once all Ships are Placed (Firing Round):**
 
 ### ***Battle Commencement screen:***
-Once the setup is complete a message is shown to the user. The player whose turn it is is always indicated.
+Once the setup is complete, the user gets informed the battle will start. The indicates the player to fire.
 
 ![Display after set up](docs/screenshots/commence.jpg)
 
@@ -253,7 +255,7 @@ Misses will be indicated with a message and a :ocean: emoji.
 ![miss result displayed](docs/screenshots/miss.jpg)
 
 ### **End game prematurely:**
-After every turn, the player offered to leave the game. The player may use this option if they felt the odds were not in their favor and didn't want to face defeat.  
+After every turn, the player gets offered a chance to leave the game. The player may use this option if they felt the odds were not in their favor and didn't want to face defeat.  
 
 ![exit game option](docs/screenshots/exit.jpg)
 
@@ -268,19 +270,19 @@ When the computer has successfully guessed the location of all of the player's s
 ![Computer win screen](docs/screenshots/computer-win.jpg)
 
 
-# **Future-Enhancements**
-I wanted to do a lot more with this game. Sadly, however, as with every project, the was a deadline to meet. Below are the things which would take my current MVP to the next level: -
+## **Future-Enhancements**
+I wanted to do a lot more with this game. Sadly, however, as with every project, there was a deadline to meet. Below are the things which would take my current MVP to the next level: -
 
-## ***Multiplayer:***
-  * The user would be asked How many were playing the game. If the user selected two players, the game would request a second username. If not, the game would generate the computer opponent automatically as it is in the current version of the game.
+### ***Multiplayer:***
+  * The user would be asked how many were playing the game. If the user selected two players, the game would request a second username. If not, the game would generate the computer opponent automatically as it is in the current version of the game.
   * Due to the requirement of not seeing the opponent board, this would implement an interval screen between turns with a pause function until the opposing player had confirmed they could see the screen alone.
   
-## ***Improved AI Intelligence:***
+### ***Improved AI Intelligence:***
    * Create an algorithm to see the last hit guess and search the surrounding tiles on the proceeding guesses. 
    * Having separate algorithms to allow the user to select a difficulty level. i.e., easy would be as it is now, completely random, and hard would be it tracks hits on a ship until it is sunk much like a human player would.
-## ***Improved Visuals:***
+### ***Improved Visuals:***
    * Add colors within the console using the external Colorama library.
-   * One thing I would have loved to do for this project is incorporate some Javascript to animate a background where the user would see a missile or torpedo head towards and ship and explode for a hit or splash in the water for a miss. This feature was well outside of the scope of the assessment criteria but something I will be coming back to try and implement later on.
+   * One thing I would have loved to do for this project is incorporate some Javascript to animate a background where the user would see a missile or torpedo head towards a ship and explode for a hit or splash in the water for a miss. This feature was well outside of the scope of the assessment criteria but something I will be coming back to try and implement later on.
   
 ### ***Audio:***   
    * Adding sound effects for missile fire, hit, and miss.
@@ -311,7 +313,7 @@ The game object gets created in the global scope and calls the welcome screen us
 
 Once the player presses "p" to play, the set player's method is called from the game class and creates the player objects. The first object is created by asking the user for their name. The second gives a parameter the string  "Computer" by default. As part of the error handling for the name input, the user cannot enter their name as "Computer".
 
-### ***Set up Phase:***
+### ***Setup Phase:***
 The generation of a player object then automatically begins the game's setup phase via the init methods of both the Player and Board class. 
 
 Once we have a player object (in this case, two), they then require their board and fleet of ships to place upon it. The Player class initiates the Board class by passing in the parameters to tell the board class if the possessing player will be a computer or not and if they will be using auto set up. 
@@ -372,12 +374,13 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 
 
 # **Honorable Mentions**
-* [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data science were a superpower, Mark would be the equivalent of superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
+* [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data Science were a superpower, Mark would be the equivalent of Superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  
 * [Richard Wells](https://github.com/D0nni387) - Taught me what it means to have a mentor. Richard has always been perfect for me as a mentor on this learning journey; however, I understood how to use him to his full potential during this project. Our relationship feels like it has blossomed into junior and senior developers on the same team.  
-[Sean Murphy](https://github.com/nazarja) - Provided me a runnable example I required to print two boards side by side. Not only did he give me exactly what I needed, but he spent the necessary time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.  
+* [Sean Murphy](https://github.com/nazarja) - Provided me a runnable example I required to print two boards side by side. Not only did he give me exactly what I needed, but he spent the necessary time to break it down and explain it step by step so that I understood the code and was able to adapt it to my project without issue.  
 * [Matt Bodden](https://github.com/MattBCoding) - Matt helped me understand how to document the data model in the readme and converted my background image from a .ai file format to a .svg format using adobe illustrator. Generally Matt is always just always a top man in a time of need.  
-* [Steven Weir](https://github.com/StevenWeir038) -  Steven did not directly help with the code. However, since we began the course together, he has gone out on his way to check in with me intermittently, and I cannot express how much this sense of camaraderie has brought me through some challenging moments and especially for this project. I am not sure how he does it, but he always pops up at the exact moment I need a nice collection of alphanumeric characters to connect with and relate too
-* The code institute Slack community as a whole who tested and supported throughout.
+* [Steven Weir](https://github.com/StevenWeir038) -  Steven did not directly help with the code. However, since we began the course together, he has gone out on his way to check in with me intermittently, and I cannot express how much this sense of camaraderie has brought me through some challenging moments and especially for this project. I am not sure how he does it, but he always pops up at the exact moment I need a nice collection of alphanumeric characters to connect with and relate to.
+* [Shellie Downie](https://github.com/shellieD) - Shellie heard my plea for a proofreader and could resist. I have a paid version of Grammarly, and she still managed to pick up on multiple errors in my readme. Given the size of my readme, I was blown away by how generous Shellie was.
+* The Code Institute Slack community as a whole who tested and supported throughout.
 * And the **biggest thanks goes to** my wife and child, who have had to deal with me face to face through it all. **Oliver** has been my reason for the change and **Analise** my inspiration. 
 
 # **Credits**
