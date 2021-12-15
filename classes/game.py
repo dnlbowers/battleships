@@ -1,4 +1,3 @@
-
 from getch import pause
 import string
 from .mixins import ClearDisplayMixin

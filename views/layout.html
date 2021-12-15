@@ -13,33 +13,33 @@
             href="https://cdn.pixabay.com/photo/2013/02/08/23/24/battleship-79519_960_720.jpg" />
         <title>dnlbowers - Battleships</title>
         <style>
-            /*center the terminal and button*/
+            
             body {
                 font-family: Arial;
             }
-
+            /*center the terminal and button*/
             #main-container {
-                height: 100vh;
+                align-items: center;
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                height: 100vh;
                 justify-content: center;
             }
             
             /*style background image*/
             #background {
+                height: 100vh;
+                left: 0;
                 position: fixed;
                 top: 0;
-                left: 0;
-                z-index: -10;
-                height: 100vh;
                 width: 100%;
+                z-index: -10;
             }
 
             svg {
                 height: 100%;
-                position: relative;
                 left: 50%;
+                position: relative;
                 transform: translate(-50%, 0);
             }
 
