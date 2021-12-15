@@ -14,9 +14,9 @@
       * [***CSS***](#css---httpsjigsaww3orgcss-validator)
       * [***Python:***](#python---httppep8onlinecom)
 
-## **Manual testing:**
+## **Manual Testing:**
 I performed manual testing throughout this project in the following ways:
-### ***PEP8 linter:***
+### ***PEP8 Linter:***
 To begin with, I was using Pylint to lint my code. The reason for this was that I was developing on my local machine using Vscode and a virtual environment meaning flake8 was not working for me. After some research, I discovered the error with flake8 was in the Code institute settings Json where CI had set the file path for the linter according to the Gitpod virtual environment. After deleting the file path and installing flake8 with the pip install command, I continued developing the course-recommended linter.
 
 During the above investigation, I also noticed the below line in the settings Json of the code institute template. I began to wonder what it was: -   
@@ -30,7 +30,7 @@ I have tested all inputs with strings where expecting integers, integers where e
 
 Lastly, I challenged the slack community to break the app in any way possible which by the deployment of final product was not possible.   
 
-### ***Game play:***
+### ***Game Play:***
 Throughout development, I was testing the game in the terminal of VScode as well as several playing several rounds in the Code Institute terminal template for each deployment to Heroku.
 
 The end result is a robust game stays playing continuously without error.
@@ -70,7 +70,7 @@ The end result is a robust game stays playing continuously without error.
     * ***Causes:*** 
         * Originally, I used an *args parameter to past in the list of occupied coordinates. The auto-placement was passed in after the *args parameter and added to the list past with the *args parameter. 
         * I later discovered this was an incorrect use of *args, and despite the first fix below working, the real issue was that the function was reading the first parameter as "self".
-    * ***Solution found***
+    * ***Solution Found***
         * The first solution was to move the *args to the last passed parameter, which worked but was an improper use of *args.
         * I later realized that the interrupter read the first parameter as "self". Removing the *args and adding "self " as the first parameter worked as the final resolution for the method function.
         * 
@@ -79,7 +79,7 @@ The end result is a robust game stays playing continuously without error.
         * My statements to read the lists containing the already occupied tiles were failing to work correctly.
     * ***Causes:*** 
         * I only checked the outer list with my conditional statements and not the lists within the lists.
-    * ***Solution found:***
+    * ***Solution Found:***
         * By creating a nested for loop to check each item of each nested list and returning a boolean value when it found a match or not. I assigned the static method containing the for loop to a variable and successfully used it as a conditional. 
 
 1. **intended outcome** - Until the user gives a valid input, the code will loop around and provide feedback to the user.
@@ -88,18 +88,18 @@ The end result is a robust game stays playing continuously without error.
     * ***Causes:***
         * There was an instance where I neglected to define the escape variable before the loop.
         * I ran the code with a conditional statement that couldn't trigger within the while loop.
-    *  ***Solution found:***
+    *  ***Solution Found:***
         * A combination of return statements, break, and booleans assigned to variables.
 
-1. **intended outcome** - A dictionary with occupied tiles as the key and ship symbol as the value. The app would then check the guess and find the correct ship to update the damaged tiles on.
+1. **Intended Outcome** - A dictionary with occupied tiles as the key and ship symbol as the value. The app would then check the guess and find the correct ship to update the damaged tiles on.
     * ***Issue Found:***
         * Trying to zip() the list of coordinates together with the ship symbol returned an error.
     * ***Causes:***
         * Due to the list lengths being different sizes, the zip() method could not join all the ship's coordinates with a single defined symbol of the ship instance.
-    *  ***Solution found:***
+    *  ***Solution Found:***
         * When defining the ship symbol in the subclasses of the ship class, I multiplied the symbol by the ship's length, creating two lists of equal size to be zipped together into a dictionary.
 
-1. **intended outcome** - All ships placed on the board after all tile coordinates in a ship instance were deemed original.
+1. **intended Outcome** - All ships placed on the board after all tile coordinates in a ship instance were deemed original.
     * ***Issue Found:***
         * Although the console showed no error, the ship failed to show up on the board after the placement phase.
     * ***Causes:***

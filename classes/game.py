@@ -6,7 +6,8 @@ from .player import Player
 
 class Game(ClearDisplayMixin):
     """
-    Creates objects and plays the game
+    Creates objects and plays the game by
+    calling objects of the other classes
     """
 
     def __init__(self):
@@ -84,7 +85,8 @@ class Game(ClearDisplayMixin):
 
     def how_to_play(self):
         """
-        prints game instructions
+        prints game instructions in two pages
+        with a pause between
         """
         self.clear_display()
         print(
@@ -151,6 +153,7 @@ class Game(ClearDisplayMixin):
         """"
         Loops back and fore between players allowing them to take there guess
         and marking the relevant boards.
+        offers the user a premature exit from the game.
         """
         play_round = True
         while play_round:
@@ -183,7 +186,7 @@ class Game(ClearDisplayMixin):
     @staticmethod
     def name_input():
         """
-        Take name in put for human player and check its valid
+        Take name input for human player and check its valid
         """
         valid_name = False
         while not valid_name:
@@ -197,7 +200,7 @@ class Game(ClearDisplayMixin):
             elif name.lower() == "computer":
                 print("You may be robotic but you don't have my brain I will "
                       "not let you \ninsult me by claiming to be me!"
-                      "Pick a again human...")
+                      "Pick again human...")
                 continue
             return string.capwords(name)
 

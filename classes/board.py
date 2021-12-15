@@ -21,7 +21,8 @@ class Board(InputMixin, ClearDisplayMixin):
 
     def build_board(self):
         """
-        Builds a blank board with coordinates as a key.
+        Builds a blank board using nested lists.
+        will be used to store the shp objects
         """
         self.board = []
 
@@ -33,7 +34,9 @@ class Board(InputMixin, ClearDisplayMixin):
 
     def build_guess_board(self):
         """"
-        Builds a the board for the user to track their guess results
+        Builds a blank board using nested lists
+        will be use to keep note of a players guess
+        results
         """
         self.guess_board = []
         for row in range(self.board_size):
@@ -89,12 +92,14 @@ class Board(InputMixin, ClearDisplayMixin):
         for i in range(self.number_of_ships):
 
             if self.auto:
+                # Randomized setup
                 random_start = (random.randint(0, 9), random.randint(0, 9))
                 random_direction = random.choice(["r", "d"])
                 ship_instance = ship_obj_type[i](
                     random_start, random_direction, (random_start))
 
             else:
+                # manual set up
                 self.user_display()
                 start_position = input(
                     f"From where would you like your {ship_obj_type[i].name} "
@@ -103,6 +108,8 @@ class Board(InputMixin, ClearDisplayMixin):
                     "\nPlease enter two numbers (row then column)\n"
                     "i.e 4,5 or 45: \n").strip(" ")
 
+                # validates coodrinate input, calls directional input function
+                # and creates ship object
                 start_position = self.coord_input_validator(start_position)
                 direction = self.direction_input()
                 ship_instance = ship_obj_type[i](

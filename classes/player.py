@@ -40,7 +40,7 @@ class Player(InputMixin, ClearDisplayMixin):
                 return False
             else:
                 print(
-                    'Not valid input please only type "Q" , M, "Quick",'
+                    'Not a valid input, please only type "Q" , "M", "Quick",'
                     'or "Manual"\n(Letter casing does not matter): \n')
 
     def take_guess(self):

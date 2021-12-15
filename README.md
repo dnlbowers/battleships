@@ -293,7 +293,7 @@ I wanted to do a lot more with this game. Sadly, however, as with every project,
 
 # **Data Model**
 ## **Overview of Classes:**
-Throughout this project, I have opted to use Object Orientated programming. The game consists of four classes and five subclasses: -
+Throughout this project, I have opted to use Object Oriented programming. The game consists of four classes and five subclasses: -
   1. Player.
   2. Board.
   3. Ship.
