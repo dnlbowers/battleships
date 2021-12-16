@@ -205,7 +205,9 @@ class Game(ClearDisplayMixin):
                       "not let you \ninsult me by claiming to be me!"
                       "Pick again human...")
                 continue
-            return string.capwords(name)
+            name = string.capwords(name)
+            print(f"Welcome Captain {name} ")
+            return name
 
     def restart_game(self, player1, player2):
         """
