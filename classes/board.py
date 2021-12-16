@@ -141,6 +141,8 @@ class Board(InputMixin, ClearDisplayMixin):
 
             for i in range(1, ship.length):
 
+                # works out which index in the start position tuple needs
+                # to be increased based on direction
                 if ship.direction == "d" or ship.direction == "down":
                     next_tile = (
                         ship.start_coordinate[0] + i,
@@ -152,9 +154,12 @@ class Board(InputMixin, ClearDisplayMixin):
                         ship.start_coordinate[0],
                         ship.start_coordinate[1] + i)
                     index_to_increment = 1
+
                 duplicate_tile = self.duplicate_tile_check(
                     ship, occupied_tiles, next_tile)
 
+                # Check if ship will go over the board edge
+                # and requests/generates new start coordinate if required
                 if ship.start_coordinate[index_to_increment] + \
                         (ship.length - 1) > 9:
 
@@ -176,6 +181,9 @@ class Board(InputMixin, ClearDisplayMixin):
                         ship.direction = self.direction_input()
                         break
 
+                # If next tile is unoccupied, add the coordinate to
+                # a temporay list and if list is equal to the
+                # ship length it is returned to the calling function
                 elif not duplicate_tile:
                     temp_ship.append(next_tile)
                     if len(temp_ship) == ship.length:
@@ -183,6 +191,8 @@ class Board(InputMixin, ClearDisplayMixin):
                         placement_process = False
                         return ship.coordinates
 
+                # If any tile in the process is occupied a new start coordinate
+                # is requested/generated and the process starts again
                 else:
                     if auto_placement:
                         ship.start_coordinate = (
@@ -204,6 +214,11 @@ class Board(InputMixin, ClearDisplayMixin):
         return ship.coordinates
 
     def direction_input(self):
+        """"
+        Requests user input to choose ship direction
+        loops until valid input is entered
+        handles incorrect inputs
+        """
         invalid_input = True
         while invalid_input:
             setup_type = input(
@@ -290,6 +305,7 @@ class Board(InputMixin, ClearDisplayMixin):
         Updates Board with latest hit or miss.
         """
         if result is False:
+            # miss uses unicode for ocean emoji
             self.guess_board[guess[0]][guess[1]] = "\U0001F30A"
             opponent.board.board[guess[0]][guess[1]] = "\U0001F30A"
             if self.owner != "Computer":
@@ -300,6 +316,7 @@ class Board(InputMixin, ClearDisplayMixin):
             pause()
 
         else:
+            # hit uses unicode for collision emoji
             self.guess_board[guess[0]][guess[1]] = "\U0001F4A5"
             opponent.board.board[guess[0]][guess[1]] = "\U0001F4A5"
             if self.owner != "Computer":
