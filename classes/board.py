@@ -7,6 +7,7 @@ from .ship import AircraftCarrier, Battleship, Cruiser, Submarine, Destroyer
 class Board(InputMixin, ClearDisplayMixin):
     """"
     Builds the boards where ships will be placed
+    and gives object ability to function
     """
     board_size = 10
     number_of_ships = 5
@@ -221,14 +222,14 @@ class Board(InputMixin, ClearDisplayMixin):
         """
         invalid_input = True
         while invalid_input:
-            setup_type = input(
+            ship_direction = input(
                 "From the back of the boat, to which direction is the front "
                 "end pointing?\nTo the (r)ight or (d)own: \n"
             ).lower().strip(" ")
-            if setup_type == "right" or setup_type == "r":
+            if ship_direction == "right" or ship_direction == "r":
                 invalid_input = False
                 return "right"
-            elif setup_type == "down" or setup_type == "d":
+            elif ship_direction == "down" or ship_direction == "d":
                 invalid_input = False
                 return "down"
             else:
@@ -308,6 +309,7 @@ class Board(InputMixin, ClearDisplayMixin):
             # miss uses unicode for ocean emoji
             self.guess_board[guess[0]][guess[1]] = "\U0001F30A"
             opponent.board.board[guess[0]][guess[1]] = "\U0001F30A"
+            # Code will only ever show the human users view
             if self.owner != "Computer":
                 self.user_display()
             else:
@@ -319,6 +321,7 @@ class Board(InputMixin, ClearDisplayMixin):
             # hit uses unicode for collision emoji
             self.guess_board[guess[0]][guess[1]] = "\U0001F4A5"
             opponent.board.board[guess[0]][guess[1]] = "\U0001F4A5"
+            # Code will only ever show the human users view
             if self.owner != "Computer":
                 self.user_display()
             else:
