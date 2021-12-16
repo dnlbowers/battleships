@@ -210,6 +210,7 @@ class Game(ClearDisplayMixin):
     def restart_game(self, player1, player2):
         """
         Deletes player object and their possessed ship, and boards
+        Returns users back to the welcome screen
         """
         del(player1)
         del(player2)
