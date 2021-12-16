@@ -8,6 +8,7 @@ class Ship:
         self.direction = direction
         self.damaged_tiles = []
         self.coordinates = coordinates
+        self.is_sunk = False
 
 
 class AircraftCarrier(Ship):

@@ -1,4 +1,4 @@
-# **Batleships**
+# **Battleships**
 
 ## **Overview**
 This program is a computerized version of the original board game battleships, based inside a mock terminal deployed via Heroku.
@@ -12,7 +12,7 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
 ![Screenshot of the games welcome screen](docs/screenshots/title-screen-screenshot.jpg)
 
 ## **Table of Contents**
-* [**Batleships**](#batleships)
+* [**Battleships**](#battleships)
   * [**Overview**](#overview)
   * [**Table of Contents**](#table-of-contents)
   * [**How to Play:**](#how-to-play)
@@ -29,22 +29,22 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
     * [**Back Story:**](#back-story)
     * [**Rules:**](#rules)
   * [**Once Play Game is Selected (Game set up):**](#once-play-game-is-selected-game-set-up)
-    * [**Player Name Input(With Error Handling):**](#player-name-inputwith-error-handling)
-    * [**Select Setup type (with error handling):**](#select-setup-type-with-error-handling)
-    * [**Manual placement:**](#manual-placement)
+    * [**Player Name Input (With Error Handling):**](#player-name-input-with-error-handling)
+    * [**Select Setup Type (With Error Handling):**](#select-setup-type-with-error-handling)
+    * [**Manual Placement:**](#manual-placement)
       * [***Aircraft Carrier:***](#aircraft-carrier)
       * [***Battleship:***](#battleship)
       * [***Cruiser:***](#cruiser)
       * [***Submarine:***](#submarine)
       * [***Destroyer:***](#destroyer)
-    * [**Error handling phase during manual set up:**](#error-handling-phase-during-manual-set-up)
+    * [**Error Handling During manual Setup Phase:**](#error-handling-during-manual-setup-phase)
       * [***Directional Input Error Handling:***](#directional-input-error-handling)
-      * [***Ship already in intended space:***](#ship-already-in-intended-space)
-      * [***Start tiles selected to close to the board edge:***](#start-tiles-selected-to-close-to-the-board-edge)
-    * [***Quickstart (auto placement):***](#quickstart-auto-placement)
-  * [**Error handling common to both setup and gameplay:**](#error-handling-common-to-both-setup-and-gameplay)
+      * [***Ship Already in Intended Space:***](#ship-already-in-intended-space)
+      * [***Start Tiles Selected to Close to the Board's Edge:***](#start-tiles-selected-to-close-to-the-boards-edge)
+    * [***Quickstart (Auto Placement):***](#quickstart-auto-placement)
+  * [**Error Handling Common to Both Setup and Gameplay:**](#error-handling-common-to-both-setup-and-gameplay)
     * [***Coordinate Input Error Handling:***](#coordinate-input-error-handling)
-  * [**Once all ships are placed (Firing Round):**](#once-all-ships-are-placed-firing-round)
+  * [**Once all Ships are Placed (Firing Round):**](#once-all-ships-are-placed-firing-round)
     * [***Battle Commencement screen:***](#battle-commencement-screen)
     * [**Duplicate Guess Check:**](#duplicate-guess-check)
     * [**Notification of Hit Result:**](#notification-of-hit-result)
@@ -52,16 +52,16 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
     * [**End game prematurely:**](#end-game-prematurely)
     * [**Player Win Screen:**](#player-win-screen)
     * [**Computer Win Screen:**](#computer-win-screen)
-* [**Future-Enhancements**](#future-enhancements)
-  * [***Multiplayer:***](#multiplayer)
-  * [***Improved AI Intelligence:***](#improved-ai-intelligence)
-  * [***Improved Visuals:***](#improved-visuals)
+  * [**Future-Enhancements**](#future-enhancements)
+    * [***Multiplayer:***](#multiplayer)
+    * [***Improved AI Intelligence:***](#improved-ai-intelligence)
+    * [***Improved Visuals:***](#improved-visuals)
     * [***Audio:***](#audio)
     * [***Randomize the Starting Player***](#randomize-the-starting-player)
 * [**Data Model**](#data-model)
   * [**Overview of Classes:**](#overview-of-classes)
   * [**Logic Flow:**](#logic-flow)
-    * [***Set up Phase:***](#set-up-phase)
+    * [***Setup Phase:***](#setup-phase)
     * [***Firing Rounds:***](#firing-rounds)
 * [**Testing Phase**](#testing-phase)
 * [**Libraries**](#libraries)
@@ -323,10 +323,10 @@ By default, the board will be a 10 x 10 size grid as in the original version of 
 In this way, we have four separate object types which belong to one another but are also distinct in the same two players, the boards they use, and the ships they place are all related but separate in a real-life game of battleships.
 ![Object creation diagram](docs/flowcharts/objects.drawio.png)
 
-### ***Firing Rounds:***
+### ***Firing Round:***
 After creating all the objects, it's time to bring them to life and interact. The firing round method from the Game object is called using both player objects as parameters.
 
-The above method runs on repeat using a while loop until either player's objects board has no more ships afloat. It uses constructors to call the instance methods of the player and their board to take a guess, cross-reference their opponent's board to display the result (hit or miss). 
+The firing round method runs on repeat using a while loop until either player's objects board has no more ships afloat. It uses constructors to call the instance methods of the player and their board to take a guess, cross-reference their opponent's board to display the result (hit or miss). 
 
 After each player's turn, it checks the number of ships still afloat on the opponent's board.  If zero ships are left on the opponent's board, the game prints a win statement to announce who won and breaks the while loop; the game gets restarted by deleting the player objects, clearing the screen, and returning the user to the welcome screen. 
 
@@ -371,7 +371,6 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 1. From the bottom of the deploy page **select your preferred deployment type** by follow one of the below steps:  
    * Clicking either "Enable Automatic Deploys" for automatic deployment when you push updates to Github.  
    * Select the correct branch for deployment from the drop-down menu and click the "Deploy Branch" button for manual deployment. 
-
 
 # **Honorable Mentions**
 * [Mark Cutajar](https://github.com/markcutajar) - Truly, if Data Science were a superpower, Mark would be the equivalent of Superman. He was with me at several points throughout the development process and was always on call when I needed him to cross-reference my ideas.  

@@ -51,7 +51,6 @@ class Player(InputMixin, ClearDisplayMixin):
         valid_guess = False
         while not valid_guess:
             if self.name == "Computer":
-                # while valid_guess is False:
                 guess_coordinate = (
                     random.randint(
                         0, 9), random.randint(
