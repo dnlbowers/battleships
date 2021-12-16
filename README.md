@@ -79,11 +79,11 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
 
 ### ***Firstly Select your Strategy (Setup Phase):***  
 
-Place your fate in the hands of the sea god Neptune. Press "q" or type "quick" to let the currents randomly position your ships before you anchor and fire.   
+Place your fate in the hands of the sea god Neptune. enter "q" or type "quick" to let the currents randomly position your ships before you anchor and fire.   
 
 Or  
 
-Before opening fire, choose to spite the sea god and place your ships strategically yourself by pressing "m" or typing "manual".
+Before opening fire, choose to spite the sea god and place your ships strategically yourself by entering "m" or typing "manual".
 
 Neptune's hand will always guide the computerized fleet only to reveal their location with the flames as you hit one.
 
@@ -313,7 +313,7 @@ To avoid repetition, I created two mixins for methods required in more than one 
 ## **Logic Flow:**
 The game object gets created in the global scope and calls the welcome screen using dot notation. The user can read the introductory story, the rules or initialize the game. Entering either rule or story will bring the user to the main menu once read.
 
-Once the player presses "p" to play, the set player's method is called from the game class and creates the player objects. The first object is created by asking the user for their name. The second gives a parameter the string  "Computer" by default. As part of the error handling for the name input, the user cannot enter their name as "Computer".
+Once the player enters "p" to play, the set player's method is called from the game class and creates the player objects. The first object is created by asking the user for their name. The second gives a parameter the string  "Computer" by default. As part of the error handling for the name input, the user cannot enter their name as "Computer".
 
 ### ***Setup Phase:***
 The generation of a player object then automatically begins the game's setup phase via the init methods of both the Player and Board class. 
