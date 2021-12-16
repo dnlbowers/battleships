@@ -1,6 +1,8 @@
 class Ship:
     """
-    Creates the ship class for later sub class of ships.
+    Creates share properties of the ship class
+    which used by the subclasses to initialise
+    a ship object.
     """
 
     def __init__(self, start_coordinate, direction, coordinates):

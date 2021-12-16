@@ -92,6 +92,7 @@ class Player(InputMixin, ClearDisplayMixin):
         print(f"{self.name}'s turn")
         guess = self.take_guess()
         guess_hit_check = opponent.board.guess_checker(guess)
+        # marks boards with results
         self.board.update_board(guess, guess_hit_check, opponent)
         if self.name != "Computer":
             self.board.user_display()

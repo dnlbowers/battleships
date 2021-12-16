@@ -62,7 +62,7 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
   * [**Overview of Classes:**](#overview-of-classes)
   * [**Logic Flow:**](#logic-flow)
     * [***Setup Phase:***](#setup-phase)
-    * [***Firing Rounds:***](#firing-rounds)
+    * [***Firing Round:***](#firing-round-1)
 * [**Testing Phase**](#testing-phase)
 * [**Libraries**](#libraries)
     * [***random:***](#random)
@@ -70,6 +70,8 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
     * [***getch:***](#getch)
     * [***string:***](#string)
 * [**Deployment**](#deployment)
+  * [***Playing on a Local machine or via Gitpod Terminal:***](#playing-on-a-local-machine-or-via-gitpod-terminal)
+  * [***Final Deployment to Heroku:***](#final-deployment-to-heroku)
 * [**Honorable Mentions**](#honorable-mentions)
 * [**Credits**](#credits)
 
@@ -204,7 +206,7 @@ The user will be requested for a start coordinate and the direction the ship sho
 
 ![request for placement of fifth ship](docs/screenshots/fifth-ship.jpg)
 
-### **Error Handling During manual Setup Phase:**
+### **Error Handling During Manual Setup Phase:**
 
 #### ***Directional Input Error Handling:***
 If the user enters invalid input, the app will show the below message, and a new start coordinate will be requested.
@@ -345,20 +347,35 @@ For this project to work, I required four imported libraries: -
 ### ***getch:***
   * pause imported from getch to pause the gameplay and give the user more control between turns. This function will also later allow two human players to use the same screen to play against each other. A blank screen could implement this between player turns and a pause until the new player is in play and the previous player has looked away.
 ### ***string:***
-   * This was imported to use the string.capwords() method on the name input. This method means that the user's name will always display with the proper casing.
+   * I imported the string library to use the "string.capwords()" method when a player enters their name. This method means that the user's name will always display with the proper casing. 
+   * I did consider using the inbuilt title() function; however, this would have capitalized even the first letter after an apostrophe, i.e., You'Re instead of You're.
 
 # **Deployment**
-The project was deployed to [Heroku](https://www.heroku.com) using the below procedure:- 
 
-1. From the [GitHub repository](https://github.com/dnlbowers/battleships), clone the project into Vscode or launch Gitpod to open it as a project workspace.
-1. Generate the projects **requirements.txt** file with the console command "pip3 freeze > requirements.txt"
-   * ***IMPORTANT*** If developing on a local machine with Vscode, ensure you set up/activate the virtual environment before generating the requirements.txt file; otherwise, all the dependencies installed on the device will be listed and not just the dependencies required for this project.
+## ***Playing on a Local machine or via Gitpod Terminal:***
+This project was developed by forking a [specialized Code Institute template](https://github.com/Code-Institute-Org/python-essentials-template) which simulates a terminal in the web browser. Due to this, I optimized the game to work via the [final Heroku deployment](https://dnlbowers-battleship.herokuapp.com/), and I do not recommend playing it locally. That said, I have included this section to give you a choice.  
+
+1. Navigate to the [GitHub repository](https://github.com/dnlbowers/battleships), and follow [these steps to clone the project](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) into your IDE of choice.   
+   
+   * **Gitpod** only **requires** you to have the **web extension** installed and **click** the **green Gitpod button** from the repositories main page. If you are **using Gitpod** please **skip step 2** below as you do not require a virtual environment to protect your machine.  
+  
+1. **Create** the **virtual environment** with the terminal command **"python3 -m venv venv".** Once complete add the "venv" file to you're ".gitignore" file and use the terminal command **"venv\Scripts\activate.bat" to activate it.**
+   
+   * ***IMPORTANT*** If developing locally on your device, ensure you **set up/activate the virtual environment before installing/generating the requirements.txt file**; failure to do this will pollute your machine and put other projects at 
+ 
+1. **Install the requirements** listed in requirements.txt using the terminal command  **"pip3 install -r requirements.txt"**
+   * Kindly note that since I developed the project from scratch and installed the required libraries as progressed **I have already included a requirements.txt for this app** by using the terminal command **"pip3 freeze > requirements.txt"** to generate it.
+
+## ***Final Deployment to Heroku:***  
+  
+The project was deployed to [Heroku](https://www.heroku.com) using the below procedure:-    
+  
 1. **Log in to Heroku** or create an account if required.
 1. **click** the button labeled **New** from the dashboard in the top right corner, just below the header.
 1. From the drop-down menu **select "Create new app"**.
 1. **Enter a unique app name**. I combined my GitHub user name and the game's name with a dash between them (dnlbowers-battleship) for this project.
 1. Once the web portal shows the green tick to confirm the name is original **select the relevant region.** In my case, I chose Europe as I am in Malta.
-1. When happy with your choice of name and that the correct region is selected, **click** on the **"Create app" button**.
+1.  When happy with your choice of name and that the correct region is selected, **click** on the **"Create app" button**.
 1. This will bring you to the project "Deploy" tab. From here, navigate to the **settings tab** and scroll down to the **"Config Vars" section**. 
 1. **Click** the button labelled **"Reveal Config Vars"** and **enter** the **"key" as port**, the **"value" as 8000** and **click** the **"add"** button.
 1. Scroll down to the **buildpacks section of the settings page** and click the button labeled **" add buildpack," select "Python," and click "Save Changes"**.
@@ -379,7 +396,8 @@ The project was deployed to [Heroku](https://www.heroku.com) using the below pro
 * [Matt Bodden](https://github.com/MattBCoding) - Matt helped me understand how to document the data model in the readme and converted my background image from a .ai file format to a .svg format using adobe illustrator. Matt also provided me the required CSS for the background image and helped me adjust the template to display it. In general Matt is just always a top man in a time of need.  
 * [Steven Weir](https://github.com/StevenWeir038) -  Steven did not directly help with the code. However, since we began the course together, he has gone out on his way to check in with me intermittently, and I cannot express how much this sense of camaraderie has brought me through some challenging moments and especially for this project. I am not sure how he does it, but he always pops up at the exact moment I need a nice collection of alphanumeric characters to connect with and relate to.
 * [Shellie Downie](https://github.com/shellieD) - Shellie heard my plea for a proofreader and could resist. I have a paid version of Grammarly, and she still managed to pick up on multiple errors in my readme. Given the size of my readme, I was blown away by how generous Shellie was.
-* The Code Institute Slack community as a whole who tested and supported throughout.
+* [Dave Horrocks](https://github.com/daveyjh) - Dave swooped in on the eleventh hour to ensure my documentation made sense. He has been one of the first to appear in any of my slack threads when I have had a general question about python and best practice.  
+* The Code Institute Slack community as a whole who tested and supported throughout.  
 * And the **biggest thanks goes to** my wife and child, who have had to deal with me face to face through it all. **Oliver** has been my reason for the change and **Analise** my inspiration. 
 
 # **Credits**

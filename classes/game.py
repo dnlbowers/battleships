@@ -159,13 +159,16 @@ class Game(ClearDisplayMixin):
         while play_round:
 
             player.player_turn(computer)
+            # checks for win returns boolean
             play_round = computer.board.is_fleet_sunk()
+            # if win print and exit
             if play_round is False:
                 print("Hoorah! You won! Neptune god of the seas "
                       "smiles upon you!")
                 pause("Press any key to return to the main menu")
                 self.restart_game(player, computer)
                 break
+            # offer human player a way to quit the round.
             loop = input("Wanna run away like scared little sea sponge?\n"
                          "Type exit and I'll let you scurry under a rock, "
                          "otherwise just press enter.").strip(" ")
@@ -173,6 +176,7 @@ class Game(ClearDisplayMixin):
                 self.restart_game(player, computer)
                 break
 
+            # repeats the above for the computer player
             computer.player_turn(player)
             play_round = player.board.is_fleet_sunk()
             if play_round is False:

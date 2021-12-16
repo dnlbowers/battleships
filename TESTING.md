@@ -2,17 +2,17 @@
 ## **Table of Contents:**
 * [**Testing**](#testing)
   * [**Table of Contents:**](#table-of-contents)
-  * [**Manual testing:**](#manual-testing)
-    * [***PEP8 linter:***](#pep8-linter)
-    * [***Inputs**](#inputs)
-    * [***Game play:***](#game-play)
+  * [**Manual Testing:**](#manual-testing)
+    * [***PEP8 Linter:***](#pep8-linter)
+    * [***Inputs:***](#inputs)
+    * [***Game Play:***](#game-play)
   * [**Bugs and Fixes**](#bugs-and-fixes)
     * [**Remaining Bugs**](#remaining-bugs)
   * [**Post Development Testing**](#post-development-testing)
     * [**Validators**](#validators)
-      * [***HTML***](#html---httpsvalidatorw3orgnu)
-      * [***CSS***](#css---httpsjigsaww3orgcss-validator)
-      * [***Python:***](#python---httppep8onlinecom)
+      * [***HTML*** - https://validator.w3.org/nu/](#html---httpsvalidatorw3orgnu)
+      * [***CSS*** - https://jigsaw.w3.org/css-validator/](#css---httpsjigsaww3orgcss-validator)
+      * [***Python:*** - http://pep8online.com/](#python---httppep8onlinecom)
 
 ## **Manual Testing:**
 I performed manual testing throughout this project in the following ways:
@@ -31,7 +31,7 @@ I have tested all inputs with strings where expecting integers, integers where e
 Lastly, I challenged the slack community to break the app in any way possible which by the deployment of final product was not possible.   
 
 ### ***Game Play:***
-Throughout development, I was testing the game in the terminal of VScode as well as several playing several rounds in the Code Institute terminal template for each deployment to Heroku.
+Throughout development, I was testing the game in the terminal of VScode as well as several playing multiple rounds in the Code Institute terminal template for each deployment to Heroku.
 
 The end result is a robust game which stays playing continuously without error.
 
@@ -40,16 +40,16 @@ The end result is a robust game which stays playing continuously without error.
     * ***Issue Found:***
         * At first, I attempted to make everything a sub-class of Player. However, after much research, I found this improper use of OOP. 
     * ***Causes:*** 
-        * By making Player a superclass I was telling the computer that the board and ship were a type of Player, which is not the case. Player, Board, and Ship are all three distinct Object types.
+        * By making Player a superclass I was telling the computer that the board and ship were a type of Player, which is not the case. Player, Board, and Ship are all three distinct object types.
     * ***Solution Found:***  
-        * Instead of using inheritance, to allow for cross-functionality I opted for giving all objects a relationship with each other through belonging/possession by:   
-            * Calling the board function in the Player init method, meaning that the Player possessed the board object.   
+        * Instead of using inheritance, to allow for cross-functionality I opted for giving all objects a relationship with each other through belonging/possession, this was achieved by:   
+            * Creating the board object as part of the Player init method. This meant that the Player possessed the board object.   
             * The Ship objects are created in the build_fleet method of the board, making a list of ships belonging to a particular player's board.
      
 1. **Intended Outcome:** - Placing every ship on an original set of tiles with no overlap.
     * ***Issue Found:***
         * I initially tried to append the start tile directly to the ship coordinates, which led to no definition between a set of coordinates.
-    * ***Causes:** 
+    * ***Causes:*** 
         * At this stage of development, I had yet to convert the start position input into a tuple. Not having a tuple of two numbers meant that when a player entered two numbers, the code added them to the list as individual numbers.  
     *  ***Solution Found:***  
         *  At the start of the function, I created an empty list of occupied tiles, enabling me to use occupied_coordinates.append(tuple(random_start)). This line of code later turned into occupied_coordinates.append(ship_instance.coordinates), which updated the list with the full coordinates of each ship so they could never start from a duplicate tile. The occupied_coordinate list was then later fed back into the build ship function to ensure that tiles could not be reused when placing a ship.
@@ -60,11 +60,11 @@ The end result is a robust game which stays playing continuously without error.
     * ***Causes:***
         * The interpreter could not distinguish a difference between the intended AI player and the intended human player.  
     * ***Solution Found:*** 
-        * By adding an if statement in the Player init method, I could set the call of the board class to start with the auto set up as default when the name "computer" was added as in string into the objects constructor call. 
+        * By adding an if statement in the Player init method, I could set the call of the board class to start with the auto set up as default when the string "computer" was added into the objects constructor call. 
         * The downside to this was that the app could be broken easily by the player entering their name as "computer."
             * This was then resolved within the Game class method "name_input." I added a conditional statement that printed a tongue-in-cheek reason why the human player could not also be called "computer". It did occur to me that I could have also added a variable into the init called human_player as a boolean; however, I preferred my final solution to add an element of personality to a classical game.
 
-1. **Intended Outcome:** - recognizing the non-human player and skipping the manual ship placement.
+1. **Intended Outcome:** - Recognizing the non-human player and skipping the manual ship placement.
     * ***Issue Found:***
         * When initializing the computer player, the app was still offering the choice to place the computer's ships manually. 
     * ***Causes:*** 
