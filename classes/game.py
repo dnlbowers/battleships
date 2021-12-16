@@ -195,16 +195,19 @@ class Game(ClearDisplayMixin):
         while not valid_name:
             name = input("What is your seafaring name that you want to go "
                          "down in history with?\n")
+
             if len(name.strip(" ")) == 0:
                 print("Whilst I appreciate your modesty, I am going to need "
                       "your name \n for the tombstone I made you on "
                       "the sea bed. So once again....")
                 continue
+
             elif name.lower() == "computer":
                 print("You may be robotic but you don't have my brain I will "
                       "not let you \ninsult me by claiming to be me!"
                       "Pick again human...")
                 continue
+
             name = string.capwords(name)
             print(f"Welcome Captain {name} ")
             return name
