@@ -39,7 +39,7 @@ class Game(ClearDisplayMixin):
             """)
         options_menu = True
         while options_menu:
-            options = input('              Press the "P" key to play,'
+            options = input('                 Enter the "P" to play,'
                             ' "S" for the back story\n                      '
                             '        or the "R" rules\n').lower().strip(" ")
             if options == "r":
@@ -52,8 +52,7 @@ class Game(ClearDisplayMixin):
                 self.clear_display()
                 self.set_players()
             else:
-                print('Your input was not valid. Please press "P"'
-                      'to play or "R" for the rules.')
+                print('                 Your input was not valid.')
 
     def story(self):
         """"
