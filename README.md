@@ -11,7 +11,7 @@ The app replicates the game's enjoyment by allowing the user to play a single-pl
 
 ![Screenshot of the games welcome screen](docs/screenshots/title-screen-screenshot.jpg)
 
-## **Table of Contents**
+## **Table of Contents** 
 * [**Battleships**](#battleships)
   * [**Overview**](#overview)
   * [**Table of Contents**](#table-of-contents)
