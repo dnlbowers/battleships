@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip
 RUN pip3 install -r requirements.txt
 
 # Expose port 3000
-EXPOSE 3000
+EXPOSE 5000
 
 # Start both Node.js and Python apps
 CMD ["bash", "-c", "node index.js & python run.py"]
