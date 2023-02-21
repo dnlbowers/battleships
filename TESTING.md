@@ -14,7 +14,7 @@
       * [***CSS*** - https://jigsaw.w3.org/css-validator/](#css---httpsjigsaww3orgcss-validator)
       * [***Python:*** - http://pep8online.com/](#python---httppep8onlinecom)
 
-## **Manual Testing:**
+## **Manual Testing:** 
 I performed manual testing throughout this project in the following ways:
 ### ***PEP8 Linter:***
 To begin with, I was using Pylint to lint my code. The reason for this was that I was developing on my local machine using Vscode and a virtual environment meaning flake8 was not working for me. After some research, I discovered the error with flake8 was in the Code Institute settings Json where CI had set the file path for the linter according to the Gitpod virtual environment. After deleting the file path and installing flake8 with the pip install command, I continued developing with the course-recommended linter.
