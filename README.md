@@ -7,7 +7,7 @@ As a child of the 90's, I used the traditional ship naming conventions from the 
 
 The app replicates the game's enjoyment by allowing the user to play a single-player version against a computerized player.  
   
-[Click here to be taken to the final deployment of the project.](https://dnlbowers-battleship.herokuapp.com/)
+[Click here to be taken to the final deployment of the project.](https://battleships.dev-bowers.com/)
 
 ![Screenshot of the games welcome screen](docs/screenshots/title-screen-screenshot.jpg)
 
